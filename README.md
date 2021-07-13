@@ -1,2 +1,3 @@
-# voicebot
-A UCL summer research project on voice bots that can function without internet access.
+# Breathlessness data gathering and analysis project
+
+This repository contains Jeremy Lo Ying Ping's UCL summer research project to develop a more ethical breathlessness data gathering and analysis tool for respiratory disease researchers.
