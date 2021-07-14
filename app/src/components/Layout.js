@@ -13,7 +13,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import React from 'react';
 import {
-    Link
+    Link, useLocation
 } from "react-router-dom";
 
 
@@ -40,11 +40,7 @@ const theme = createTheme({
 
 export default function Layout(props) {
     const classes = useStyles();
-    const [value, setValue] = React.useState("home");
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+    const value = useLocation().pathname.replace("/", "");
 
     return (
         <ThemeProvider theme={theme}>
@@ -54,7 +50,7 @@ export default function Layout(props) {
                         <Typography variant="h6" className={classes.title}>
                             Breathlessness Analyser
                         </Typography>
-                        <IconButton color="inherit" aria-label="settings" component={Link} to="/settings" value="settings" onClick={() => handleChange("settings")}>
+                        <IconButton color="inherit" aria-label="settings" component={Link} to="/settings" value="settings">
                             <SettingsIcon />
                         </IconButton>
                     </Toolbar>
@@ -65,11 +61,10 @@ export default function Layout(props) {
             </Container>
             <BottomNavigation
                 value={value}
-                onChange={handleChange}
                 showLabels
                 className={classes.bottomNavigation}
             >
-                <BottomNavigationAction component={Link} to="/" value="home" label="Home" icon={<HomeIcon />} />
+                <BottomNavigationAction component={Link} to="/" value="" label="Home" icon={<HomeIcon />} />
                 <BottomNavigationAction component={Link} to="/analyse" value="analyse" label="Analyse" icon={<AssessmentIcon />} />
                 <BottomNavigationAction component={Link} to="/results" value="results" label="Results" icon={<TimelineIcon />} />
             </BottomNavigation>
