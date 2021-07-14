@@ -1,0 +1,12 @@
+version: "3"
+services:
+  app:
+    build:
+      context: ./app
+    ports:
+      - "3000:4000"
+  api:
+    build:
+      context: ./api
+    ports:
+      - "3000:3000"
