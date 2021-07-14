@@ -17,6 +17,9 @@ function App() {
             <Route path="/results">
               Results page
             </Route>
+            <Route path="/settings">
+              Settings page
+            </Route>
             <Route path="/">
               Home page
             </Route>

@@ -3,11 +3,13 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import blue from '@material-ui/core/colors/blue';
 import Container from '@material-ui/core/Container';
+import IconButton from '@material-ui/core/IconButton';
 import { createTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import HomeIcon from '@material-ui/icons/Home';
+import SettingsIcon from '@material-ui/icons/Settings';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import React from 'react';
 import {
@@ -38,7 +40,11 @@ const theme = createTheme({
 
 export default function Layout(props) {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState("home");
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
     return (
         <ThemeProvider theme={theme}>
@@ -48,6 +54,9 @@ export default function Layout(props) {
                         <Typography variant="h6" className={classes.title}>
                             Breathlessness Analyser
                         </Typography>
+                        <IconButton color="inherit" aria-label="settings" component={Link} to="/settings" value="settings" onClick={() => handleChange("settings")}>
+                            <SettingsIcon />
+                        </IconButton>
                     </Toolbar>
                 </AppBar>
             </div>
@@ -56,30 +65,14 @@ export default function Layout(props) {
             </Container>
             <BottomNavigation
                 value={value}
-                onChange={(event, newValue) => {
-                    setValue(newValue);
-                }}
+                onChange={handleChange}
                 showLabels
                 className={classes.bottomNavigation}
             >
-                <BottomNavigationAction component={Link} to="/" label="Home" icon={<HomeIcon />} />
-                <BottomNavigationAction component={Link} to="/analyse" label="Analyse" icon={<AssessmentIcon />} />
-                <BottomNavigationAction component={Link} to="/results" label="Results" icon={<TimelineIcon />} />
+                <BottomNavigationAction component={Link} to="/" value="home" label="Home" icon={<HomeIcon />} />
+                <BottomNavigationAction component={Link} to="/analyse" value="analyse" label="Analyse" icon={<AssessmentIcon />} />
+                <BottomNavigationAction component={Link} to="/results" value="results" label="Results" icon={<TimelineIcon />} />
             </BottomNavigation>
         </ThemeProvider>
     );
 }
-
-/* <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav> */
