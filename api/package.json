@@ -11,6 +11,7 @@
   "author": "Jeremy Lo Ying Ping",
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "passport-local": "^1.0.0"
   }
 }
