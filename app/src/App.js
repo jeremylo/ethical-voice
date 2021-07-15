@@ -2,6 +2,7 @@ import React from 'react';
 import {
   BrowserRouter as Router, Route, Switch
 } from "react-router-dom";
+import Home from './components/Home';
 import Layout from './components/Layout';
 
 
@@ -21,7 +22,7 @@ function App() {
               Settings page
             </Route>
             <Route path="/">
-              Home page
+              <Home />
             </Route>
           </Switch>
         </Layout>
