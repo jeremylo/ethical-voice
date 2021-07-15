@@ -29,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         position: 'fixed',
         bottom: 0
+    },
+    mainContainer: {
+        marginTop: "5rem",
+        marginBottom: "5rem",
     }
 }));
 
@@ -45,7 +49,7 @@ export default function Layout(props) {
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.root}>
-                <AppBar position="static">
+                <AppBar position="fixed">
                     <Toolbar>
                         <Typography variant="h6" className={classes.title}>
                             Breathlessness Analyser
@@ -56,7 +60,7 @@ export default function Layout(props) {
                     </Toolbar>
                 </AppBar>
             </div>
-            <Container maxWidth="sm">
+            <Container maxWidth="sm" className={classes.mainContainer}>
                 {props.children}
             </Container>
             <BottomNavigation
