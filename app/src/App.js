@@ -2,8 +2,10 @@ import React from 'react';
 import {
   BrowserRouter as Router, Route, Switch
 } from "react-router-dom";
+import Analyse from './components/Analyse';
 import Home from './components/Home';
 import Layout from './components/Layout';
+import Settings from './components/Settings';
 
 
 function App() {
@@ -13,13 +15,13 @@ function App() {
         <Layout>
           <Switch>
             <Route path="/analyse">
-              Analyse page
+              <Analyse />
             </Route>
             <Route path="/results">
               Results page
             </Route>
             <Route path="/settings">
-              Settings page
+              <Settings />
             </Route>
             <Route path="/">
               <Home />
