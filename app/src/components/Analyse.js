@@ -1,6 +1,9 @@
 import { Button, Container, Paper, Step, StepLabel, Stepper, Typography } from "@material-ui/core";
 import React from 'react';
+import CountToThirty from "./analysis/CountToThirty";
+import Sputum from "./analysis/Sputum";
 import Welcome from "./analysis/Welcome";
+
 
 const genericStep = (step, handleNext, setResults) => <>
     <Typography>Step {step + 1}</Typography>
@@ -14,12 +17,12 @@ const steps = [
         step: (step, handleNext, setResults) => <Welcome handleNext={handleNext} />
     },
     {
-        key: 'step2',
-        step: genericStep
+        key: 'countToThirty',
+        step: (step, handleNext, setResults) => <CountToThirty handleNext={handleNext} setResults={setResults} />
     },
     {
-        key: 'step3',
-        step: genericStep
+        key: 'sputum',
+        step: (step, handleNext, setResults) => <Sputum handleNext={handleNext} setResults={setResults} />
     },
     {
         key: 'step4',

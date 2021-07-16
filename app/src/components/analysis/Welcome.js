@@ -1,7 +1,7 @@
 import { Box, Button, Paper, Typography } from "@material-ui/core";
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
-export default function Welcome({ handleNext }) {
+export default function Welcome({ handleNext, setResults }) {
     return (
         <Paper square elevation={0}>
             <Typography variant="h6">Overview of the process</Typography>
