@@ -3,6 +3,7 @@ import React from 'react';
 import CountToThirty from "./analysis/CountToThirty";
 import Sputum from "./analysis/Sputum";
 import Welcome from "./analysis/Welcome";
+import Wellbeing from "./analysis/Wellbeing";
 
 
 const genericStep = (step, handleNext, setResults) => <>
@@ -25,8 +26,8 @@ const steps = [
         step: (step, handleNext, setResults) => <Sputum handleNext={handleNext} setResults={setResults} />
     },
     {
-        key: 'step4',
-        step: genericStep
+        key: 'wellbeing',
+        step: (step, handleNext, setResults) => <Wellbeing handleNext={handleNext} setResults={setResults} />
     },
     {
         key: 'step5',
