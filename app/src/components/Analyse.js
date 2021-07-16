@@ -1,6 +1,7 @@
 import { Button, Container, Paper, Step, StepLabel, Stepper, Typography } from "@material-ui/core";
 import React from 'react';
 import CountToThirty from "./analysis/CountToThirty";
+import MRCDyspnoea from "./analysis/MRCDyspnoea";
 import Sputum from "./analysis/Sputum";
 import Welcome from "./analysis/Welcome";
 import Wellbeing from "./analysis/Wellbeing";
@@ -8,7 +9,6 @@ import Wellbeing from "./analysis/Wellbeing";
 
 const genericStep = (step, handleNext, setResults) => <>
     <Typography>Step {step + 1}</Typography>
-
     <Button variant="contained" color="primary" onClick={handleNext}>Next</Button>
 </>;
 
@@ -30,8 +30,8 @@ const steps = [
         step: (step, handleNext, setResults) => <Wellbeing handleNext={handleNext} setResults={setResults} />
     },
     {
-        key: 'step5',
-        step: genericStep
+        key: 'mrcdyspnoea',
+        step: (step, handleNext, setResults) => <MRCDyspnoea handleNext={handleNext} setResults={setResults} />
     },
 ]
 

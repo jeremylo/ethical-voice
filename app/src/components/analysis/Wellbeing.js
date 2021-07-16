@@ -65,9 +65,9 @@ export default function Wellbeing({ handleNext, setResults }) {
 
             <br />
 
-            {true && <Box textAlign='center'>
+            <Box textAlign='center'>
                 <Button variant="contained" color="primary" onClick={handleNext} endIcon={<KeyboardArrowRightIcon />}>Next</Button>
-            </Box>}
+            </Box>
         </Paper >
     )
 }

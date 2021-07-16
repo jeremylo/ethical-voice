@@ -63,6 +63,7 @@ export default function CountToThirty({ handleNext, setResults }) {
                 <ToggleButtonGroup orientation="vertical" value={view} exclusive onChange={handleChange} style={{ width: '100%' }}>
                     {sputumColours.map((sputumColour) =>
                         <ToggleButton
+                            key={sputumColour.value}
                             value={sputumColour.value}
                             aria-label={sputumColour.name}
                             style={{ backgroundColor: sputumColour.colour }}
