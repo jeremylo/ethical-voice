@@ -1,8 +1,7 @@
 import AppBar from '@material-ui/core/AppBar';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import blue from '@material-ui/core/colors/blue';
-import Container from '@material-ui/core/Container';
+import { blue } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
 import { createTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -28,10 +27,10 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         width: '100%',
         position: 'fixed',
-        bottom: 0
+        bottom: 0,
+        backgroundColor: '#fafafa'
     },
     mainContainer: {
-        marginTop: "5rem",
         marginBottom: "5rem",
     }
 }));
@@ -49,7 +48,7 @@ export default function Layout(props) {
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.root}>
-                <AppBar position="fixed">
+                <AppBar position="sticky">
                     <Toolbar>
                         <Typography variant="h6" className={classes.title}>
                             Breathlessness Analyser
@@ -60,9 +59,9 @@ export default function Layout(props) {
                     </Toolbar>
                 </AppBar>
             </div>
-            <Container maxWidth="sm" className={classes.mainContainer}>
+            <div className={classes.mainContainer}>
                 {props.children}
-            </Container>
+            </div>
             <BottomNavigation
                 value={value}
                 showLabels
