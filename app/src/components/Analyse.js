@@ -1,4 +1,4 @@
-import { Button, Container, Paper, Step, StepLabel, Stepper, Typography } from "@material-ui/core";
+import { Container, Paper, Step, StepLabel, Stepper, Typography } from "@material-ui/core";
 import React from 'react';
 import CountToThirty from "./analysis/CountToThirty";
 import MRCDyspnoea from "./analysis/MRCDyspnoea";
@@ -7,10 +7,10 @@ import Welcome from "./analysis/Welcome";
 import Wellbeing from "./analysis/Wellbeing";
 
 
-const genericStep = (step, handleNext, setResults) => <>
-    <Typography>Step {step + 1}</Typography>
-    <Button variant="contained" color="primary" onClick={handleNext}>Next</Button>
-</>;
+// const genericStep = (step, handleNext, setResults) => <>
+//     <Typography>Step {step + 1}</Typography>
+//     <Button variant="contained" color="primary" onClick={handleNext}>Next</Button>
+// </>;
 
 const steps = [
     {
@@ -62,7 +62,7 @@ export default class Analyse extends React.Component {
             this.setState((state) => ({
                 results: {
                     ...state.results,
-                    [steps[state.activeStep.key]]: results
+                    [steps[state.activeStep].key]: results
                 }
             }))
         }
@@ -88,7 +88,8 @@ export default class Analyse extends React.Component {
 
                 <Container maxWidth="sm">
                     {activeStep < steps.length ? steps[activeStep].step(activeStep, handleNext, setResults)
-                        : <div>We've reached the end.</div>}
+                        : <div>We've reached the end.
+                            <br /><br />{console.log(this.state.results)}</div>}
                 </Container>
             </div >
         );

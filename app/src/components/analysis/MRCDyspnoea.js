@@ -34,7 +34,10 @@ export default function MRCDyspnoea({ handleNext, setResults }) {
 
             {value && <Box textAlign='center'>
                 <br />
-                <Button variant="contained" color="primary" onClick={handleNext} endIcon={<KeyboardArrowRightIcon />}>Next</Button>
+                <Button variant="contained" color="primary" onClick={() => {
+                    setResults(+value);
+                    handleNext();
+                }} endIcon={<KeyboardArrowRightIcon />}>Next</Button>
             </Box>}
         </Paper>
     );

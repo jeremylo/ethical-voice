@@ -1,5 +1,6 @@
 import { Box, Button, Paper, Slider, Typography } from "@material-ui/core";
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import { useState } from "react";
 
 const marks = [
     {
@@ -37,6 +38,11 @@ const marks = [
 ];
 
 export default function Wellbeing({ handleNext, setResults }) {
+    const [value, setValue] = useState(1);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
     return (
         <Paper square elevation={0}>
@@ -52,6 +58,8 @@ export default function Wellbeing({ handleNext, setResults }) {
                     <br />
                     <br />
                     <Slider
+                        value={value}
+                        onChange={handleChange}
                         defaultValue={7}
                         step={1}
                         marks={marks}
@@ -66,7 +74,10 @@ export default function Wellbeing({ handleNext, setResults }) {
             <br />
 
             <Box textAlign='center'>
-                <Button variant="contained" color="primary" onClick={handleNext} endIcon={<KeyboardArrowRightIcon />}>Next</Button>
+                <Button variant="contained" color="primary" onClick={() => {
+                    setResults(value);
+                    handleNext();
+                }} endIcon={<KeyboardArrowRightIcon />}>Next</Button>
             </Box>
         </Paper >
     )

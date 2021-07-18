@@ -44,10 +44,10 @@ const sputumColours = [
 export default function CountToThirty({ handleNext, setResults }) {
     const classes = useStyles();
 
-    const [view, setView] = useState(null);
+    const [value, setValue] = useState(null);
 
-    const handleChange = (event, nextView) => {
-        setView(nextView);
+    const handleChange = (event, nextvalue) => {
+        setValue(nextvalue);
     };
 
     return (
@@ -60,7 +60,7 @@ export default function CountToThirty({ handleNext, setResults }) {
             <br />
 
             <Box textAlign='center'>
-                <ToggleButtonGroup orientation="vertical" value={view} exclusive onChange={handleChange} style={{ width: '100%' }}>
+                <ToggleButtonGroup orientation="vertical" value={value} exclusive onChange={handleChange} style={{ width: '100%' }}>
                     {sputumColours.map((sputumColour) =>
                         <ToggleButton
                             key={sputumColour.value}
@@ -78,8 +78,11 @@ export default function CountToThirty({ handleNext, setResults }) {
 
             <br />
 
-            {view && <Box textAlign='center'>
-                <Button variant="contained" color="primary" onClick={handleNext} endIcon={<KeyboardArrowRightIcon />}>Next</Button>
+            {value && <Box textAlign='center'>
+                <Button variant="contained" color="primary" onClick={() => {
+                    setResults(value);
+                    handleNext();
+                }} endIcon={<KeyboardArrowRightIcon />}>Next</Button>
             </Box>}
         </Paper >
     )
