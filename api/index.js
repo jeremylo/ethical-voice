@@ -1,9 +1,10 @@
-import express from 'express'
-import path from 'path'
+import express from 'express';
+import path from 'path';
 
 const app = express()
 const port = 4000
-const modelPath = path.join(__dirname, 'public', 'model.zip')
+
+const modelPath = path.join(path.resolve(), 'public', 'model.zip')
 
 app.get('/api', (req, res) => {
     res.send('Hi, you may be in the wrong place.')
@@ -12,6 +13,7 @@ app.get('/api', (req, res) => {
 app.get('/api/model', (req, res) => {
     try {
         res.status(200)
+        console.log(`[${new Date()}]: sending model to ${req.ip}`)
         res.sendFile(modelPath)
     } catch {
         res.status(500);
