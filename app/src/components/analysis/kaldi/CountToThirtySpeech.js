@@ -1,4 +1,4 @@
-import { Box, Button, LinearProgress, Typography } from '@material-ui/core';
+import { Box, LinearProgress, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -45,24 +45,12 @@ const STATUS_MESSAGE = {
     [STATUSES.UNINIT]: '',
 };
 
-const STATUS_COLOR = {
-    [STATUSES.ERROR]: 'red',
-    [STATUSES.DOWNLOADING]: 'orange',
-    [STATUSES.LOADING]: 'orange',
-    [STATUSES.RUNNING]: 'black',
-    [STATUSES.STANDBY]: 'green',
-    [STATUSES.UNINIT]: 'black',
-};
-
 const styles = {
     control: {
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
         width: '100%',
-    },
-    feedback: {
-        padding: '5px',
     },
     resultStyle: {
         display: 'flex',
@@ -130,7 +118,9 @@ class ASRPage extends React.Component {
         this.idbHandler = new IDBHandler();
         this.asrHandler = new ASRHandler();
 
-        this.idbHandler.init(idbInfo);
+        this.idbHandler.init(idbInfo).then(() => {
+            this.loadModel();
+        });
 
         navigator.mediaDevices.getUserMedia({ audio: true, video: false })
             .then((stream) => {
@@ -265,7 +255,6 @@ class ASRPage extends React.Component {
         } = this.state;
 
         const statusMessage = STATUS_MESSAGE[appStatus];
-        const infoColor = STATUS_COLOR[appStatus];
         const text = transcriptions.concat(tmpTranscription).join('\n');
 
         const round2dp = (x) => Math.round((x + Number.EPSILON) * 100) / 100;
@@ -281,10 +270,6 @@ class ASRPage extends React.Component {
                 <div className={classes.content}>
                     <div className={classes.control}>
                         <div className={classes.params}>
-                            <Button onClick={() => {
-                                this.loadModel();
-                            }}>Load model</Button>
-
                             <ToggleButton
                                 onStart={this.startASR}
                                 onStop={this.stopASR}
@@ -293,12 +278,7 @@ class ASRPage extends React.Component {
                         </div>
                         <div className={classes.feedback}>
                             <p>
-                                <font
-                                    size="5"
-                                    color={infoColor}
-                                >
-                                    {statusMessage}
-                                </font>
+                                {statusMessage}
                             </p>
                             {
                                 downloadProgress < 100
