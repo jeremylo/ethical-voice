@@ -5,35 +5,43 @@ import { useState } from "react";
 const marks = [
     {
         value: 1,
-        label: 'Worst'
+        label: 'Low'
     },
     {
         value: 2,
+        label: '2'
     },
     {
         value: 3,
+        label: '3'
     },
     {
         value: 4,
+        label: '4'
     },
     {
         value: 5,
+        label: '5'
     },
     {
         value: 6,
+        label: '6'
     },
     {
         value: 7,
+        label: '7'
     },
     {
         value: 8,
+        label: '8'
     },
     {
         value: 9,
+        label: '9'
     },
     {
         value: 10,
-        label: 'Best'
+        label: 'High'
     },
 ];
 
@@ -48,7 +56,7 @@ export default function Wellbeing({ handleNext, setResults }) {
         <Paper square elevation={0}>
             <Typography variant="h6">Wellbeing</Typography>
             <Typography>
-                Please rate your wellbeing between one and ten using the slider below.
+                Please rate your wellbeing between one (low) and ten (high) using the slider below.
             </Typography>
 
             <br />
