@@ -33,7 +33,7 @@ const STATUSES = {
     LOADING: 'loading',
     RUNNING: 'running',
     STANDBY: 'standby',
-    UNINIT: 'uninit',
+    UNINITIALISED: 'UNINITIALISED',
 };
 
 const STATUS_MESSAGE = {
@@ -42,7 +42,7 @@ const STATUS_MESSAGE = {
     [STATUSES.LOADING]: 'Starting ASR engine. Please wait',
     [STATUSES.RUNNING]: 'Running',
     [STATUSES.STANDBY]: 'ASR engine ready. Please click on button to start',
-    [STATUSES.UNINIT]: '',
+    [STATUSES.UNINITIALISED]: '',
 };
 
 const styles = {
@@ -103,7 +103,7 @@ class ASRPage extends React.Component {
         this.prevIsFinal = false;
 
         this.state = {
-            appStatus: STATUSES.UNINIT,
+            appStatus: STATUSES.UNINITIALISED,
             transcriptions: [],
             tmpTranscription: '',
             disableRecordButton: true,
