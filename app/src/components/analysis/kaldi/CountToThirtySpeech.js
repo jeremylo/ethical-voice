@@ -1,5 +1,4 @@
 import { Box, LinearProgress, Typography } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ToggleButton from './toggleButton';
@@ -43,47 +42,6 @@ const STATUS_MESSAGE = {
     [STATUSES.RUNNING]: 'Running',
     [STATUSES.STANDBY]: 'ASR engine ready. Please click on button to start',
     [STATUSES.UNINITIALISED]: '',
-};
-
-const styles = {
-    control: {
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
-        width: '100%',
-    },
-    resultStyle: {
-        display: 'flex',
-        justifyContent: 'center',
-        maxWidth: '60vw',
-        width: '100%',
-        height: '100%', // 260px > max height of control div
-        maxHeight: '50vh',
-        flexGrow: '1',
-    },
-    params: {
-        display: 'flex',
-        justifyContent: 'space-evenly',
-        width: '100%',
-        maxWidth: '40%',
-        flexWrap: 'wrap',
-        padding: '15px',
-    },
-    layout: {
-        display: 'flex',
-        flexDirection: 'column',
-        height: '95vh',
-        maxHeight: '95vh',
-        width: '100vw',
-    },
-    content: {
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
-        height: 'calc(100% - 68px)', // 68px == height of topBar
-        maxHeight: 'calc(100% - 68px)',
-        width: '100%',
-    },
 };
 
 class ASRPage extends React.Component {
@@ -242,8 +200,6 @@ class ASRPage extends React.Component {
     }
 
     render() {
-        const classes = this.props.classes;
-
         const {
             transcriptions,
             tmpTranscription,
@@ -266,31 +222,29 @@ class ASRPage extends React.Component {
         const speakingRate = timeElapsed === 0 ? 0 : wordCount / timeElapsed;
 
         return (
-            <div className={classes.layout}>
-                <div className={classes.content}>
-                    <div className={classes.control}>
-                        <div className={classes.params}>
+            <div>
+                <div>
+                    <div>
+                        <div>
                             <ToggleButton
                                 onStart={this.startASR}
                                 onStop={this.stopASR}
                                 disabled={disableRecordButton}
                             />
                         </div>
-                        <div className={classes.feedback}>
+                        <div>
                             <p>
                                 {statusMessage}
                             </p>
-                            {
-                                downloadProgress < 100
-                                && (
-                                    <LinearProgressWithLabel
-                                        value={downloadProgress}
-                                    />
-                                )
-                            }
+
+                            {downloadProgress < 100 && (
+                                <LinearProgressWithLabel
+                                    value={downloadProgress}
+                                />
+                            )}
                         </div>
                     </div>
-                    <div className={classes.resultStyle}>
+                    <div>
                         {text}
                     </div>
                     <div>
@@ -338,4 +292,4 @@ ASRPage.propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
-export default withStyles(styles)(ASRPage);
+export default ASRPage;
