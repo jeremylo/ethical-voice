@@ -1,27 +1,19 @@
-import { Box, LinearProgress, Typography } from '@material-ui/core';
-import PropTypes from 'prop-types';
-import React from 'react';
-import ToggleButton from './toggleButton';
+import { Box, Button, CircularProgress, LinearProgress, Typography, withStyles } from '@material-ui/core';
+import { Mic, Stop } from '@material-ui/icons';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import React, { useState } from 'react';
 import { trackedDownload } from './utils/downloadModel';
 import ASRHandler from './workerWrappers/asrHandler';
 import IDBHandler from './workerWrappers/idbHandler';
 import ResampleHandler from './workerWrappers/resamplerHandler';
 
 
-function LinearProgressWithLabel(props) {
-    return (
-        <Box display="flex" alignItems="center">
-            <Box width="100%" mr={1}>
-                <LinearProgress variant="determinate" {...props} />
-            </Box>
-            <Box minWidth={35}>
-                <Typography variant="body2" color="textSecondary">{`${Math.round(
-                    props.value,
-                )}%`}</Typography>
-            </Box>
-        </Box>
-    );
-}
+const myStyles = (theme) => ({
+    statusBox: {
+        marginTop: '1rem',
+        marginBottom: '1rem',
+    }
+});
 
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -32,19 +24,10 @@ const STATUSES = {
     LOADING: 'loading',
     RUNNING: 'running',
     STANDBY: 'standby',
-    UNINITIALISED: 'UNINITIALISED',
+    UNINITIALISED: 'uninitialised',
 };
 
-const STATUS_MESSAGE = {
-    [STATUSES.DOWNLOADING]: 'Downloading model from the web. Please wait',
-    [STATUSES.ERROR]: 'Oops something went wrong',
-    [STATUSES.LOADING]: 'Starting ASR engine. Please wait',
-    [STATUSES.RUNNING]: 'Running',
-    [STATUSES.STANDBY]: 'ASR engine ready. Please click on button to start',
-    [STATUSES.UNINITIALISED]: '',
-};
-
-class ASRPage extends React.Component {
+class CountToThirtySpeech extends React.Component {
     constructor(props) {
         super(props);
 
@@ -52,7 +35,7 @@ class ASRPage extends React.Component {
         this.onResampled = this.onResampled.bind(this);
         this.startASR = this.startASR.bind(this);
         this.stopASR = this.stopASR.bind(this);
-        this.updateProgress = this.updateProgress.bind(this);
+        this.updateDownloadProgress = this.updateDownloadProgress.bind(this);
         this.updateTranscription = this.updateTranscription.bind(this);
 
         this.idbHandler = null;
@@ -64,8 +47,8 @@ class ASRPage extends React.Component {
             appStatus: STATUSES.UNINITIALISED,
             transcriptions: [],
             tmpTranscription: '',
-            disableRecordButton: true,
-            downloadProgress: 100,
+            isRecordButtonDisabled: true,
+            downloadProgress: 0,
             startTime: 0,
             endTime: 0,
         };
@@ -91,20 +74,20 @@ class ASRPage extends React.Component {
     }
 
     componentWillUnmount() {
-        this.idbHandler.terminate();
-        this.asrHandler.terminate();
-        this.resamplerHandler.terminate();
+        if (this.idbHandler) this.idbHandler.terminate();
+        if (this.asrHandler) this.asrHandler.terminate();
+        if (this.resamplerHandler) this.resamplerHandler.terminate();
     }
 
     loadModel() {
         this.setState({
             appStatus: STATUSES.LOADING,
-            disableRecordButton: true,
+            isRecordButtonDisabled: true,
         });
 
         const newState = {
             appStatus: STATUSES.ERROR,
-            disableRecordButton: false,
+            isRecordButtonDisabled: false,
         };
 
         this.idbHandler.get('model')
@@ -118,9 +101,7 @@ class ASRPage extends React.Component {
             .then((asrSR) => this.resamplerHandler.setSampleRate(asrSR))
             .then(() => { newState.appStatus = STATUSES.STANDBY; })
             .catch(console.log)
-            .finally(() => this.setState({
-                ...newState,
-            }));
+            .finally(() => this.setState(newState));
     }
 
     onResampled(buffer) {
@@ -128,14 +109,14 @@ class ASRPage extends React.Component {
             .then(this.updateTranscription);
     }
 
-    updateProgress(value) {
+    updateDownloadProgress(value) {
         this.setState({ downloadProgress: value * 100 });
     }
 
     downloadAndStore(modelName) {
         return new Promise((resolve, reject) => {
             this.setState({ appStatus: STATUSES.DOWNLOADING });
-            trackedDownload('api/model', this.updateProgress)
+            trackedDownload('api/model', this.updateDownloadProgress)
                 .then((zip) => {
                     this.idbHandler.add('model', zip)
                         .catch(console.log)
@@ -168,21 +149,21 @@ class ASRPage extends React.Component {
     }
 
     startASR() {
-        this.setState({ disableRecordButton: true });
+        this.setState({ isRecordButtonDisabled: true, transcriptions: [] });
 
         this.resamplerHandler.start();
         this.setState({
             appStatus: STATUSES.RUNNING,
-            disableRecordButton: false,
+            isRecordButtonDisabled: false,
             startTime: Date.now(),
         });
     }
 
     stopASR() {
-        this.setState({ disableRecordButton: true, endTime: Date.now() });
+        this.setState({ isRecordButtonDisabled: true, endTime: Date.now() });
 
         const newState = {
-            disableRecordButton: true,
+            isRecordButtonDisabled: true,
             appStatus: STATUSES.ERROR,
         };
 
@@ -191,7 +172,7 @@ class ASRPage extends React.Component {
             .then(this.updateTranscription)
             .then(() => {
                 newState.appStatus = STATUSES.STANDBY;
-                newState.disableRecordButton = false;
+                newState.isRecordButtonDisabled = false;
             })
             .catch(console.log)
             .finally(() => this.setState({
@@ -204,17 +185,18 @@ class ASRPage extends React.Component {
             transcriptions,
             tmpTranscription,
             appStatus,
-            disableRecordButton,
+            isRecordButtonDisabled,
             downloadProgress,
             startTime,
             endTime,
         } = this.state;
 
-        const statusMessage = STATUS_MESSAGE[appStatus];
+        const classes = this.props.classes;
+
+
         const text = transcriptions.concat(tmpTranscription).join('\n');
 
         const round2dp = (x) => Math.round((x + Number.EPSILON) * 100) / 100;
-
         const now = Date.now();
         const wordCount = text.split(/\s+/).filter((w) => w.length > 0).length;
         const timeElapsed = ((appStatus === STATUSES.RUNNING ? now : endTime)
@@ -222,52 +204,65 @@ class ASRPage extends React.Component {
         const speakingRate = timeElapsed === 0 ? 0 : wordCount / timeElapsed;
 
         return (
-            <div>
-                <div>
-                    <div>
-                        <div>
+            <>
+                {(appStatus === STATUSES.STANDBY || appStatus === STATUSES.RUNNING) && (
+                    <>
+                        <Typography>
+                            Please <strong>count out loud from one to thirty</strong> clearly at a fast but comfortable speaking pace.
+                            <br />
+                            <br />
+                            When you are ready, press the button below to start recording. Once you reach thirty, press it again to stop recording should it not do so automatically.
+                            <br />
+                        </Typography>
+                        <Box textAlign='center'>
                             <ToggleButton
                                 onStart={this.startASR}
                                 onStop={this.stopASR}
-                                disabled={disableRecordButton}
+                                disabled={isRecordButtonDisabled}
                             />
-                        </div>
-                        <div>
-                            <p>
-                                {statusMessage}
-                            </p>
 
-                            {downloadProgress < 100 && (
-                                <LinearProgressWithLabel
-                                    value={downloadProgress}
-                                />
-                            )}
-                        </div>
-                    </div>
-                    <div>
-                        {text}
-                    </div>
-                    <div>
-                        <br />
-                        Words count:&nbsp;
-                        <span><strong>{wordCount}</strong></span>
-                        <br />
-                        Speaking rate (words/second):&nbsp;
-                        <span><strong>{round2dp(speakingRate)}</strong></span>
-                        <br />
-                        Speaking rate (words/minute):&nbsp;
-                        <span><strong>{round2dp(60 * speakingRate)}</strong></span>
-                        <br />
-                        Time elapsed (seconds):&nbsp;
-                        <span><strong>{timeElapsed}</strong></span>
-                    </div>
-                </div>
-            </div>
+                            {text}
+                            <br /><br />
+                            Words count:&nbsp;<span><strong>{wordCount}</strong></span><br />
+                            Speaking rate (words/second):&nbsp;<span><strong>{round2dp(speakingRate)}</strong></span><br />
+                            Speaking rate (words/minute):&nbsp;<span><strong>{round2dp(60 * speakingRate)}</strong></span><br />
+                            Time elapsed (seconds):&nbsp;<span><strong>{timeElapsed}</strong></span>
+                            <br /><br />
+                        </Box>
+                    </>
+                )}
+
+                {(appStatus === STATUSES.UNINITIALISED || appStatus === STATUSES.LOADING) && (
+                    <Box textAlign='center' className={classes.statusBox}>
+                        <Typography>Loading</Typography><br />
+                        <CircularProgress />
+                    </Box>
+                )}
+
+                {appStatus === STATUSES.DOWNLOADING && (
+                    <Box textAlign='center' className={classes.statusBox}>
+                        <Typography>Downloading the speech recognition model</Typography>
+                        <LinearProgressWithLabel
+                            value={downloadProgress}
+                        />
+                    </Box>
+                )}
+
+                {appStatus === STATUSES.ERROR && (
+                    <>
+                        <Alert severity="error">
+                            <AlertTitle>Error</AlertTitle>
+                            Apologies - something went wrong while loading the speech recognition module.<br /><br />
+                            Reloading the app may fix your issue!
+                        </Alert><br /><br />
+                    </>
+                )}
+            </>
         );
     }
 }
 
-ASRPage.defaultProps = {
+CountToThirtySpeech.defaultProps = {
     resamplerBufferSize: 4096, // ~ 90 ms at 44.1kHz
     idbInfo: {
         name: 'asr_models',
@@ -279,17 +274,44 @@ ASRPage.defaultProps = {
     },
 };
 
-ASRPage.propTypes = {
-    resamplerBufferSize: PropTypes.number,
-    idbInfo: PropTypes.shape({
-        name: PropTypes.string,
-        version: PropTypes.number,
-        storeInfo: PropTypes.shape({
-            name: PropTypes.string,
-            keyPath: PropTypes.string,
-        }),
-    }),
-    classes: PropTypes.objectOf(PropTypes.string).isRequired,
-};
+export default withStyles(myStyles)(CountToThirtySpeech);
 
-export default ASRPage;
+function LinearProgressWithLabel(props) {
+    return (
+        <Box display="flex" alignItems="center">
+            <Box width="100%" mr={1}>
+                <LinearProgress variant="determinate" {...props} />
+            </Box>
+            <Box minWidth={35}>
+                <Typography variant="body2" color="textSecondary">{`${Math.round(
+                    props.value,
+                )}%`}</Typography>
+            </Box>
+        </Box>
+    );
+}
+
+function ToggleButton({ disabled, onStart, onStop }) {
+    const [standby, setStandby] = useState(true);
+
+    function toggle() {
+        setStandby(!standby);
+        if (standby) {
+            onStart();
+        } else {
+            onStop();
+        }
+    }
+
+    return (
+        <Button
+            color={standby ? 'primary' : 'secondary'}
+            disabled={disabled}
+            onClick={toggle}
+            variant="contained"
+            endIcon={standby ? <Mic fontSize="large" /> : <Stop fontSize="large" />}
+        >
+            {standby ? 'Start' : 'Stop'}
+        </Button>
+    );
+}

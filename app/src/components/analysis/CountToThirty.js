@@ -16,13 +16,6 @@ export default class CountToThirty extends Component {
         return (
             <Paper square elevation={0}>
                 <Typography variant="h6">Speaking rate evaluation</Typography>
-                <Typography>
-                    Please <strong>count out loud from one to thirty</strong> clearly at a fast but comfortable speaking pace.
-                    <br />
-                    <br />
-                    When you are ready, press the button below to start recording. Once you reach thirty, press it again to stop recording should it not do so automatically.
-                </Typography>
-                <br />
 
                 <CountToThirtySpeech />
 
