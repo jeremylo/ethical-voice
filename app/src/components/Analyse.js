@@ -1,6 +1,6 @@
 import { Container, Paper, Step, StepLabel, Stepper, Typography } from "@material-ui/core";
 import React from 'react';
-import CountToThirty from "./analysis/CountToThirty";
+import Count from "./analysis/Count";
 import MRCDyspnoea from "./analysis/MRCDyspnoea";
 import Sputum from "./analysis/Sputum";
 import Welcome from "./analysis/Welcome";
@@ -18,8 +18,8 @@ const steps = [
         step: (step, handleNext, setResults) => <Welcome handleNext={handleNext} />
     },
     {
-        key: 'countToThirty',
-        step: (step, handleNext, setResults) => <CountToThirty handleNext={handleNext} setResults={setResults} />
+        key: 'count',
+        step: (step, handleNext, setResults) => <Count handleNext={handleNext} setResults={setResults} />
     },
     {
         key: 'sputum',

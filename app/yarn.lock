@@ -1942,6 +1942,11 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
+"@types/pluralize@^0.0.29":
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/@types/pluralize/-/pluralize-0.0.29.tgz#6ffa33ed1fc8813c469b859681d09707eb40d03c"
+  integrity sha512-BYOID+l2Aco2nBik+iYS4SZX0Lf20KPILP5RGmM1IgzdwNdTs0eebiFriOPcej1sX9mLnSoiNte5zcFxssgpGA==
+
 "@types/prettier@^2.0.0":
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.3.2.tgz#fc8c2825e4ed2142473b4a81064e6e081463d1b3"
@@ -7784,6 +7789,11 @@ normalize-range@^0.1.2:
   resolved "https://registry.yarnpkg.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
   integrity sha1-LRDAa9/TEuqXd2laTShDlFa3WUI=
 
+normalize-strings@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/normalize-strings/-/normalize-strings-1.1.1.tgz#80f416daf75968899df8262e379a67e46d0b4b5a"
+  integrity sha512-fARPRdTwmrQDLYhmeh7j/eZwrCP6WzxD6uKOdK/hT/uKACAE9AG2Bc2dgqOZLkfmmctHpfcJ9w3AQnfLgg3GYg==
+
 normalize-url@1.9.1:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-1.9.1.tgz#2cc0d66b31ea23036458436e3620d85954c66c3c"
@@ -8340,6 +8350,11 @@ pkg-up@^2.0.0:
   integrity sha1-yBmscoBZpGHKscOImivjxJoATX8=
   dependencies:
     find-up "^2.1.0"
+
+pluralize@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
+  integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
 
 pnp-webpack-plugin@1.6.4:
   version "1.6.4"
@@ -9440,6 +9455,11 @@ react-transition-group@^4.4.0:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-use-precision-timer@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/react-use-precision-timer/-/react-use-precision-timer-1.0.7.tgz#525bb3b909e2cb972978ce80c51a7b4961cd7481"
+  integrity sha512-54I8lnz1zrKFGBgK7KMw+/EZEn7M/y50eFSI8C8Quz17UpXGXCROpeHaD49Gw4pvHpOrgTS5zvBrLhNniBBLlQ==
 
 react@^17.0.2:
   version "17.0.2"
@@ -10649,6 +10669,15 @@ svgo@^1.0.0, svgo@^1.2.2:
     stable "^0.1.8"
     unquote "~1.1.1"
     util.promisify "~1.0.0"
+
+syllable@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/syllable/-/syllable-5.0.0.tgz#da9d55871f56f5d1e00eb956d1ba69161a07f332"
+  integrity sha512-6teCJHZp57d2bUZr31IK535feERjJWa2VnWhJaZxndfwCpdcC3gSKAem1NCBvhpx/biMoi1BXkrHpEsYsVac6g==
+  dependencies:
+    "@types/pluralize" "^0.0.29"
+    normalize-strings "^1.1.0"
+    pluralize "^8.0.0"
 
 symbol-tree@^3.2.4:
   version "3.2.4"
