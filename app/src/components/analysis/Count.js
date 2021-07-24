@@ -2,7 +2,8 @@ import { Box, Button, CircularProgress, Paper, Typography, withStyles } from '@m
 import { Mic, Stop } from '@material-ui/icons';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { Alert, AlertTitle } from '@material-ui/lab';
-import React, { useState } from 'react';
+import React from 'react';
+import Countdown from './count/Countdown';
 import LabelledLinearProgress from './count/LabelledLinearProgress';
 import { trackedDownload } from './kaldi/utils/downloadModel';
 import ASRHandler from './kaldi/workerWrappers/asrHandler';
@@ -163,6 +164,8 @@ class Count extends React.Component {
     }
 
     stopASR() {
+        if (this.state.isRecordButtonDisabled) return;
+
         this.setState({ isRecordButtonDisabled: true });
 
         this.resamplerHandler.stop()
@@ -205,14 +208,21 @@ class Count extends React.Component {
                             <br />
                         </Typography>
                         <Box textAlign='center' className={classes.statusBox}>
-                            <ToggleButton
-                                onStart={this.startASR}
-                                onStop={this.stopASR}
+                            <Button
+                                color={appStatus === STATUSES.STANDBY ? 'primary' : 'secondary'}
                                 disabled={isRecordButtonDisabled}
-                            />
-
-                            {text}
+                                onClick={appStatus === STATUSES.STANDBY ? this.startASR : this.stopASR}
+                                variant="contained"
+                                endIcon={appStatus === STATUSES.STANDBY ? <Mic fontSize="large" /> : <Stop fontSize="large" />}
+                                fullWidth={true}
+                            >
+                                {appStatus === STATUSES.STANDBY ? 'Start' : 'Stop'}
+                            </Button>
                             <br /><br />
+                            <Countdown running={appStatus === STATUSES.RUNNING} duration={DURATION} handleStop={this.stopASR} />
+                            <br /><br />
+                            {text}
+                            <br />
                         </Box>
                     </>
                 )}
@@ -264,29 +274,3 @@ Count.defaultProps = {
 };
 
 export default withStyles(myStyles)(Count);
-
-function ToggleButton({ disabled, onStart, onStop }) {
-    const [standby, setStandby] = useState(true);
-
-    function toggle() {
-        setStandby(!standby);
-        if (standby) {
-            onStart();
-        } else {
-            onStop();
-        }
-    }
-
-    return (
-        <Button
-            color={standby ? 'primary' : 'secondary'}
-            disabled={disabled}
-            onClick={toggle}
-            variant="contained"
-            endIcon={standby ? <Mic fontSize="large" /> : <Stop fontSize="large" />}
-            fullWidth={true}
-        >
-            {standby ? 'Start' : 'Stop'}
-        </Button>
-    );
-}
