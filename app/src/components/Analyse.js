@@ -19,7 +19,7 @@ const steps = [
     },
     {
         key: 'count',
-        step: (step, handleNext, setResults) => <Count handleNext={handleNext} setResults={setResults} />
+        step: (step, handleNext, setResults) => <Count handleNext={handleNext} setResults={setResults} duration={10} />
     },
     {
         key: 'sputum',
