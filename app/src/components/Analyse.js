@@ -30,7 +30,7 @@ const steps = [
         step: (step, handleNext, setResults) => <Wellbeing handleNext={handleNext} setResults={setResults} />
     },
     {
-        key: 'mrcdyspnoea',
+        key: 'dyspnoea',
         step: (step, handleNext, setResults) => <MRCDyspnoea handleNext={handleNext} setResults={setResults} />
     },
 ]
