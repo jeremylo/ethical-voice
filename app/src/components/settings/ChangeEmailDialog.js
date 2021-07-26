@@ -45,7 +45,7 @@ export default function ChangeEmailDialog(props) {
         <Dialog
             aria-labelledby="email-update-dialog-title"
             open={open}
-            onClose={onClose}
+            onClose={handleCancel}
             keepMounted
             className={classes.paper}
         >

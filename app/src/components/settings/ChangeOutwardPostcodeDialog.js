@@ -47,7 +47,7 @@ export default function ChangeOutwardPostcodeDialog(props) {
         <Dialog
             aria-labelledby="outward-postcode-update-dialog-title"
             open={open}
-            onClose={onClose}
+            onClose={handleCancel}
             keepMounted
             className={classes.paper}
         >

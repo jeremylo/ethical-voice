@@ -4,6 +4,7 @@ import { Container, Divider, List, ListItem, ListItemText, makeStyles, Typograph
 import { useState } from 'react';
 import ChangeEmailDialog from './settings/ChangeEmailDialog';
 import ChangeOutwardPostcodeDialog from './settings/ChangeOutwardPostcodeDialog';
+import ChangePasswordDialog from './settings/ChangePasswordDialog';
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -67,7 +68,12 @@ export default function Settings() {
                     />
                 </ListItem>
                 <ListItem divider button>
-                    <ListItemText primary="Password" secondary="Click to update" />
+                    <ListItemText
+                        primary="Password"
+                        secondary="Click to update"
+                        aria-haspopup="true"
+                        onClick={_ => handleOpen('password')}
+                    />
                 </ListItem>
                 <ListItem divider button>
                     <ListItemText
@@ -85,6 +91,10 @@ export default function Settings() {
                     open={open === 'email'}
                     onClose={handleClose}
                     value={email}
+                />
+                <ChangePasswordDialog
+                    open={open === 'password'}
+                    onClose={handleClose}
                 />
                 <ChangeOutwardPostcodeDialog
                     open={open === 'outward-postcode'}
