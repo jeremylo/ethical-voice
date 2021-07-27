@@ -1,8 +1,19 @@
-import { Box, Button, FormControl, FormControlLabel, FormLabel, Paper, Radio, RadioGroup, Typography } from '@material-ui/core';
+import { Box, Button, FormControl, FormControlLabel, FormLabel, makeStyles, Paper, Radio, RadioGroup, Typography } from '@material-ui/core';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import React from 'react';
 
+const useStyles = makeStyles((theme) => ({
+    controlsBox: {
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+    }
+}));
+
+
 export default function MRCDyspnoea({ handleNext, setResults }) {
+    const classes = useStyles();
+
     const [value, setValue] = React.useState(null);
 
     const handleChange = (event) => {
@@ -32,13 +43,14 @@ export default function MRCDyspnoea({ handleNext, setResults }) {
                 </RadioGroup>
             </FormControl>
 
-            {value && <Box textAlign='center'>
+            <Box textAlign='center' className={classes.controlsBox}>
                 <br />
+                <Button variant="contained" color="primary" onClick={() => handleNext()} endIcon={<KeyboardArrowRightIcon />}>Skip</Button>
                 <Button variant="contained" color="primary" onClick={() => {
                     setResults(+value);
                     handleNext();
-                }} endIcon={<KeyboardArrowRightIcon />}>Next</Button>
-            </Box>}
+                }} endIcon={<KeyboardArrowRightIcon />} disabled={!value}>Next</Button>
+            </Box>
         </Paper>
     );
 }

@@ -9,6 +9,11 @@ const useStyles = makeStyles((theme) => ({
     selectedSputum: {
         fontWeight: "900",
         textDecorationStyle: "underline"
+    },
+    controlsBox: {
+        '& > *': {
+            margin: theme.spacing(1),
+        },
     }
 }));
 
@@ -78,12 +83,13 @@ export default function CountToThirty({ handleNext, setResults }) {
 
             <br />
 
-            {value && <Box textAlign='center'>
+            <Box textAlign='center' className={classes.controlsBox}>
+                <Button variant="contained" color="primary" onClick={() => handleNext()} endIcon={<KeyboardArrowRightIcon />}>Skip</Button>
                 <Button variant="contained" color="primary" onClick={() => {
                     setResults(value);
                     handleNext();
-                }} endIcon={<KeyboardArrowRightIcon />}>Next</Button>
-            </Box>}
+                }} endIcon={<KeyboardArrowRightIcon />} disabled={!value}>Next</Button>
+            </Box>
         </Paper >
     )
 }

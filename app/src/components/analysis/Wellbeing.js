@@ -1,6 +1,14 @@
-import { Box, Button, Paper, Slider, Typography } from "@material-ui/core";
+import { Box, Button, makeStyles, Paper, Slider, Typography } from "@material-ui/core";
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { useState } from "react";
+
+const useStyles = makeStyles((theme) => ({
+    controlsBox: {
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+    }
+}));
 
 const marks = [
     {
@@ -46,6 +54,7 @@ const marks = [
 ];
 
 export default function Wellbeing({ handleNext, setResults }) {
+    const classes = useStyles();
     const [value, setValue] = useState(1);
 
     const handleChange = (event, newValue) => {
@@ -81,7 +90,8 @@ export default function Wellbeing({ handleNext, setResults }) {
 
             <br />
 
-            <Box textAlign='center'>
+            <Box textAlign='center' className={classes.controlsBox}>
+                <Button variant="contained" color="primary" onClick={() => handleNext()} endIcon={<KeyboardArrowRightIcon />}>Skip</Button>
                 <Button variant="contained" color="primary" onClick={() => {
                     setResults(value);
                     handleNext();
