@@ -51,7 +51,7 @@ export default function Layout(props) {
                 <AppBar position="sticky">
                     <Toolbar>
                         <Typography variant="h6" className={classes.title}>
-                            Breathlessness Analyser
+                            My Data
                         </Typography>
                         <IconButton color="inherit" aria-label="settings" component={Link} to="/settings" value="settings">
                             <SettingsIcon />

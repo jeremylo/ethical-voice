@@ -1,31 +1,31 @@
-import { Container, Typography } from "@material-ui/core";
+import { Container, makeStyles, Typography } from "@material-ui/core";
+import SpeakingRateChart from "./visualisation/SpeakingRateChart";
+
+
+const useStyles = makeStyles((theme) => ({
+    header: {
+        paddingTop: "1rem",
+        paddingBottom: "0.5rem",
+    },
+    root: {
+        width: '100%',
+        backgroundColor: theme.palette.background.paper,
+    }
+}));
 
 
 export default function Home() {
+    const classes = useStyles();
+
     return (
-        <Container maxWidth="sm">
-            <Typography>
-                <br />
-                Hi there!
+        <div className={classes.root}>
+            <Container maxWidth="sm" className={classes.header}>
+                <Typography variant="h5">Overview</Typography>
+            </Container>
 
-                <br /><br />
-
-                Press ‘analyse’ to get started by taking a reading of your voice.
-                <br /><br />
-                Press ‘results’ to view analyses of past readings.
-                <br /><br />
-                Press the cog in the top-right corner to view or update your details.
-
-
-                <br />
-                <br />
-                <br />
-                <br />
-
-
-
-                !!! Maybe here, it may be rather nice to have some information for users to read about the app and the purpose of the research (accordion FAQ style!)
-            </Typography>
-        </Container>
+            <Container maxWidth="sm">
+                <SpeakingRateChart />
+            </Container>
+        </div >
     )
 }

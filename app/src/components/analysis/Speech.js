@@ -213,7 +213,7 @@ class Speech extends React.Component {
 
         return (
             <Paper square elevation={0}>
-                <Typography variant="h6">Speaking rate evaluation</Typography>
+                <Typography variant="h6">Speaking test</Typography>
                 {(appStatus === STATUSES.STANDBY || appStatus === STATUSES.RUNNING) && (
                     <>
                         {this.props.children}
@@ -252,7 +252,7 @@ class Speech extends React.Component {
                 {this.state.results && (
                     <div className={classes.resultBox}>
                         <Alert severity="success">
-                            <AlertTitle>Evaluation complete</AlertTitle>
+                            <AlertTitle>Results</AlertTitle>
                             <strong>Syllables per minute</strong>: {this.state.results.syllablesPerMinute}<br />
                             <strong>Words per minute</strong>: {this.state.results.wordsPerMinute}
                         </Alert>

@@ -205,7 +205,7 @@ class CountToThirty extends React.Component {
 
         return (
             <Paper square elevation={0}>
-                <Typography variant="h6">Speaking rate evaluation</Typography>
+                <Typography variant="h6">Speaking test</Typography>
                 {(appStatus === STATUSES.STANDBY || appStatus === STATUSES.RUNNING) && (
                     <>
                         <Typography>
