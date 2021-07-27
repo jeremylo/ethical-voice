@@ -13,30 +13,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const sputumColours = [
+export const sputumColours = [
     {
         name: "White",
-        value: "white",
+        value: 1,
         colour: "#FEFEE4"
     },
     {
         name: "Cream",
-        value: "cream",
+        value: 2,
         colour: "#F5F7C8"
     },
     {
         name: "Yellow",
-        value: "yellow",
+        value: 3,
         colour: "#E4E681"
     },
     {
         name: "Pale green",
-        value: "palegreen",
+        value: 4,
         colour: "#B9BB70"
     },
     {
         name: "Green",
-        value: "green",
+        value: 5,
         colour: "#94A265"
     },
 ];
@@ -71,7 +71,7 @@ export default function CountToThirty({ handleNext, setResults }) {
                                 selected: classes.selectedSputum
                             }}
                         >
-                            {sputumColour.name}
+                            {sputumColour.name} ({sputumColour.value})
                         </ToggleButton>)}
                 </ToggleButtonGroup>
             </Box>
