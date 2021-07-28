@@ -1,6 +1,5 @@
 import { Paper } from '@material-ui/core';
 import { useState } from 'react';
-import { max } from 'simple-statistics';
 import { VictoryChart, VictoryLabel, VictoryLine, VictoryScatter, VictoryZoomContainer } from 'victory';
 import theme from './chartTheme';
 
@@ -52,10 +51,8 @@ function calculateCumulativeStatistics(data) {
     return { upperStddevData, meanData, lowerStddevData, tripleUpperStddevData, tripleLowerStddevData };
 }
 
-export default function RateChart({ title, data, showThreeStandardDeviations }) {
+export default function RateChart({ title, data, showThreeStandardDeviations, domain }) {
     const [zoomDomain, setZoomDomain] = useState({});
-    const rates = data.map(datum => datum.y);
-    const maximum = max(rates);
     const { upperStddevData, meanData, lowerStddevData, tripleUpperStddevData, tripleLowerStddevData } = calculateCumulativeStatistics(data);
 
     return (
@@ -64,7 +61,7 @@ export default function RateChart({ title, data, showThreeStandardDeviations }) 
                 theme={theme}
                 scale={{ x: "time" }}
                 domainPadding={10}
-                domain={{ y: [0, maximum + 50] }}
+                domain={domain}
                 style={{
                     parent: {
                         paddingTop: 0

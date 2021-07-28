@@ -24,11 +24,33 @@ export default function Home() {
     }
 
     const syllableRateData = [
-        ...[...Array(30).keys()].map(_ => ({
-            x: new Date(2021, getRandomInt(0, 9), getRandomInt(0, 27)), y: getRandomInt(250, 320)
+        ...[...Array(78).keys()].map(_ => ({
+            x: new Date(2021, getRandomInt(0, 9), getRandomInt(0, 27)), y: getRandomInt(270, 320)
         })),
-        ...[...Array(4).keys()].map(_ => ({
+        ...[...Array(26).keys()].map(_ => ({
             x: new Date(2021, getRandomInt(9, 12), getRandomInt(0, 27)), y: getRandomInt(90, 120)
+        })),
+    ].sort((a, b) => a.x - b.x);
+
+    // const syllableRateData = [
+    //     { x: new Date(2021, 5, 14), y: 288 },
+    //     { x: new Date(2021, 5, 21), y: 228 },
+    //     { x: new Date(2021, 5, 28), y: 270 },
+    //     { x: new Date(2021, 6, 5), y: 330 },
+    //     { x: new Date(2021, 6, 9), y: 348 },
+    //     { x: new Date(2021, 6, 12), y: 294 },
+    //     { x: new Date(2021, 6, 17), y: 186 },
+    //     { x: new Date(2021, 6, 19), y: 166 },
+    //     { x: new Date(2021, 6, 24), y: 234 },
+    //     { x: new Date(2021, 6, 26), y: 222 },
+    // ];
+
+    const sputumColourData = [
+        ...[...Array(30).keys()].map(_ => ({
+            x: new Date(2021, getRandomInt(0, 9), getRandomInt(0, 27)), y: getRandomInt(1, 3)
+        })),
+        ...[...Array(30).keys()].map(_ => ({
+            x: new Date(2021, getRandomInt(9, 12), getRandomInt(0, 27)), y: getRandomInt(4, 6)
         })),
     ].sort((a, b) => a.x - b.x);
 
@@ -43,6 +65,13 @@ export default function Home() {
                     title="Speaking rate (syllables per minute)"
                     data={syllableRateData}
                     showThreeStandardDeviations={true} />
+                <br />
+                <RateChart
+                    title="Sputum colour"
+                    data={sputumColourData}
+                    showThreeStandardDeviations={false}
+                    domain={{ y: [1, 5] }}
+                />
             </Container>
         </div >
     )
