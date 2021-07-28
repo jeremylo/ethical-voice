@@ -24,11 +24,11 @@ export default function Home() {
     }
 
     const syllableRateData = [
-        ...[...Array(50).keys()].map(_ => ({
-            x: new Date(2021, getRandomInt(0, 9), getRandomInt(0, 27)), y: getRandomInt(250, 300)
+        ...[...Array(30).keys()].map(_ => ({
+            x: new Date(2021, getRandomInt(0, 9), getRandomInt(0, 27)), y: getRandomInt(250, 320)
         })),
-        ...[...Array(20).keys()].map(_ => ({
-            x: new Date(2021, getRandomInt(9, 12), getRandomInt(0, 27)), y: getRandomInt(50, 100)
+        ...[...Array(4).keys()].map(_ => ({
+            x: new Date(2021, getRandomInt(9, 12), getRandomInt(0, 27)), y: getRandomInt(90, 120)
         })),
     ].sort((a, b) => a.x - b.x);
 
