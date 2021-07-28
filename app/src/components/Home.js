@@ -67,7 +67,7 @@ export default function Home() {
         ...[...Array(30).keys()].map(_ => ({
             x: new Date(2021, getRandomInt(0, 9), getRandomInt(0, 27)), y: getRandomInt(1, 3)
         })),
-        ...[...Array(30).keys()].map(_ => ({
+        ...[...Array(10).keys()].map(_ => ({
             x: new Date(2021, getRandomInt(9, 12), getRandomInt(0, 27)), y: getRandomInt(4, 6)
         })),
     ].sort((a, b) => a.x - b.x);
@@ -100,7 +100,7 @@ export default function Home() {
                 <br />
                 <RateChart
                     title="MRC dyspnoea scale"
-                    data={sputumColourData}
+                    data={dyspnoeaData}
                     showThreeStandardDeviations={false}
                     domain={{ y: [1, 5] }}
                 />

@@ -11,6 +11,7 @@ import Countdown from './speech/Countdown';
 import LabelledLinearProgress from './speech/LabelledLinearProgress';
 
 
+
 const round2dp = (x) => Math.round((x + Number.EPSILON) * 100) / 100;
 
 const myStyles = (theme) => ({
@@ -37,7 +38,7 @@ class Speech extends React.Component {
         this.setResults = props.setResults;
 
         this.loadModel = this.loadModel.bind(this);
-        this.onResampled = this.onResampled.bind(this);
+        this.onResample = this.onResample.bind(this);
         this.startASR = this.startASR.bind(this);
         this.stopASR = this.stopASR.bind(this);
         this.updateDownloadProgress = this.updateDownloadProgress.bind(this);
@@ -60,6 +61,14 @@ class Speech extends React.Component {
     }
 
     componentDidMount() {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            this.setState({
+                appStatus: STATUSES.ERROR,
+                isRecordButtonDisabled: false,
+            });
+            return;
+        }
+
         const { resamplerBufferSize, idbInfo } = this.props;
         this.idbHandler = new IDBHandler();
         this.asrHandler = new ASRHandler();
@@ -73,7 +82,7 @@ class Speech extends React.Component {
                 const context = new AudioContext();
                 const audioSource = context.createMediaStreamSource(stream);
                 this.resamplerHandler = new ResampleHandler(audioSource,
-                    this.onResampled, resamplerBufferSize);
+                    this.onResample, resamplerBufferSize);
             })
             .catch(console.log);
     }
@@ -109,7 +118,7 @@ class Speech extends React.Component {
             .finally(() => this.setState(newState));
     }
 
-    onResampled(buffer) {
+    onResample(buffer) {
         this.asrHandler.process(buffer)
             .then(this.updateTranscription);
     }
