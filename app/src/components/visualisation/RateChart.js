@@ -1,6 +1,8 @@
 import { Paper } from '@material-ui/core';
+import { useState } from 'react';
 import { max, sampleStandardDeviation } from 'simple-statistics';
-import { VictoryChart, VictoryLabel, VictoryLine, VictoryScatter, VictoryTheme, VictoryZoomContainer } from 'victory';
+import { VictoryChart, VictoryLabel, VictoryLine, VictoryScatter, VictoryZoomContainer } from 'victory';
+import theme from './chartTheme';
 
 
 function calculateCumulativeMovingAverage(data) {
@@ -18,7 +20,10 @@ function shiftData(data, shift) {
     return data.map(datum => ({ x: datum.x, y: datum.y + shift }))
 }
 
-export default function RateChart({ title, data, zoomDomain, setZoomDomain, showThreeStandardDeviations }) {
+
+
+export default function RateChart({ title, data, showThreeStandardDeviations }) {
+    const [zoomDomain, setZoomDomain] = useState({});
     const rates = data.map(datum => datum.y);
     const maximum = max(rates);
     const stddev = sampleStandardDeviation(rates);
@@ -27,7 +32,7 @@ export default function RateChart({ title, data, zoomDomain, setZoomDomain, show
     return (
         <Paper elevation={1} variant="outlined">
             <VictoryChart
-                theme={VictoryTheme.grayscale}
+                theme={theme}
                 scale={{ x: "time" }}
                 domainPadding={10}
                 domain={{ y: [0, maximum + stddev] }}
@@ -48,10 +53,6 @@ export default function RateChart({ title, data, zoomDomain, setZoomDomain, show
 
                 {/* "Ground truth" +/- std devs */}
                 <VictoryLine
-                    interpolation="catmullRom" data={cumulativeRollingAverageData}
-                    style={{ data: { stroke: "#d2e9af " } }}
-                />
-                <VictoryLine
                     interpolation="catmullRom" data={shiftData(cumulativeRollingAverageData, stddev)}
                     style={{ data: { stroke: "#fed8b1" } }}
                 />
@@ -60,21 +61,28 @@ export default function RateChart({ title, data, zoomDomain, setZoomDomain, show
                     style={{ data: { stroke: "#fed8b1" } }}
                 />
 
-                {showThreeStandardDeviations && (<>
+                {showThreeStandardDeviations &&
                     <VictoryLine
                         interpolation="catmullRom" data={shiftData(cumulativeRollingAverageData, 3 * stddev)}
                         style={{ data: { stroke: "#ffcccb" } }}
                     />
+                }
+                {showThreeStandardDeviations &&
                     <VictoryLine
                         interpolation="catmullRom" data={shiftData(cumulativeRollingAverageData, -3 * stddev)}
                         style={{ data: { stroke: "#ffcccb" } }}
                     />
-                </>)}
+                }
 
                 {/* Data */}
                 <VictoryLine
                     interpolation="bundle" data={data}
-                    style={{ data: { stroke: "#00e5ff" } }}
+                    style={{ data: { stroke: "#8bb9dd" } }}
+                />
+
+                <VictoryLine
+                    interpolation="catmullRom" data={cumulativeRollingAverageData}
+                    style={{ data: { stroke: "#d2e9af " } }}
                 />
 
                 <VictoryScatter data={data}
@@ -83,6 +91,6 @@ export default function RateChart({ title, data, zoomDomain, setZoomDomain, show
                 />
 
             </VictoryChart>
-        </Paper>
+        </Paper >
     );
 }
