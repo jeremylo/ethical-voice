@@ -1,4 +1,5 @@
 import { Container, makeStyles, Typography } from "@material-ui/core";
+import { useState } from "react";
 import SpeakingRateChart from "./visualisation/SpeakingRateChart";
 
 
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
     const classes = useStyles();
+    const [zoomDomain, setZoomDomain] = useState({});
 
     return (
         <div className={classes.root}>
@@ -24,7 +26,7 @@ export default function Home() {
             </Container>
 
             <Container maxWidth="sm">
-                <SpeakingRateChart />
+                <SpeakingRateChart zoomDomain={zoomDomain} setZoomDomain={setZoomDomain} />
             </Container>
         </div >
     )

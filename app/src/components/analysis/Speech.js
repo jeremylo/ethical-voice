@@ -213,7 +213,7 @@ class Speech extends React.Component {
 
         return (
             <Paper square elevation={0}>
-                <Typography variant="h6">Speaking test</Typography>
+                <Typography variant="h6">Create a recording</Typography>
                 {(appStatus === STATUSES.STANDBY || appStatus === STATUSES.RUNNING) && (
                     <>
                         {this.props.children}

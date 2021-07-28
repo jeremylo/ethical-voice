@@ -74,7 +74,7 @@ export default class Analyse extends React.Component {
                 <Container maxWidth="sm">
                     <br />
                     <Paper square elevation={0}>
-                        <Typography variant="h5">Perform a new analysis</Typography>
+                        <Typography variant="h5">Create a new submission</Typography>
                     </Paper>
                 </Container>
 
