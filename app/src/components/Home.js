@@ -54,6 +54,24 @@ export default function Home() {
         })),
     ].sort((a, b) => a.x - b.x);
 
+    const wellbeingData = [
+        ...[...Array(30).keys()].map(_ => ({
+            x: new Date(2021, getRandomInt(0, 9), getRandomInt(0, 27)), y: getRandomInt(7, 11)
+        })),
+        ...[...Array(30).keys()].map(_ => ({
+            x: new Date(2021, getRandomInt(9, 12), getRandomInt(0, 27)), y: getRandomInt(2, 5)
+        })),
+    ].sort((a, b) => a.x - b.x);
+
+    const dyspnoeaData = [
+        ...[...Array(30).keys()].map(_ => ({
+            x: new Date(2021, getRandomInt(0, 9), getRandomInt(0, 27)), y: getRandomInt(1, 3)
+        })),
+        ...[...Array(30).keys()].map(_ => ({
+            x: new Date(2021, getRandomInt(9, 12), getRandomInt(0, 27)), y: getRandomInt(4, 6)
+        })),
+    ].sort((a, b) => a.x - b.x);
+
     return (
         <div className={classes.root}>
             <Container maxWidth="sm" className={classes.header}>
@@ -72,6 +90,21 @@ export default function Home() {
                     showThreeStandardDeviations={false}
                     domain={{ y: [1, 5] }}
                 />
+                <br />
+                <RateChart
+                    title="Wellbeing"
+                    data={wellbeingData}
+                    showThreeStandardDeviations={false}
+                    domain={{ y: [1, 10] }}
+                />
+                <br />
+                <RateChart
+                    title="MRC dyspnoea scale"
+                    data={sputumColourData}
+                    showThreeStandardDeviations={false}
+                    domain={{ y: [1, 5] }}
+                />
+                <br />
             </Container>
         </div >
     )
