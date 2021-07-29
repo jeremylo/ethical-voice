@@ -179,6 +179,12 @@ class Speech extends Component {
                 .then(({ text }) => {
                     this.handleResults(text);
                     return this.asrHandler.reset();
+                })
+                .catch(() => {
+                    this.setState({
+                        isRecordButtonDisabled: true,
+                        appStatus: STATUSES.ERROR,
+                    });
                 });
         });
     }
