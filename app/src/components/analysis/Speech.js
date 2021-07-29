@@ -1,7 +1,7 @@
 import { Box, Button, CircularProgress, Paper, Typography, withStyles } from '@material-ui/core';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { Alert, AlertTitle } from '@material-ui/lab';
-import { Component, createRef, default as React } from 'react';
+import { Component, default as React } from 'react';
 import { syllable } from 'syllable';
 import { trackedDownload } from './kaldi/utils/downloadModel';
 import ASRHandler from './kaldi/workerWrappers/asrHandler';
@@ -40,7 +40,6 @@ class Speech extends Component {
         this.stopRecording = this.stopRecording.bind(this);
         this.loadModel = this.loadModel.bind(this);
         this.downloadModel = this.downloadModel.bind(this);
-        this.transcribe = this.transcribe.bind(this);
         this.handleResults = this.handleResults.bind(this);
 
         this.recorder = null;
@@ -50,10 +49,9 @@ class Speech extends Component {
         this.state = {
             appStatus: STATUSES.UNINITIALISED,
             showNext: false,
-            downloadProgress: 0
+            downloadProgress: 0,
+            audioBlob: null
         };
-
-        this.audio = createRef();
     }
 
     componentDidMount() {
@@ -145,8 +143,6 @@ class Speech extends Component {
         this.setState({ appStatus: STATUSES.RECORDING, isRecordButtonDisabled: false });
 
         navigator.mediaDevices.getUserMedia({ audio: true }).then((microphone) => {
-            this.audio.srcObject = microphone;
-
             this.recorder = window.RecordRTC(microphone, {
                 type: 'audio',
                 mimeType: 'audio/webm',
@@ -175,28 +171,20 @@ class Speech extends Component {
         this.recorder.stopRecording(() => {
             this.recorder.microphone.stop();
             const blob = this.recorder.getBlob();
-
-            this.audio.srcObject = null;
-            this.audio.src = URL.createObjectURL(blob);
-
-            blob.arrayBuffer().then(this.transcribe);
+            this.setState({ audioBlob: blob });
+            blob.arrayBuffer()
+                .then((buffer) =>
+                    this.asrHandler.process(new Int16Array(buffer)) // PCM
+                )
+                .then(({ text }) => {
+                    this.handleResults(text);
+                    return this.asrHandler.reset();
+                });
         });
-
     }
 
-    transcribe(buffer) {
-        console.log(buffer);
-        const pcm = new Int16Array(buffer);
-        console.log(pcm);
-        this.asrHandler.process(pcm)
-            .then(({ text }) => {
-                this.handleResults(text);
-                return this.asrHandler.reset();
-            });
-    }
-
-    handleResults(text) {
-        const words = text.split(/\s+/).filter((w) => w.length > 0);
+    handleResults(transcription) {
+        const words = transcription.split(/\s+/).filter((w) => w.length > 0);
 
         const durationInMinutes = this.props.duration / 60;
         const wordsPerMinute = round2dp(words.length / durationInMinutes);
@@ -205,16 +193,19 @@ class Speech extends Component {
 
         console.log({ durationInMinutes, wordsPerMinute, syllables, syllablesPerMinute, wordSpeech: words.length, words: words.join(" ") });
 
-        const results = { wordsPerMinute, syllablesPerMinute };
+        this.setResults({
+            audioBlob: this.state.audioBlob,
+            wordsPerMinute,
+            syllablesPerMinute,
+            transcription: words.join(" "),
+            duration: this.props.duration
+        });
 
         this.setState({
             isRecordButtonDisabled: false,
             appStatus: STATUSES.STANDBY,
-            showNext: true,
-            results
+            showNext: true
         });
-
-        this.setResults(results);
     }
 
     render() {
@@ -273,12 +264,6 @@ class Speech extends Component {
                 {this.state.showNext && <Box textAlign='center'>
                     <Button variant="contained" color="primary" onClick={this.handleNext} endIcon={<KeyboardArrowRightIcon />}>Next</Button>
                 </Box>}
-
-
-                <button disabled={this.state.recording} onClick={this.startRecording}>Start recording</button>
-                <button disabled={!this.state.recording} onClick={this.stopRecording}>Stop recording</button>
-                <br />
-                <audio ref={audio => { this.audio = audio }} controls autoPlay playsInline></audio>
             </Paper>
         );
     }
