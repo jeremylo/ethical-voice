@@ -5,6 +5,7 @@ import {
 import Analyse from './components/Analyse';
 import Home from './components/Home';
 import Layout from './components/Layout';
+import Results from './components/Results';
 import Settings from './components/Settings';
 
 
@@ -18,7 +19,7 @@ function App() {
               <Analyse />
             </Route>
             <Route path="/results">
-              Results page
+              <Results />
             </Route>
             <Route path="/settings">
               <Settings />
