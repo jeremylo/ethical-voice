@@ -18,7 +18,7 @@ const steps = [
         step: (step, handleNext, setResults) => <Welcome handleNext={handleNext} />
     },
     {
-        key: 'count',
+        key: 'speech',
         step: (step, handleNext, setResults) => <Count handleNext={handleNext} setResults={setResults} duration={10} />
     },
     {

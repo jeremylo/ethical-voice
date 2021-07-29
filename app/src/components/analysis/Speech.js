@@ -191,7 +191,7 @@ class Speech extends Component {
         const syllables = words.map(syllable).reduce((a, b) => a + b, 0);
         const syllablesPerMinute = round2dp(syllables / durationInMinutes);
 
-        console.log({ durationInMinutes, wordsPerMinute, syllables, syllablesPerMinute, wordSpeech: words.length, words: words.join(" ") });
+        console.log({ syllables, wordCount: words.length, words: words.join(" ") });
 
         this.setResults({
             audioBlob: this.state.audioBlob,
@@ -204,7 +204,11 @@ class Speech extends Component {
         this.setState({
             isRecordButtonDisabled: false,
             appStatus: STATUSES.STANDBY,
-            showNext: true
+            showNext: true,
+            results: {
+                wordsPerMinute,
+                syllablesPerMinute,
+            }
         });
     }
 
