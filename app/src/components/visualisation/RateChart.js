@@ -48,10 +48,23 @@ function calculateCumulativeStatistics(data) {
         });
     }
 
+    upperStddevData.shift();
+    lowerStddevData.shift();
+    tripleUpperStddevData.shift();
+    tripleLowerStddevData.shift();
+
     return { upperStddevData, meanData, lowerStddevData, tripleUpperStddevData, tripleLowerStddevData };
 }
 
-export default function RateChart({ title, data, showThreeStandardDeviations, domain }) {
+export default function RateChart({
+    title,
+    data,
+    domain,
+    showUpperStddev,
+    showLowerStddev,
+    showUpper3Stddev,
+    showLower3Stddev,
+}) {
     const [zoomDomain, setZoomDomain] = useState({});
     const { upperStddevData, meanData, lowerStddevData, tripleUpperStddevData, tripleLowerStddevData } = calculateCumulativeStatistics(data);
 
@@ -78,22 +91,24 @@ export default function RateChart({ title, data, showThreeStandardDeviations, do
                 <VictoryLabel text={title} x={225} y={30} textAnchor="middle" />
 
                 {/* "Ground truth" +/- std devs */}
-                <VictoryLine
+
+                {showUpperStddev && <VictoryLine
                     interpolation="catmullRom" data={upperStddevData}
                     style={{ data: { stroke: "#fed8b1" } }}
-                />
-                <VictoryLine
+                />}
+
+                {showLowerStddev && <VictoryLine
                     interpolation="catmullRom" data={lowerStddevData}
                     style={{ data: { stroke: "#fed8b1" } }}
-                />
+                />}
 
-                {showThreeStandardDeviations &&
+                {showUpper3Stddev &&
                     <VictoryLine
                         interpolation="catmullRom" data={tripleUpperStddevData}
                         style={{ data: { stroke: "#ffcccb" } }}
                     />
                 }
-                {showThreeStandardDeviations &&
+                {showLower3Stddev &&
                     <VictoryLine
                         interpolation="catmullRom" data={tripleLowerStddevData}
                         style={{ data: { stroke: "#ffcccb" } }}
