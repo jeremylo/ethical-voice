@@ -264,8 +264,9 @@ class Speech extends Component {
                     <div className={classes.resultBox}>
                         <Alert severity="success">
                             <AlertTitle>Results</AlertTitle>
-                            <strong>Syllables per minute</strong>: {this.state.results.syllablesPerMinute}<br />
-                            <strong>Words per minute</strong>: {this.state.results.wordsPerMinute}
+                            <strong>Syllables per minute</strong>: {this.state.results.syllablesPerMinute}
+                            {/* <br />
+                            <strong>Words per minute</strong>: {this.state.results.wordsPerMinute} */}
                         </Alert>
                         <br />
                     </div>
