@@ -26,7 +26,7 @@ function calculateCumulativeStatistics(data) {
 
         // Standard deviation
         lastWorkData = workData;
-        workData = workData + (data[i].y - workData) / (i + 1);
+        workData += (data[i].y - workData) / (i + 1);
         S += (data[i].y - lastWorkData) * (data[i].y - workData);
 
         let stddev = Math.sqrt(S / i);

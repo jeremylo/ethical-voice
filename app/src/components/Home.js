@@ -34,8 +34,6 @@ const data = [
     ...[...Array(20).keys()].map(generateFakeGoodDatum),
     ...[...Array(1).keys()].map(generateFakeBadDatum),
 ].sort((a, b) => a.createdAt - b.createdAt);
-
-console.log(data);
 // End getting dummy data
 
 
