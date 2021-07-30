@@ -10,12 +10,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Welcome({ handleNext, tests, selectTest, selectDuration, sharingEnabled }) {
-
-    let possibleDurations = {};
-    for (let t of tests) {
-        possibleDurations[t.id] = t.possibleDurations;
-    }
-
     const classes = useStyles();
 
     const [test, setTest] = useState('');
@@ -27,10 +21,6 @@ export default function Welcome({ handleNext, tests, selectTest, selectDuration,
     const handleDurationChange = (event) => {
         setDuration(event.target.value);
     };
-
-    if (test) {
-        console.log(tests.find(x => x.id === test));
-    }
 
     return (
         <Paper square elevation={0}>
@@ -50,7 +40,9 @@ export default function Welcome({ handleNext, tests, selectTest, selectDuration,
                     onChange={handleTestChange}
                     label="Speaking test"
                 >
-                    {tests.map(test => <MenuItem key={test.id} value={test.id}>{test.title}</MenuItem>)}
+                    {Object.keys(tests).map(id => <MenuItem
+                        key={id} value={id}
+                    >{tests[id].title}</MenuItem>)}
                 </Select>
             </FormControl>
 
@@ -64,7 +56,7 @@ export default function Welcome({ handleNext, tests, selectTest, selectDuration,
                     label="Speaking duration"
                 >
                     {test !== '' &&
-                        (possibleDurations[test] ?? [30]).map(d => <MenuItem key={d} value={d}>{d} seconds</MenuItem>)
+                        (tests[test].possibleDurations ?? [30]).map(d => <MenuItem key={d} value={d}>{d} seconds</MenuItem>)
                     }
                 </Select>
             </FormControl>
@@ -82,8 +74,8 @@ export default function Welcome({ handleNext, tests, selectTest, selectDuration,
                     variant="contained"
                     color="primary"
                     onClick={() => {
-                        setTest(test);
-                        setDuration(duration);
+                        selectTest(test);
+                        selectDuration(duration);
                         handleNext();
                     }}
                     endIcon={<KeyboardArrowRightIcon />}

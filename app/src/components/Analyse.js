@@ -13,14 +13,20 @@ import Wellbeing from "./analysis/Wellbeing";
 //     <Button variant="contained" color="primary" onClick={handleNext}>Next</Button>
 // </>;
 
-const defaultTests = [
-    {
-        id: 0,
+const defaultTests = {
+    1: {
+        id: 1,
         possibleDurations: [10, 30, 60, 90, 120],
         title: "Counting numbers",
         instruction: "Please count out loud up from one clearly at a fast but comfortable speaking pace until the timer runs out."
-    }
-];
+    },
+    2: {
+        id: 2,
+        possibleDurations: [10, 30, 60, 90, 120],
+        title: "Repeating hippopotamus",
+        instruction: "Please repeatedly say 'hippopotamus' at a fast but comfortable speaking pace until the timer runs out."
+    },
+};
 
 export default class Analyse extends React.Component {
 
@@ -40,10 +46,7 @@ export default class Analyse extends React.Component {
     }
 
     selectTest(selectedTest) {
-        this.setState(state => ({
-            selectedTest,
-            selectedDuration: state.tests.possibleDurations[0] ?? 30
-        }))
+        this.setState({ selectedTest });
     }
 
     selectDuration(selectedDuration) {
@@ -54,7 +57,9 @@ export default class Analyse extends React.Component {
         fetch('/api/tests')
             .then(response => response.json())
             .then(tests => {
-                this.setState({ tests });
+                if (Object.keys(tests).length > 0) {
+                    this.setState({ tests });
+                }
             })
             .catch(() => {
                 this.setState({ tests: defaultTests });
@@ -85,7 +90,7 @@ export default class Analyse extends React.Component {
 
                     <Alert severity="info" icon={false}>
                         <AlertTitle>Task</AlertTitle>
-                        <Typography>{this.state.tests[this.state.selectedTest].instruction}</Typography>
+                        <Typography>{this.state.tests[this.state.selectedTest] ? this.state.tests[this.state.selectedTest].instruction : "Error."}</Typography>
                     </Alert>
                 </Speech>
             },
