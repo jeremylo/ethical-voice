@@ -1,7 +1,8 @@
 import { Paper } from '@material-ui/core';
 import { useState } from 'react';
-import { VictoryChart, VictoryLabel, VictoryLine, VictoryScatter, VictoryZoomContainer } from 'victory';
+import { VictoryChart, VictoryLabel, VictoryLine, VictoryScatter } from 'victory';
 import theme from './chartTheme';
+import { VictoryZoomContainer } from './zoom-container/';
 
 
 function calculateCumulativeStatistics(data) {
@@ -83,8 +84,8 @@ export default function RateChart({
                 containerComponent={
                     <VictoryZoomContainer
                         zoomDimension="x"
-                        zoomDomain={zoomDomain}
-                        onZoomDomainChange={setZoomDomain}
+                    //zoomDomain={zoomDomain}
+                    //onZoomDomainChange={setZoomDomain}
                     />
                 }>
 
