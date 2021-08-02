@@ -84,6 +84,14 @@ export default function Settings() {
                     />
                 </ListItem>
                 <ListItem divider button>
+                    <ListItemText
+                        primary="Sharing agreement"
+                        secondary="You have chosen to share your submissions with your senior responsible officer."
+                        aria-haspopup="true"
+                    // onClick={_ => handleOpen('outward-postcode')}
+                    />
+                </ListItem>
+                <ListItem divider button>
                     <ListItemText primary="About this app" />
                 </ListItem>
 
