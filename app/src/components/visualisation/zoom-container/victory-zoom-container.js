@@ -92,8 +92,6 @@ export const zoomContainerMixin = (base) =>
         const lastDomain = RawZoomHelpers.getLastDomain(targetProps, originalDomain);
         const { x, y } = lastDomain;
 
-        console.log({ zoomDimension, zoomDomain, originalDomain, lastDomain, RawZoomHelpers });
-
         const currentDomain = {
           x:
             zoomDimension === "y"
@@ -154,12 +152,10 @@ export const zoomContainerMixin = (base) =>
           // The user is zooming on a mobile device!
           if (pointerEventPrevDiff > 0) {
             if (curDiff > pointerEventPrevDiff) {
-              console.log("Pinch moving OUT -> Zoom in", e);
-
+              // pinch moving out, so zoom in!
               res = handlePinchZoom(e, targetProps, ctx, true, curDiff);
             } else if (curDiff < pointerEventPrevDiff) {
-              console.log("Pinch moving IN -> Zoom out", e);
-
+              // pinch moving in, so zoom out!
               res = handlePinchZoom(e, targetProps, ctx, false, curDiff);
             }
           }
