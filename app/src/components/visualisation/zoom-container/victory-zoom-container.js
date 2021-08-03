@@ -2,12 +2,52 @@ import { defaults, isFunction } from "lodash";
 import PropTypes from "prop-types";
 import React from "react";
 import {
-  Data,
+  Collection, Data,
   PropTypes as CustomPropTypes, VictoryClipContainer, VictoryContainer
 } from "victory-core";
-import ZoomHelpers from "./zoom-helpers";
+import ZoomHelpers, { RawZoomHelpers } from "./zoom-helpers";
 
 const DEFAULT_DOWNSAMPLE = 150;
+
+let pointerEventCache = {};
+let pointerEventPrevDiff = -1;
+
+const zoomScale = (currentDomain, evt, props, axis, zoomingIn, deltaPos) => {
+  const [from, to] = currentDomain;
+  const range = Math.abs(to - from);
+  const minimumZoom = props.minimumZoom && props.minimumZoom[axis];
+
+  const sign = !zoomingIn ? 1 : -1;
+  // eslint-disable-next-line no-magic-numbers
+  const delta = Math.min(Math.abs(deltaPos / 300), 0.5);
+  const factor = Math.abs(1 + sign * delta);
+
+  if (minimumZoom && range <= minimumZoom && factor < 1) {
+    return currentDomain;
+  }
+
+  const [fromBound, toBound] = RawZoomHelpers.getDomain(props)[axis];
+  const percent = RawZoomHelpers.getScalePercent(evt, props, axis);
+  const point = factor * from + percent * (factor * range);
+  const minDomain = RawZoomHelpers.getMinimumDomain(point, props, axis);
+  const [newMin, newMax] = RawZoomHelpers.getScaledDomain(
+    currentDomain,
+    factor,
+    percent
+  );
+  const newDomain = [
+    newMin > fromBound && newMin < toBound ? newMin : fromBound,
+    newMax < toBound && newMax > fromBound ? newMax : toBound
+  ];
+  const domain =
+    Math.abs(minDomain[1] - minDomain[0]) >
+      Math.abs(newDomain[1] - newDomain[0])
+      ? minDomain
+      : newDomain;
+  return Collection.containsDates([fromBound, toBound])
+    ? [new Date(domain[0]), new Date(domain[1])]
+    : domain;
+}
 
 export const zoomContainerMixin = (base) =>
   class VictoryZoomContainer extends base {
@@ -41,6 +81,104 @@ export const zoomContainerMixin = (base) =>
     };
 
     static defaultEvents = (props) => {
+
+      const onPointerDown = (e, targetProps) => {
+        pointerEventCache[e.pointerId] = e;
+      };
+
+      const handlePinchZoom = (evt, targetProps, ctx, zoomingIn, deltaPos) => {
+        const { onZoomDomainChange, zoomDimension, zoomDomain } = targetProps;
+        const originalDomain = RawZoomHelpers.getDomain(targetProps);
+        const lastDomain = RawZoomHelpers.getLastDomain(targetProps, originalDomain);
+        const { x, y } = lastDomain;
+
+        console.log({ zoomDimension, zoomDomain, originalDomain, lastDomain, RawZoomHelpers });
+
+        const currentDomain = {
+          x:
+            zoomDimension === "y"
+              ? lastDomain.x
+              : zoomScale(x, evt, targetProps, "x", zoomingIn, deltaPos),
+          y:
+            zoomDimension === "x"
+              ? lastDomain.y
+              : zoomScale(y, evt, targetProps, "y", zoomingIn, deltaPos)
+        };
+        const resumeAnimation = RawZoomHelpers.handleAnimation(ctx);
+
+        const zoomActive =
+          zoomingIn || // if zoomming in or
+          //   if zoomActive is already set AND user hasn't zoommed out all the way
+          (targetProps.zoomActive &&
+            !RawZoomHelpers.checkDomainEquality(originalDomain, lastDomain));
+
+        const mutatedProps = {
+          currentDomain,
+          originalDomain,
+          cachedZoomDomain: zoomDomain,
+          parentControlledProps: ["domain"],
+          panning: false,
+          zoomActive
+        };
+
+        if (isFunction(onZoomDomainChange)) {
+          onZoomDomainChange(
+            currentDomain,
+            defaults({}, mutatedProps, targetProps)
+          );
+        }
+
+        return [
+          {
+            target: "parent",
+            callback: resumeAnimation,
+            mutation: () => mutatedProps
+          }
+        ];
+      }
+
+      const onPointerMove = (e, targetProps, eventKey, ctx) => {
+        pointerEventCache[e.pointerId] = e;
+
+        if (!targetProps.allowZoom) {
+          return undefined;
+        }
+
+        let res;
+
+        // Two pointers are down, so check for pinch gestures.
+        if (Object.keys(pointerEventCache).length === 2) {
+          let [a, b] = Object.values(pointerEventCache)
+          let curDiff = Math.abs(a.clientX - b.clientX); // distance between the pointers
+
+          // The user is zooming on a mobile device!
+          if (pointerEventPrevDiff > 0) {
+            if (curDiff > pointerEventPrevDiff) {
+              console.log("Pinch moving OUT -> Zoom in", e);
+
+              res = handlePinchZoom(e, targetProps, ctx, true, curDiff);
+            } else if (curDiff < pointerEventPrevDiff) {
+              console.log("Pinch moving IN -> Zoom out", e);
+
+              res = handlePinchZoom(e, targetProps, ctx, false, curDiff);
+            }
+          }
+
+          // Cache the distance for the next move event
+          pointerEventPrevDiff = curDiff;
+        }
+
+        return res;
+      };
+
+      const onPointerUp = (e, targetProps) => {
+        delete pointerEventCache[e.pointerId];
+
+        if (pointerEventCache.length < 2) {
+          pointerEventPrevDiff = -1;
+        }
+      };
+
       return [
         {
           target: "parent",
@@ -90,6 +228,9 @@ export const zoomContainerMixin = (base) =>
               //evt.preventDefault();
               return ZoomHelpers.onMouseMove(evt, targetProps, eventKey, ctx);
             },
+            onPointerDown,
+            onPointerMove,
+            onPointerUp,
             ...(props.disable || !props.allowZoom
               ? {}
               : { onWheel: ZoomHelpers.onWheel })

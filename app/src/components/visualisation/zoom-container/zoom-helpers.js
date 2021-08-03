@@ -361,7 +361,7 @@ const RawZoomHelpers = {
 
 export { RawZoomHelpers }; // allow victory-native to extend these helpers
 
-export default {
+const defaultExport = {
   checkDomainEquality: RawZoomHelpers.checkDomainEquality.bind(RawZoomHelpers),
   onMouseDown: RawZoomHelpers.onMouseDown.bind(RawZoomHelpers),
   onMouseUp: RawZoomHelpers.onMouseUp.bind(RawZoomHelpers),
@@ -377,3 +377,5 @@ export default {
     { leading: true, trailing: false }
   )
 };
+
+export default defaultExport;

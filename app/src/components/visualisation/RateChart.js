@@ -1,5 +1,4 @@
 import { Paper } from '@material-ui/core';
-import { useState } from 'react';
 import { VictoryChart, VictoryLabel, VictoryLine, VictoryScatter } from 'victory';
 import theme from './chartTheme';
 import { VictoryZoomContainer } from './zoom-container/';
@@ -66,7 +65,7 @@ export default function RateChart({
     showUpper3Stddev,
     showLower3Stddev,
 }) {
-    const [zoomDomain, setZoomDomain] = useState({});
+    // const [zoomDomain, setZoomDomain] = useState({});
     const { upperStddevData, meanData, lowerStddevData, tripleUpperStddevData, tripleLowerStddevData } = calculateCumulativeStatistics(data);
 
     return (
