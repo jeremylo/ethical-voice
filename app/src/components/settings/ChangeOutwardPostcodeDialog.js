@@ -5,11 +5,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import React from 'react';
+import { isValidOutwardPostcode } from '../utils';
 
-
-function isValidOutwardPostcode(outwardPostcode) {
-    return /^[A-Z]{1,2}[0-9][A-Z0-9]?$/.test(String(outwardPostcode).toUpperCase());
-}
 
 const useStyles = makeStyles({
     paper: {
