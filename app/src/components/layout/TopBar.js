@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
 import React from 'react';
 import { Link } from "react-router-dom";
-import { UserContext } from '../../contexts/user-context';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function TopBar() {
+export default function TopBar({ loggedIn }) {
     const classes = useStyles();
 
     return <div className={classes.root}>
@@ -26,11 +25,9 @@ export default function TopBar() {
                 <Typography variant="h6" className={classes.title}>
                     My Data
                 </Typography>
-                <UserContext.Consumer>
-                    {({ loggedIn }) => loggedIn && <IconButton color="inherit" aria-label="settings" component={Link} to="/settings" value="settings">
-                        <SettingsIcon />
-                    </IconButton>}
-                </UserContext.Consumer>
+                {loggedIn && <IconButton color="inherit" aria-label="settings" component={Link} to="/settings" value="settings">
+                    <SettingsIcon />
+                </IconButton>}
             </Toolbar>
         </AppBar>
     </div>;

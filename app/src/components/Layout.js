@@ -8,6 +8,7 @@ import React from 'react';
 import {
     Link, useLocation
 } from "react-router-dom";
+import { useAuth } from '../auth/use-auth';
 import TopBar from './layout/TopBar';
 
 
@@ -27,10 +28,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Layout(props) {
     const classes = useStyles();
     const value = useLocation().pathname.replace("/", "");
+    const auth = useAuth();
 
     return (
         <>
-            <TopBar />
+            <TopBar loggedIn={!!auth.user} />
             <div className={classes.mainContainer}>
                 {props.children}
             </div>
