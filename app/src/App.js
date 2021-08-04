@@ -2,6 +2,7 @@ import { createTheme, ThemeProvider } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { AuthProvider } from './auth/use-auth';
 import Analyse from './components/Analyse';
 import Home from './components/Home';
 import Layout from './components/Layout';
@@ -23,31 +24,33 @@ function App() {
     <Router>
       <div className="App">
         <ThemeProvider theme={theme}>
-          <Switch>
-            { /* Logged out routes */}
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
+          <AuthProvider>
+            <Switch>
+              { /* Logged out routes */}
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/register">
+                <Register />
+              </Route>
 
-            { /* Logged in routes */}
-            <Layout>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route path="/analyse">
-                <Analyse />
-              </Route>
-              <Route path="/results">
-                <Results />
-              </Route>
-              <Route path="/settings">
-                <Settings />
-              </Route>
-            </Layout>
-          </Switch>
+              { /* Logged in routes */}
+              <Layout>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route path="/analyse">
+                  <Analyse />
+                </Route>
+                <Route path="/results">
+                  <Results />
+                </Route>
+                <Route path="/settings">
+                  <Settings />
+                </Route>
+              </Layout>
+            </Switch>
+          </AuthProvider>
         </ThemeProvider>
       </div>
     </Router>
