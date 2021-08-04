@@ -1,17 +1,18 @@
-import { InputLabel } from '@material-ui/core';
+import { Grid, InputLabel, Link as MuiLink } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { AccountCircleRounded } from '@material-ui/icons';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Copyright from './layout/Copyright';
 import TopBar from './layout/TopBar';
 import { isValidEmail, isValidPassword, isValidReferenceId } from './utils';
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -76,7 +77,6 @@ export default function Register() {
     return (<>
         <TopBar />
         <Container component="main" maxWidth="xs">
-            <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     <AccountCircleRounded />
@@ -93,7 +93,7 @@ export default function Register() {
                         margin="normal"
                         required
                         fullWidth
-                        id="refid"
+                        id="registration-refid"
                         label="Reference ID"
                         name="refid"
                         autoComplete="off"
@@ -108,7 +108,7 @@ export default function Register() {
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
+                        id="registration-email"
                         label="Email address"
                         name="email"
                         autoComplete="email"
@@ -124,7 +124,7 @@ export default function Register() {
                         name="password"
                         label="Password"
                         type="password"
-                        id="password"
+                        id="registration-password"
                         autoComplete="current-password"
                         value={password}
                         onChange={handlePasswordChange}
@@ -140,7 +140,15 @@ export default function Register() {
                     >
                         Register
                     </Button>
-
+                    <Grid container>
+                        <Grid item>
+                            <MuiLink
+                                variant="body2"
+                                component={Link}
+                                to="/login"
+                            >Already have an account? Login</MuiLink>
+                        </Grid>
+                    </Grid>
                 </form>
             </div>
             <Box mt={8}>

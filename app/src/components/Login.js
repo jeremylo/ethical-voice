@@ -3,14 +3,14 @@ import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useAuth } from '../auth/use-auth';
 import Copyright from './layout/Copyright';
 import TopBar from './layout/TopBar';
 import { isValidEmail } from './utils';
@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
     const classes = useStyles();
+    const history = useHistory();
+    const location = useLocation();
+    const auth = useAuth();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -55,11 +58,23 @@ export default function Login() {
         helperText: "Please enter a valid email."
     } : {};
 
+    const handleLogin = async () => {
+        const user = await auth.login(email, password);
+
+        console.log(user);
+
+        if (user) {
+            const { from } = location.state || { from: { pathname: "/" } };
+            history.replace(from);
+        } else {
+            console.log("OOPS!");
+        }
+    };
+
     return (
         <>
             <TopBar />
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>
                         <LockOutlinedIcon />
@@ -96,12 +111,13 @@ export default function Login() {
                             onChange={handlePasswordChange}
                         />
                         <Button
-                            type="submit"
+                            type="button"
                             fullWidth
                             variant="contained"
                             color="primary"
                             className={classes.submit}
                             disabled={!email || !password || !isValidEmail}
+                            onClick={handleLogin}
                         >
                             Log in
                         </Button>
