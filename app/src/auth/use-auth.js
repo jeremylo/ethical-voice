@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import authenticator from "./authenticator";
 
 
@@ -16,6 +16,15 @@ export const useAuth = () => {
 // Provider hook that creates auth object and handles state
 function useAuthProvider() {
     const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        authenticator
+            .getLoggedInUser()
+            .then((user) => {
+                console.log(user);
+                setUser(user);
+            });
+    }, [setUser])
 
     const login = (email, password) => {
         return authenticator

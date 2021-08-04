@@ -44,6 +44,16 @@ app.get('/api/tests', (req, res) => {
     }
 })
 
+app.get('/api/user', (req, res) => {
+    res.status(200);
+    res.json({
+        refId: 1234567890,
+        email: 'test@example.com',
+        outwardPostcode: 'SW1',
+        sharing: true
+    });
+});
+
 app.listen(port, () => {
-    console.log(`App listening on port ${port}`)
-})
+    console.log(`App listening on port ${port}`);
+});

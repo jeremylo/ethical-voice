@@ -6,11 +6,13 @@ const dummyUser = {
 };
 
 const authenticator = {
-    isLoggedIn: false,
+
+    async getLoggedInUser() {
+        return await (await fetch('/api/user')).json();
+    },
 
     async loginWithCredentials(email, password) {
         if (email === 'test@example.com' && password === 'qwerty') {
-            authenticator.isLoggedIn = true;
             return dummyUser;
         }
     },
@@ -20,7 +22,7 @@ const authenticator = {
     },
 
     async logout() {
-        authenticator.isLoggedIn = false;
+
     }
 };
 
