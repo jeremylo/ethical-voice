@@ -42,7 +42,6 @@ function Loading() {
 
 function Routes() {
   const auth = useAuth();
-
   if (auth.user === null) {
     return <Loading />;
   }
@@ -77,18 +76,12 @@ function Routes() {
 }
 
 
-function App() {
-  return (
-    <>
-      <div className="App">
-        <ThemeProvider theme={theme}>
-          <AuthProvider>
-            <Routes />
-          </AuthProvider>
-        </ThemeProvider>
-      </div>
-    </>
-  );
+export default function App() {
+  return <div className="App">
+    <ThemeProvider theme={theme}>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
+    </ThemeProvider>
+  </div>;
 }
-
-export default App;

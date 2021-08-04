@@ -1,4 +1,4 @@
-import { Link as MuiLink } from '@material-ui/core';
+import { Link as MuiLink, Snackbar } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -8,12 +8,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import MuiAlert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/use-auth';
 import Copyright from './layout/Copyright';
 import TopBar from './layout/TopBar';
 import { isValidEmail } from './utils';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -41,6 +46,7 @@ export default function Login() {
     const location = useLocation();
     const auth = useAuth();
 
+    const [open, setOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -67,8 +73,16 @@ export default function Login() {
             const { from } = location.state || { from: { pathname: "/" } };
             history.replace(from);
         } else {
-            console.log("OOPS!");
+            setOpen(true);
         }
+    };
+
+    // Snackbar
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
     };
 
     return (
@@ -134,6 +148,12 @@ export default function Login() {
                             </Grid>
                         </Grid>
                     </form>
+
+                    <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+                        <Alert onClose={handleClose} severity="error">
+                            You could not be logged in due to an incorrect email or password. Please double-check and try again.
+                        </Alert>
+                    </Snackbar>
                 </div>
                 <Box mt={8}>
                     <Copyright />
