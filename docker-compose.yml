@@ -14,19 +14,12 @@ services:
 
   db:
     image: mariadb:10.6
-    restart: always
     environment:
       - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
       - MARIADB_USER=${MARIADB_USER}
       - MARIADB_PASSWORD=${MARIADB_PASSWORD}
 
-  phpmyadmin:
-    image: phpmyadmin
-    restart: always
+  adminer:
+    image: adminer
     ports:
       - 8080:8080
-    environment:
-      - PMA_ARBITRARY=1
-      - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
-      - MYSQL_USER=${MARIADB_USER}
-      - MYSQL_PASSWORD=${MARIADB_PASSWORD}
