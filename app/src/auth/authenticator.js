@@ -8,7 +8,7 @@ const dummyUser = {
 const authenticator = {
 
     async getLoggedInUser() {
-        return await (await fetch('/api/user')).json();
+        return await (await fetch('/api/auth/user')).json();
     },
 
     async loginWithCredentials(email, password) {
