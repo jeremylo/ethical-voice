@@ -1,8 +1,9 @@
 import { createTheme, ThemeProvider } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors';
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import PrivateRoute from "./auth/PrivateRoute";
+import PublicOnlyRoute from './auth/PublicOnlyRoute';
 import { AuthProvider } from './auth/use-auth';
 import Analyse from './components/Analyse';
 import Home from './components/Home';
@@ -28,12 +29,12 @@ function App() {
           <AuthProvider>
             <Switch>
               { /* Logged out routes */}
-              <Route path="/login">
+              <PublicOnlyRoute path="/login">
                 <Login />
-              </Route>
-              <Route path="/register">
+              </PublicOnlyRoute>
+              <PublicOnlyRoute path="/register">
                 <Register />
-              </Route>
+              </PublicOnlyRoute>
 
               { /* Logged in routes */}
               <Layout>
