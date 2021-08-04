@@ -2,6 +2,7 @@ import { createTheme, ThemeProvider } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import PrivateRoute from "./auth/PrivateRoute";
 import { AuthProvider } from './auth/use-auth';
 import Analyse from './components/Analyse';
 import Home from './components/Home';
@@ -36,18 +37,18 @@ function App() {
 
               { /* Logged in routes */}
               <Layout>
-                <Route exact path="/">
+                <PrivateRoute exact path="/">
                   <Home />
-                </Route>
-                <Route path="/analyse">
+                </PrivateRoute>
+                <PrivateRoute path="/analyse">
                   <Analyse />
-                </Route>
-                <Route path="/results">
+                </PrivateRoute>
+                <PrivateRoute path="/results">
                   <Results />
-                </Route>
-                <Route path="/settings">
+                </PrivateRoute>
+                <PrivateRoute path="/settings">
                   <Settings />
-                </Route>
+                </PrivateRoute>
               </Layout>
             </Switch>
           </AuthProvider>
