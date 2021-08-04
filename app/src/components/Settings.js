@@ -2,6 +2,8 @@
 
 import { Container, Divider, List, ListItem, ListItemText, makeStyles, Typography } from '@material-ui/core';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useAuth } from '../auth/use-auth';
 import ChangeEmailDialog from './settings/ChangeEmailDialog';
 import ChangeOutwardPostcodeDialog from './settings/ChangeOutwardPostcodeDialog';
 import ChangePasswordDialog from './settings/ChangePasswordDialog';
@@ -45,6 +47,9 @@ export default function Settings() {
 
         setOpen(null);
     };
+
+    const history = useHistory();
+    const auth = useAuth();
 
     return (
         <div className={classes.root}>
@@ -93,6 +98,15 @@ export default function Settings() {
                 </ListItem>
                 <ListItem divider button>
                     <ListItemText primary="About this app" />
+                </ListItem>
+                <ListItem divider button>
+                    <ListItemText
+                        primary="Log out"
+                        onClick={_ => {
+                            auth.logout();
+                            history.push("/");
+                        }}
+                    />
                 </ListItem>
 
                 <ChangeEmailDialog
