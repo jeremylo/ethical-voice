@@ -34,6 +34,9 @@ function App() {
 
             { /* Logged in routes */}
             <Layout>
+              <Route exact path="/">
+                <Home />
+              </Route>
               <Route path="/analyse">
                 <Analyse />
               </Route>
@@ -42,9 +45,6 @@ function App() {
               </Route>
               <Route path="/settings">
                 <Settings />
-              </Route>
-              <Route path="/">
-                <Home />
               </Route>
             </Layout>
           </Switch>
