@@ -1,3 +1,13 @@
+async function fetchPost(url, data) {
+    return await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    });
+}
+
 const authenticator = {
 
     async getLoggedInUser() {
@@ -11,14 +21,7 @@ const authenticator = {
     },
 
     async loginWithCredentials(email, password) {
-        const res = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password })
-        });
-
+        const res = await fetchPost('/api/auth/login', { email, password });
         if (res.status !== 200) {
             return false;
         }
@@ -40,38 +43,17 @@ const authenticator = {
     },
 
     async setPassword(oldPassword, newPassword) {
-        const res = await fetch('/api/auth/user/password', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ oldPassword, newPassword })
-        });
-
+        const res = await fetchPost('/api/auth/user/password', { oldPassword, newPassword });
         return res.status === 200;
     },
 
     async setOutwardPostcode(outwardPostcode) {
-        const res = await fetch('/api/auth/user/outwardpostcode', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ outwardPostcode })
-        });
-
+        const res = await fetchPost('/api/auth/user/outwardpostcode', { outwardPostcode });
         return res.status === 200;
     },
 
     async setSharing(sharing) {
-        const res = await fetch('/api/auth/user/sharing', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ sharing: !!sharing })
-        });
-
+        const res = await fetchPost('/api/auth/user/sharing', { sharing: !!sharing });
         return res.status === 200;
     },
 };
