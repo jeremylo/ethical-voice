@@ -1,0 +1,1 @@
+user apiworker on +@all -DEBUG allkeys >PLEASE_CHANGE_THIS_DEFAULT_PASSWORD
