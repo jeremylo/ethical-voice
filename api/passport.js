@@ -21,11 +21,11 @@ passport.use(new LocalStrategy(
         try {
             const user = await findUserByEmail(email);
             if (!(await bcrypt.compare(password, user.password))) {
-                throw new Error("Incorrect password.")
+                throw new Error("Incorrect email or password.")
             }
             return done(null, user);
         } catch (e) {
-            return done(e, false, { message: 'Incorrect email or password.' });
+            return done(e, false);
         }
     }
 ));

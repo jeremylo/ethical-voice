@@ -15,6 +15,7 @@ services:
       - MARIADB_PASSWORD=${MARIADB_PASSWORD}
       - MARIADB_HOST=${MARIADB_HOST}
       - MARIADB_DATABASE=${MARIADB_DATABASE}
+      - COOKIE_SECRET=${COOKIE_SECRET}
 
   db:
     image: mariadb:10.6
