@@ -5,7 +5,8 @@ const pool = mariadb.createPool({
     user: process.env.MARIADB_USER,
     password: process.env.MARIADB_PASSWORD,
     database: process.env.MARIADB_DATABASE,
-    connectionLimit: 10
+    connectionLimit: 100,
+    compress: true
 });
 
 export default pool;

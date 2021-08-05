@@ -1,15 +1,29 @@
 import Router from 'express';
+import pool from '../db.js';
+
+const loggedInUser = 1;
 
 const router = Router();
 
-router.get('/user', (req, res) => {
-    res.status(200);
-    res.json({
-        refId: 1234567890,
-        email: 'test@example.com',
-        outwardPostcode: 'SW1',
-        sharing: true
-    });
+router.get('/user', async (req, res) => {
+    try {
+        const conn = await pool.getConnection();
+        const user = (await conn.query("SELECT * FROM users WHERE id=? LIMIT 1", [loggedInUser]))[0];
+
+        res.status(200);
+        res.json({
+            refId: user.reference_id,
+            email: user.email,
+            outwardPostcode: user.outward_postcode,
+            sharing: user.sharing === 1
+        });
+    } catch (e) {
+        res.status(500);
+        res.json({
+            error: "User information could not be retrieved."
+        });
+    }
+
 });
 
 export default router;
