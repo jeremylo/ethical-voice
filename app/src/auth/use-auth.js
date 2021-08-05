@@ -69,39 +69,6 @@ function useAuthProvider() {
         //     });
     };
 
-    const setPassword = (oldPassword, newPassword) => {
-        return authenticator
-            .setPassword(oldPassword, newPassword)
-            .then((success) => {
-                return success;
-            })
-            .catch(() => {
-                return false;
-            });
-    };
-
-    const setOutwardPostcode = (outwardPostcode) => {
-        return authenticator
-            .setOutwardPostcode(outwardPostcode)
-            .then((success) => {
-                return success;
-            })
-            .catch(() => {
-                return false;
-            });
-    };
-
-    const setSharing = (sharing) => {
-        return authenticator
-            .setSharing(sharing)
-            .then((success) => {
-                return success;
-            })
-            .catch(() => {
-                return false;
-            });
-    };
-
     // Return the user object and auth methods
     return {
         user,
@@ -110,8 +77,8 @@ function useAuthProvider() {
         logout,
         sendPasswordResetEmail,
         confirmPasswordReset,
-        setPassword,
-        setOutwardPostcode,
-        setSharing
+        setPassword: authenticator.setPassword,
+        setOutwardPostcode: authenticator.setOutwardPostcode,
+        setSharing: authenticator.setSharing
     };
 }

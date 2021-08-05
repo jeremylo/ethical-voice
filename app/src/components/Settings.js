@@ -43,24 +43,52 @@ export default function Settings() {
 
                 case 'password':
                     const [oldPassword, newPassword] = newValue;
-                    if (auth.setPassword(oldPassword, newPassword)) {
-                        // TODO: say password updated
-                    } else {
-                        // TODO: error
-                    }
+
+                    auth.setPassword(oldPassword, newPassword)
+                        .then((successful) => {
+                            if (successful) {
+                                // TODO: say password updated!
+                                console.log("Password updated successfully");
+                            } else {
+                                throw new Error("The password could not be updated at this time.");
+                            }
+                        })
+                        .catch(() => {
+                            // TODO: show error
+                        })
+
                     break;
 
                 case 'outward-postcode':
-                    if (auth.setOutwardPostcode(newValue)) {
-                        setOutwardPostcode(newValue);
-                    } else {
-                        // TODO: error message!
-                    }
+                    auth.setOutwardPostcode(newValue)
+                        .then((successful) => {
+                            if (successful) {
+                                setOutwardPostcode(newValue);
+                            } else {
+                                throw new Error("The outward postcode could not be updated at this time.")
+                            }
+                        })
+                        .catch(() => {
+                            // TODO: display error message.
+                            console.log("Oh no!")
+                        })
                     break;
 
                 case 'sharing':
                     setSharing(newValue);
-                    auth.setSharing(newValue);
+
+                    auth.setSharing(newValue)
+                        .then((successful) => {
+                            if (successful) {
+                                // Display success
+                            } else {
+                                throw new Error("The sharing preference could not be updated at this time.")
+                            }
+                        })
+                        .catch(() => {
+                            // TODO: display error
+                            console.log("Oh no!")
+                        });
                     break;
 
                 default:
