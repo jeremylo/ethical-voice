@@ -8,13 +8,29 @@ const dummyUser = {
 const authenticator = {
 
     async getLoggedInUser() {
-        return await (await fetch('/api/auth/user')).json();
+        const res = await fetch('/api/auth/user');
+
+        if (res.status !== 200) {
+            return false;
+        }
+
+        return await res.json();
     },
 
     async loginWithCredentials(email, password) {
-        if (email === 'test@example.com' && password === 'qwerty') {
-            return dummyUser;
+        const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        if (res.status !== 200) {
+            return false;
         }
+
+        return await res.json();
     },
 
     async register(refId, email, password) {
@@ -22,7 +38,7 @@ const authenticator = {
     },
 
     async logout() {
-
+        await fetch('/api/auth/logout');
     }
 };
 

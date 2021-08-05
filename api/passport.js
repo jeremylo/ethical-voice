@@ -13,15 +13,19 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (id, done) {
     findUserById(id)
         .then((user) => done(null, user))
-        .catch(() => done("This user could not be retrieved.", null));
+        .catch(() => done("This user could not be retrieved.", false));
 });
 
 passport.use(new LocalStrategy(
+    {
+        usernameField: 'email',
+        passwordField: 'password'
+    },
     async (email, password, done) => {
         try {
             const user = await findUserByEmail(email);
             if (!(await bcrypt.compare(password, user.password))) {
-                throw new Error("Incorrect email or password.")
+                done(null, false);
             }
             return done(null, user);
         } catch (e) {

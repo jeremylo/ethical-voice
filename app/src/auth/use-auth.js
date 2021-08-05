@@ -45,6 +45,7 @@ function useAuthProvider() {
     };
 
     const logout = () => {
+        setUser(null);
         return authenticator
             .logout()
             .then(() => {

@@ -11,15 +11,18 @@ const port = 4000;
 
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(session({
     secret: process.env.COOKIE_SECRET,
+    resave: true,
     cookie: {
-        secure: true,
+        secure: "auto",
         httpOnly: true,
-        sameSite: true
+        sameSite: true,
+        expires: 604800000
     },
-    name: 'SID',
+    name: process.env.SESSION_COOKIE_NAME,
+    saveUninitialized: false,
     // rolling: true
 }));
 app.use(passport.initialize());

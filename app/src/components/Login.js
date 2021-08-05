@@ -67,8 +67,6 @@ export default function Login() {
     const handleLogin = async () => {
         const user = await auth.login(email, password);
 
-        console.log(user);
-
         if (user) {
             const { from } = location.state || { from: { pathname: "/" } };
             history.replace(from);

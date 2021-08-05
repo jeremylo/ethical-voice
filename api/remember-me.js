@@ -1,4 +1,4 @@
-import { createHash } from 'crypto';
+import { createHash, randomBytes } from 'crypto';
 import pool from './db.js';
 
 
@@ -64,13 +64,12 @@ export function consumeRememberMeToken(token, done) {
 }
 
 // Issue remember-me token
-export function issueRememberMeToken(user, done) {
-    const token = crypto.randomBytes(64).toString('base64url');
+export async function issueRememberMeToken(user, done) {
+    const token = randomBytes(64).toString('base64');
     try {
-        insertRememberMeToken(user.id, hashRememberMeToken(token));
-        return done(null, token);
+        await insertRememberMeToken(user.id, hashRememberMeToken(token));
+        return token;
     } catch (e) {
-        done(e, null);
+        throw new Error("Unable to issue a new remember-me token.");
     }
-
 }
