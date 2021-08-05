@@ -10,7 +10,9 @@ services:
       context: ./api
     ports:
       - "4000:4000"
-
+    environment:
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
 
   db:
     image: mariadb:10.6
