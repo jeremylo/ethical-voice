@@ -33,6 +33,10 @@ passport.use(new LocalStrategy(
     }
 ));
 
-passport.use(new RememberMeStrategy(consumeRememberMeToken, issueRememberMeToken));
+passport.use(new RememberMeStrategy(consumeRememberMeToken, (user, done) => {
+    issueRememberMeToken(user)
+        .then(_ => done(null, token))
+        .catch(e => done(e));
+}));
 
 export default passport;

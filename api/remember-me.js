@@ -42,7 +42,6 @@ export async function insertRememberMeToken(userId, tokenHash) {
     }
 }
 
-
 // Consume remember-me token (tokens are single-use!)
 export function consumeRememberMeToken(token, done) {
     const tokenHash = hashRememberMeToken(token);
@@ -64,7 +63,7 @@ export function consumeRememberMeToken(token, done) {
 }
 
 // Issue remember-me token
-export async function issueRememberMeToken(user, done) {
+export async function issueRememberMeToken(user) {
     const token = randomBytes(64).toString('base64');
     try {
         await insertRememberMeToken(user.id, hashRememberMeToken(token));
