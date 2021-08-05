@@ -5,12 +5,13 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon -r dotenv/config index.js dotenv_config_path=../.env",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jeremy Lo Ying Ping",
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mariadb": "^2.5.4",
     "passport-local": "^1.0.0",

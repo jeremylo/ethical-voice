@@ -5,4 +5,4 @@ WORKDIR /api
 COPY . ./
 RUN npm install --silent
 
-CMD ["npm", "start"]
+CMD ["node", "index.js"]
