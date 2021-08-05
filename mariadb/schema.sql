@@ -19,7 +19,8 @@ CREATE TABLE `sros` (
   `trusted` tinyint(3) unsigned NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
@@ -61,6 +62,8 @@ CREATE TABLE `users` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
+  UNIQUE KEY `reference_id` (`reference_id`),
+  UNIQUE KEY `email` (`email`),
   KEY `sro_id` (`sro_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`sro_id`) REFERENCES `sros` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
