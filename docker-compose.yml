@@ -25,6 +25,8 @@ services:
       - MARIADB_DATABASE=${MARIADB_DATABASE}
     volumes:
       - ./mariadb:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306" # remove this line in production!
 
   adminer:
     image: adminer
