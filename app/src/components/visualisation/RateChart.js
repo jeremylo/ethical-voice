@@ -48,11 +48,6 @@ function calculateCumulativeStatistics(data) {
         });
     }
 
-    upperStddevData.shift();
-    lowerStddevData.shift();
-    tripleUpperStddevData.shift();
-    tripleLowerStddevData.shift();
-
     return { upperStddevData, meanData, lowerStddevData, tripleUpperStddevData, tripleLowerStddevData };
 }
 
@@ -94,24 +89,24 @@ export default function RateChart({
 
                 {showUpperStddev && <VictoryLine
                     interpolation="catmullRom" data={upperStddevData}
-                    style={{ data: { stroke: "#fed8b1" } }}
+                    style={{ data: { stroke: "#fed8b1", strokeDasharray: "3,3" } }}
                 />}
 
                 {showLowerStddev && <VictoryLine
                     interpolation="catmullRom" data={lowerStddevData}
-                    style={{ data: { stroke: "#fed8b1" } }}
+                    style={{ data: { stroke: "#fed8b1", strokeDasharray: "3,3" } }}
                 />}
 
                 {showUpper3Stddev &&
                     <VictoryLine
                         interpolation="catmullRom" data={tripleUpperStddevData}
-                        style={{ data: { stroke: "#ffcccb" } }}
+                        style={{ data: { stroke: "#ffcccb", strokeDasharray: "5,5" } }}
                     />
                 }
                 {showLower3Stddev &&
                     <VictoryLine
                         interpolation="catmullRom" data={tripleLowerStddevData}
-                        style={{ data: { stroke: "#ffcccb" } }}
+                        style={{ data: { stroke: "#ffcccb", strokeDasharray: "5,5" } }}
                     />
                 }
 
