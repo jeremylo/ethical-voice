@@ -5,6 +5,7 @@ services:
       context: ./app
     ports:
       - "3000:3000"
+
   api:
     build:
       context: ./api
@@ -18,6 +19,16 @@ services:
       - COOKIE_SECRET=${COOKIE_SECRET}
       - SESSION_COOKIE_NAME=${SESSION_COOKIE_NAME}
       - REMEMBER_ME_COOKIE_NAME=${REMEMBER_ME_COOKIE_NAME}
+
+  redis:
+    build:
+      context: ./redis
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    volumes:
+      - redis-data:/data
 
   db:
     image: mariadb:10.6
@@ -36,3 +47,6 @@ services:
     image: adminer
     ports:
       - 8080:8080
+
+volumes:
+  redis-data:

@@ -12,12 +12,14 @@
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "connect-redis": "^6.0.0",
     "cookie-parser": "^1.4.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "mariadb": "^2.5.4",
     "passport-local": "^1.0.0",
-    "passport-remember-me": "^0.0.1"
+    "passport-remember-me": "^0.0.1",
+    "redis": "^3.1.2"
   }
 }
