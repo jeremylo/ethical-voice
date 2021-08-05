@@ -57,7 +57,7 @@ CREATE TABLE `submission_metadata` (
   `metadata_value` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `submission_id` (`submission_id`),
-  CONSTRAINT `submission_metadata_ibfk_1` FOREIGN KEY (`submission_id`) REFERENCES `submissions` (`id`)
+  CONSTRAINT `submission_metadata_ibfk_3` FOREIGN KEY (`submission_id`) REFERENCES `submissions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
