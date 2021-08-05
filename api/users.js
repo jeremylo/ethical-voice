@@ -23,3 +23,15 @@ export async function findUserByEmail(email) {
         conn.release();
     }
 }
+
+export async function updateUserOutwardPostcode(user, outwardPostcode) {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        return (await conn.query("UPDATE users SET outward_postcode=? WHERE id=?", [outwardPostcode, user.id]));
+    } catch (e) {
+        throw new Error("Unable to update the user's outward postcode.");
+    } finally {
+        conn.release();
+    }
+}

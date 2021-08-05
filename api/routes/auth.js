@@ -2,6 +2,8 @@ import Router from 'express';
 import passport from '../passport.js';
 import { issueRememberMeToken } from '../remember-me.js';
 import requireAuth from '../requireAuth.js';
+import { updateUserOutwardPostcode } from '../users.js';
+import { isValidOutwardPostcode } from './utils.js';
 
 const router = Router();
 
@@ -89,6 +91,24 @@ router.get('/user', requireAuth, async (req, res) => {
         });
     }
 
+});
+
+router.post('/user/outwardpostcode', requireAuth, async (req, res) => {
+    if (req.body.outwardPostcode && isValidOutwardPostcode(req.body.outwardPostcode)) {
+        try {
+            updateUserOutwardPostcode(req.user, req.body.outwardPostcode);
+            res.status(200);
+            res.json({
+                message: "The outward postcode was updated successfully."
+            });
+        } catch (e) {
+            res.status(500);
+            res.json({
+                message: "The outward postcode could not be updated successfully."
+            });
+        }
+
+    }
 });
 
 export default router;

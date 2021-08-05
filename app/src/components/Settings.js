@@ -41,7 +41,11 @@ export default function Settings() {
                     setEmail(newValue);
                     break;
                 case 'outward-postcode':
-                    setOutwardPostcode(newValue);
+                    if (auth.setOutwardPostcode(newValue)) {
+                        setOutwardPostcode(newValue);
+                    } else {
+                        // TODO: error message!
+                    }
                     break;
                 case 'sharing':
                     setSharing(newValue);

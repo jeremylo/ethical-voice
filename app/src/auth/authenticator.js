@@ -1,10 +1,3 @@
-const dummyUser = {
-    refId: 1234567890,
-    email: 'test@example.com',
-    outwardPostcode: 'SW1',
-    sharing: true
-};
-
 const authenticator = {
 
     async getLoggedInUser() {
@@ -34,11 +27,28 @@ const authenticator = {
     },
 
     async register(refId, email, password) {
-        return dummyUser;
+        return {
+            refId: 1234567890,
+            email: 'test@example.com',
+            outwardPostcode: 'SW1',
+            sharing: true
+        };
     },
 
     async logout() {
         await fetch('/api/auth/logout');
+    },
+
+    async setOutwardPostcode(outwardPostcode) {
+        const res = await fetch('/api/auth/user/outwardpostcode', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ outwardPostcode })
+        });
+
+        return res.status === 200;
     }
 };
 
