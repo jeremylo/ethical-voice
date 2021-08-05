@@ -7,6 +7,7 @@ import { useAuth } from '../auth/use-auth';
 import ChangeEmailDialog from './settings/ChangeEmailDialog';
 import ChangeOutwardPostcodeDialog from './settings/ChangeOutwardPostcodeDialog';
 import ChangePasswordDialog from './settings/ChangePasswordDialog';
+import ChangeSharingDialog from './settings/ChangeSharingDialog';
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -21,23 +22,29 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Settings() {
     const classes = useStyles();
+    const auth = useAuth();
+    const history = useHistory();
 
     const [open, setOpen] = useState(null);
-    const [email, setEmail] = useState('jeremy@example.com');
-    const [outwardPostcode, setOutwardPostcode] = useState('SW1');
+    const [email, setEmail] = useState(auth.user.email);
+    const [outwardPostcode, setOutwardPostcode] = useState(auth.user.outwardPostcode);
+    const [sharing, setSharing] = useState(auth.user.sharing);
 
     const handleOpen = (id) => {
         setOpen(id);
     };
 
     const handleClose = (newValue) => {
-        if (newValue) {
+        if (newValue !== undefined) {
             switch (open) {
                 case 'email':
                     setEmail(newValue);
                     break;
                 case 'outward-postcode':
                     setOutwardPostcode(newValue);
+                    break;
+                case 'sharing':
+                    setSharing(newValue);
                     break;
 
                 default:
@@ -47,9 +54,6 @@ export default function Settings() {
 
         setOpen(null);
     };
-
-    const history = useHistory();
-    const auth = useAuth();
 
     return (
         <div className={classes.root}>
@@ -62,7 +66,7 @@ export default function Settings() {
             <List>
                 <Divider />
                 <ListItem divider>
-                    <ListItemText primary="Reference ID" secondary="123456789" />
+                    <ListItemText primary="Reference ID" secondary={auth.user.refId} />
                 </ListItem>
                 <ListItem divider button>
                     <ListItemText
@@ -91,9 +95,9 @@ export default function Settings() {
                 <ListItem divider button>
                     <ListItemText
                         primary="Sharing agreement"
-                        secondary="You have chosen to share your submissions with your senior responsible officer."
+                        secondary={sharing ? "You have chosen to share future submissions with your senior responsible officer." : "You have chosen not to share future submissions with your senior responsible officer."}
                         aria-haspopup="true"
-                    // onClick={_ => handleOpen('outward-postcode')}
+                        onClick={_ => handleOpen('sharing')}
                     />
                 </ListItem>
                 <ListItem divider button>
@@ -122,6 +126,11 @@ export default function Settings() {
                     open={open === 'outward-postcode'}
                     onClose={handleClose}
                     value={outwardPostcode}
+                />
+                <ChangeSharingDialog
+                    open={open === 'sharing'}
+                    onClose={handleClose}
+                    value={sharing}
                 />
             </List>
         </div>
