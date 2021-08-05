@@ -40,6 +40,16 @@ export default function Settings() {
                 case 'email':
                     setEmail(newValue);
                     break;
+
+                case 'password':
+                    const [oldPassword, newPassword] = newValue;
+                    if (auth.setPassword(oldPassword, newPassword)) {
+                        // TODO: say password updated
+                    } else {
+                        // TODO: error
+                    }
+                    break;
+
                 case 'outward-postcode':
                     if (auth.setOutwardPostcode(newValue)) {
                         setOutwardPostcode(newValue);
@@ -47,6 +57,7 @@ export default function Settings() {
                         // TODO: error message!
                     }
                     break;
+
                 case 'sharing':
                     setSharing(newValue);
                     auth.setSharing(newValue);

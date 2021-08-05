@@ -24,6 +24,18 @@ export async function findUserByEmail(email) {
     }
 }
 
+export async function updateUserPassword(user, password) {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        return (await conn.query("UPDATE users SET password=? WHERE id=?", [password, user.id]));
+    } catch (e) {
+        throw new Error("Unable to update the user's password.");
+    } finally {
+        conn.release();
+    }
+}
+
 export async function updateUserOutwardPostcode(user, outwardPostcode) {
     let conn;
     try {

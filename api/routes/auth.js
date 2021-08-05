@@ -2,8 +2,8 @@ import Router from 'express';
 import passport from '../passport.js';
 import { issueRememberMeToken } from '../remember-me.js';
 import requireAuth from '../requireAuth.js';
-import { updateUserOutwardPostcode, updateUserSharing } from '../users.js';
-import { isValidOutwardPostcode } from './utils.js';
+import { updateUserOutwardPostcode, updateUserPassword, updateUserSharing } from '../users.js';
+import { hashPassword, isValidOutwardPostcode, isValidPasswordHash } from './utils.js';
 
 const router = Router();
 
@@ -91,6 +91,31 @@ router.get('/user', requireAuth, async (req, res) => {
         });
     }
 
+});
+
+router.post('/user/password', requireAuth, async (req, res) => {
+    if (req.body.oldPassword && req.body.newPassword) {
+        if (!(await isValidPasswordHash(req.body.oldPassword, req.user.password))) {
+            res.status(401);
+            res.json({
+                "error": "The password was incorrect."
+            });
+        }
+
+        try {
+            updateUserPassword(req.user, await hashPassword(req.body.newPassword));
+            res.status(200);
+            res.json({
+                message: "The password was updated successfully."
+            });
+        } catch (e) {
+            res.status(500);
+            res.json({
+                message: "The password could not be updated successfully."
+            });
+        }
+
+    }
 });
 
 router.post('/user/outwardpostcode', requireAuth, async (req, res) => {

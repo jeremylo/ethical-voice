@@ -39,6 +39,18 @@ const authenticator = {
         await fetch('/api/auth/logout');
     },
 
+    async setPassword(oldPassword, newPassword) {
+        const res = await fetch('/api/auth/user/password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ oldPassword, newPassword })
+        });
+
+        return res.status === 200;
+    },
+
     async setOutwardPostcode(outwardPostcode) {
         const res = await fetch('/api/auth/user/outwardpostcode', {
             method: 'POST',

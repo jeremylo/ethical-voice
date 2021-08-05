@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 export function isValidEmail(email) {
     return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(String(email).toLowerCase());
 }
@@ -12,4 +14,12 @@ export function isValidOutwardPostcode(outwardPostcode) {
 
 export function isValidReferenceId(refId) {
     return /^[0-9]{4,16}$/.test(refId);
+}
+
+export async function isValidPasswordHash(password, hash) {
+    return await bcrypt.compare(password, hash);
+}
+
+export async function hashPassword(password) {
+    return await bcrypt.hash(password, 14);
 }

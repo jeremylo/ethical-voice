@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as RememberMeStrategy } from 'passport-remember-me';
@@ -24,7 +23,7 @@ passport.use(new LocalStrategy(
     async (email, password, done) => {
         try {
             const user = await findUserByEmail(email);
-            if (!(await bcrypt.compare(password, user.password))) {
+            if (!(await isValidPasswordHash(password, user.password))) {
                 done(null, false);
             }
             return done(null, user);

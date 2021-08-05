@@ -69,6 +69,17 @@ function useAuthProvider() {
         //     });
     };
 
+    const setPassword = (oldPassword, newPassword) => {
+        return authenticator
+            .setPassword(oldPassword, newPassword)
+            .then((success) => {
+                return success;
+            })
+            .catch(() => {
+                return false;
+            });
+    };
+
     const setOutwardPostcode = (outwardPostcode) => {
         return authenticator
             .setOutwardPostcode(outwardPostcode)
@@ -99,6 +110,7 @@ function useAuthProvider() {
         logout,
         sendPasswordResetEmail,
         confirmPasswordReset,
+        setPassword,
         setOutwardPostcode,
         setSharing
     };
