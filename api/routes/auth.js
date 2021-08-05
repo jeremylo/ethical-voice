@@ -1,5 +1,5 @@
 import Router from 'express';
-import pool from '../db.js';
+import { findUserById } from '../users.js';
 
 const loggedInUser = 1;
 
@@ -7,8 +7,7 @@ const router = Router();
 
 router.get('/user', async (req, res) => {
     try {
-        const conn = await pool.getConnection();
-        const user = (await conn.query("SELECT * FROM users WHERE id=? LIMIT 1", [loggedInUser]))[0];
+        const user = findUserById(loggedInUser);
 
         res.status(200);
         res.json({
