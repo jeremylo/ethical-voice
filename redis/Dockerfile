@@ -1,7 +1,9 @@
 FROM redis
 
 COPY redis.conf /usr/local/etc/redis/redis.conf
+COPY users.acl /usr/local/etc/redis/users.acl
 
-RUN echo "requirepass \"${REDIS_PASSWORD}\"" >> /usr/local/etc/redis/redis.conf
+RUN echo >> /usr/local/etc/redis/users.acl
+RUN echo "user apiworker on +@all -DEBUG allkeys >${REDIS_PASSWORD}" >> /usr/local/etc/redis/users.acl
 
-CMD [ "redis-server", "/usr/local/etc/redis/redis.conf" , "--appendonly", "yes" ]
+CMD [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
