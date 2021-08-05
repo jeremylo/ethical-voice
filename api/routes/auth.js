@@ -2,7 +2,7 @@ import Router from 'express';
 import passport from '../passport.js';
 import { issueRememberMeToken } from '../remember-me.js';
 import requireAuth from '../requireAuth.js';
-import { updateUserOutwardPostcode } from '../users.js';
+import { updateUserOutwardPostcode, updateUserSharing } from '../users.js';
 import { isValidOutwardPostcode } from './utils.js';
 
 const router = Router();
@@ -105,6 +105,24 @@ router.post('/user/outwardpostcode', requireAuth, async (req, res) => {
             res.status(500);
             res.json({
                 message: "The outward postcode could not be updated successfully."
+            });
+        }
+
+    }
+});
+
+router.post('/user/sharing', requireAuth, async (req, res) => {
+    if (req.body.sharing !== undefined && typeof req.body.sharing === "boolean") {
+        try {
+            updateUserSharing(req.user, req.body.sharing);
+            res.status(200);
+            res.json({
+                message: "The sharing agreement status was updated successfully."
+            });
+        } catch (e) {
+            res.status(500);
+            res.json({
+                message: "The sharing agreement status could not be updated successfully."
             });
         }
 

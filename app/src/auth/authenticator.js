@@ -49,7 +49,19 @@ const authenticator = {
         });
 
         return res.status === 200;
-    }
+    },
+
+    async setSharing(sharing) {
+        const res = await fetch('/api/auth/user/sharing', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ sharing: !!sharing })
+        });
+
+        return res.status === 200;
+    },
 };
 
 export default authenticator;

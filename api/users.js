@@ -35,3 +35,15 @@ export async function updateUserOutwardPostcode(user, outwardPostcode) {
         conn.release();
     }
 }
+
+export async function updateUserSharing(user, sharing) {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        return (await conn.query("UPDATE users SET sharing=? WHERE id=?", [sharing ? 1 : 0, user.id]));
+    } catch (e) {
+        throw new Error("Unable to update the user's sharing agreement status.");
+    } finally {
+        conn.release();
+    }
+}

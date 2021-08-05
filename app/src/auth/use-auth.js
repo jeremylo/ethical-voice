@@ -80,6 +80,17 @@ function useAuthProvider() {
             });
     };
 
+    const setSharing = (sharing) => {
+        return authenticator
+            .setSharing(sharing)
+            .then((success) => {
+                return success;
+            })
+            .catch(() => {
+                return false;
+            });
+    };
+
     // Return the user object and auth methods
     return {
         user,
@@ -88,6 +99,7 @@ function useAuthProvider() {
         logout,
         sendPasswordResetEmail,
         confirmPasswordReset,
-        setOutwardPostcode
+        setOutwardPostcode,
+        setSharing
     };
 }

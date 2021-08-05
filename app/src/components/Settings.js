@@ -49,6 +49,7 @@ export default function Settings() {
                     break;
                 case 'sharing':
                     setSharing(newValue);
+                    auth.setSharing(newValue);
                     break;
 
                 default:
