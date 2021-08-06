@@ -32,7 +32,9 @@ export default function AboutThisApp(props) {
             <DialogTitle id="about-dialog-title">About this app</DialogTitle>
             <DialogContent dividers>
                 <DialogContentText>
-                    This app was made by <a href="https://jezz.me/">Jeremy Lo Ying Ping</a> in 2021 as UCL summer research project.
+                    The purpose of this app is to allow you to both track your symptoms over time and share this data so that it may potentially contribute towards valuable research.
+                    <br /><br />
+                    This app was made by <a href="https://jezz.me/">Jeremy Lo Ying Ping</a> in 2021 as part of a summer research project at <a href="https://www.ucl.ac.uk/computer-science/">UCL Computer Science</a>.
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
