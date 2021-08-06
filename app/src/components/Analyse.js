@@ -75,7 +75,7 @@ export default class Analyse extends React.Component {
                     tests={this.state.tests}
                     selectTest={this.selectTest}
                     selectDuration={this.selectDuration}
-                    sharingEnabled />
+                />
             },
             {
                 key: 'speech',

@@ -1,6 +1,7 @@
 import { Box, Button, FormControl, InputLabel, makeStyles, MenuItem, Paper, Select, Typography } from "@material-ui/core";
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { useState } from "react";
+import { useAuth } from '../../auth/use-auth';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -9,8 +10,10 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Welcome({ handleNext, tests, selectTest, selectDuration, sharingEnabled }) {
+export default function Welcome({ handleNext, tests, selectTest, selectDuration }) {
     const classes = useStyles();
+    const auth = useAuth();
+    const sharingEnabled = auth.user.sharing ?? false;
 
     const [test, setTest] = useState('');
     const handleTestChange = (event) => {

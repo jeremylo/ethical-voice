@@ -17,13 +17,17 @@ export const useAuth = () => {
 function useAuthProvider() {
     const [user, setUser] = useState(null);
 
-    useEffect(() => {
+    const refresh = () => {
         authenticator
             .getLoggedInUser()
             .then((user) => {
                 console.log(user);
                 setUser(user);
             });
+    };
+
+    useEffect(() => {
+        refresh();
     }, [setUser])
 
     const login = (email, password) => {
@@ -72,6 +76,7 @@ function useAuthProvider() {
     // Return the user object and auth methods
     return {
         user,
+        setUser,
         login,
         register,
         logout,

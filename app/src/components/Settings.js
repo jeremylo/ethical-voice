@@ -103,6 +103,8 @@ export default function Settings() {
                         .then((successful) => {
                             if (successful) {
                                 setOutwardPostcode(newValue);
+                                auth.setUser({ ...auth.user, outwardPostcode: newValue });
+
                                 handleSnackbarOpen({
                                     severity: 'success',
                                     message: 'Outward postcode updated successfully.'
@@ -127,6 +129,8 @@ export default function Settings() {
                             }
 
                             setSharing(newValue);
+                            auth.setUser({ ...auth.user, sharing: newValue });
+
                             handleSnackbarOpen({
                                 severity: 'success',
                                 message: 'Sharing preference updated successfully.'
@@ -236,7 +240,7 @@ export default function Settings() {
             </List>
 
             <Snackbar open={snackbarOpen} autoHideDuration={4000} onClose={handleSnackbarClose}>
-                <SnackbarAlert onClose={handleClose} severity={snackbarProperties.severity}>
+                <SnackbarAlert onClose={handleSnackbarClose} severity={snackbarProperties.severity}>
                     {snackbarProperties.message}
                 </SnackbarAlert>
             </Snackbar>
