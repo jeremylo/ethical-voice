@@ -3,7 +3,7 @@ import passport from '../passport.js';
 import { issueRememberMeToken } from '../remember-me.js';
 import requireAuth from '../requireAuth.js';
 import { updateUserOutwardPostcode, updateUserPassword, updateUserSharing } from '../users.js';
-import { hashPassword, isValidOutwardPostcode, isValidPasswordHash } from './utils.js';
+import { hashPassword, isValidOutwardPostcode, isValidPasswordHash } from '../utils.js';
 
 const router = Router();
 

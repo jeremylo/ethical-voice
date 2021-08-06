@@ -5,6 +5,7 @@ import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../auth/use-auth';
+import AboutThisApp from './settings/AboutThisAppDialog';
 import ChangeEmailDialog from './settings/ChangeEmailDialog';
 import ChangeOutwardPostcodeDialog from './settings/ChangeOutwardPostcodeDialog';
 import ChangePasswordDialog from './settings/ChangePasswordDialog';
@@ -14,7 +15,6 @@ import ChangeSharingDialog from './settings/ChangeSharingDialog';
 function SnackbarAlert(props) {
     return <Alert elevation={6} variant="filled" {...props} />;
 }
-
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -194,7 +194,11 @@ export default function Settings() {
                     />
                 </ListItem>
                 <ListItem divider button>
-                    <ListItemText primary="About this app" />
+                    <ListItemText
+                        primary="About this app"
+                        aria-haspopup="true"
+                        onClick={_ => handleOpen('about')}
+                    />
                 </ListItem>
                 <ListItem divider button>
                     <ListItemText
@@ -224,6 +228,10 @@ export default function Settings() {
                     open={open === 'sharing'}
                     onClose={handleClose}
                     value={sharing}
+                />
+                <AboutThisApp
+                    open={open === 'about'}
+                    onClose={handleClose}
                 />
             </List>
 

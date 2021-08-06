@@ -3,6 +3,7 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as RememberMeStrategy } from 'passport-remember-me';
 import { consumeRememberMeToken, issueRememberMeToken } from './remember-me.js';
 import { findUserByEmail, findUserById } from './users.js';
+import { isValidPasswordHash } from './utils.js';
 
 
 passport.serializeUser(function (user, done) {
