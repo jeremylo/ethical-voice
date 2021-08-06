@@ -26,6 +26,8 @@ export default function ChangePasswordDialog(props) {
 
     const handleOk = () => {
         onClose([currentPassword, newPassword]);
+        setCurrentPassword('');
+        setNewPassword('');
     };
 
     const handleCurrentPasswordChange = (event) => {

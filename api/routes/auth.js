@@ -132,7 +132,11 @@ router.post('/user/outwardpostcode', requireAuth, async (req, res) => {
                 message: "The outward postcode could not be updated successfully."
             });
         }
-
+    } else {
+        res.status(500);
+        res.json({
+            message: "Bad outward postcode input D:"
+        });
     }
 });
 

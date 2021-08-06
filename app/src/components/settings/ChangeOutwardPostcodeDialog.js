@@ -22,10 +22,12 @@ export default function ChangeOutwardPostcodeDialog(props) {
 
     const handleCancel = () => {
         onClose();
+        setValue('');
     };
 
     const handleOk = () => {
         onClose(value);
+        setValue('');
     };
 
     const handleChange = (event) => {

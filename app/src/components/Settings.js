@@ -1,6 +1,7 @@
 
 
-import { Container, Divider, List, ListItem, ListItemText, makeStyles, Typography } from '@material-ui/core';
+import { Container, Divider, List, ListItem, ListItemText, makeStyles, Snackbar, Typography } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../auth/use-auth';
@@ -8,6 +9,12 @@ import ChangeEmailDialog from './settings/ChangeEmailDialog';
 import ChangeOutwardPostcodeDialog from './settings/ChangeOutwardPostcodeDialog';
 import ChangePasswordDialog from './settings/ChangePasswordDialog';
 import ChangeSharingDialog from './settings/ChangeSharingDialog';
+
+
+function SnackbarAlert(props) {
+    return <Alert elevation={6} variant="filled" {...props} />;
+}
+
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -25,6 +32,24 @@ export default function Settings() {
     const auth = useAuth();
     const history = useHistory();
 
+    // Snackbar
+    const [snackbarProperties, setSnackbarProperties] = useState({
+        severity: "success",
+        message: "Success"
+    });
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const handleSnackbarOpen = (properties) => {
+        setSnackbarOpen(true);
+        setSnackbarProperties(properties);
+    };
+    const handleSnackbarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setSnackbarOpen(false);
+    };
+
+    // Settings options
     const [open, setOpen] = useState(null);
     const [email, setEmail] = useState(auth.user.email);
     const [outwardPostcode, setOutwardPostcode] = useState(auth.user.outwardPostcode);
@@ -38,23 +63,37 @@ export default function Settings() {
         if (newValue !== undefined) {
             switch (open) {
                 case 'email':
-                    setEmail(newValue);
+                    // setEmail(newValue); // TODO: implement this!
+
+                    // Temporary message
+                    setEmail(email);
+                    handleSnackbarOpen({
+                        severity: 'error',
+                        message: 'Server error — awfully sorry, we cannot change your email right now.'
+                    });
                     break;
 
                 case 'password':
                     const [oldPassword, newPassword] = newValue;
-
                     auth.setPassword(oldPassword, newPassword)
                         .then((successful) => {
                             if (successful) {
-                                // TODO: say password updated!
-                                console.log("Password updated successfully");
+                                handleSnackbarOpen({
+                                    severity: 'success',
+                                    message: 'Password changed successfully.'
+                                });
                             } else {
-                                throw new Error("The password could not be updated at this time.");
+                                handleSnackbarOpen({
+                                    severity: 'error',
+                                    message: 'Incorrect password — change unsuccessful.'
+                                });
                             }
                         })
                         .catch(() => {
-                            // TODO: show error
+                            handleSnackbarOpen({
+                                severity: 'error',
+                                message: 'Server error — awfully sorry, your password could not be updated. Please try again later!'
+                            });
                         })
 
                     break;
@@ -64,30 +103,40 @@ export default function Settings() {
                         .then((successful) => {
                             if (successful) {
                                 setOutwardPostcode(newValue);
+                                handleSnackbarOpen({
+                                    severity: 'success',
+                                    message: 'Outward postcode updated successfully.'
+                                });
                             } else {
-                                throw new Error("The outward postcode could not be updated at this time.")
+                                throw new Error()
                             }
                         })
                         .catch(() => {
-                            // TODO: display error message.
-                            console.log("Oh no!")
+                            handleSnackbarOpen({
+                                severity: 'error',
+                                message: 'Server error — awfully sorry, your outward postcode could not be changed. Please try again later!'
+                            });
                         })
                     break;
 
                 case 'sharing':
-                    setSharing(newValue);
-
                     auth.setSharing(newValue)
                         .then((successful) => {
-                            if (successful) {
-                                // Display success
-                            } else {
-                                throw new Error("The sharing preference could not be updated at this time.")
+                            if (!successful) {
+                                throw new Error();
                             }
+
+                            setSharing(newValue);
+                            handleSnackbarOpen({
+                                severity: 'success',
+                                message: 'Sharing preference updated successfully.'
+                            });
                         })
                         .catch(() => {
-                            // TODO: display error
-                            console.log("Oh no!")
+                            handleSnackbarOpen({
+                                severity: 'error',
+                                message: 'Server error — awfully sorry, your sharing preference could not be changed at this time. Please try again later!'
+                            });
                         });
                     break;
 
@@ -177,6 +226,12 @@ export default function Settings() {
                     value={sharing}
                 />
             </List>
+
+            <Snackbar open={snackbarOpen} autoHideDuration={4000} onClose={handleSnackbarClose}>
+                <SnackbarAlert onClose={handleClose} severity={snackbarProperties.severity}>
+                    {snackbarProperties.message}
+                </SnackbarAlert>
+            </Snackbar>
         </div>
     )
 }

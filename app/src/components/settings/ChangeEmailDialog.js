@@ -25,6 +25,7 @@ export default function ChangeEmailDialog(props) {
 
     const handleOk = () => {
         onClose(value);
+        setValue('');
     };
 
     const handleChange = (event) => {
