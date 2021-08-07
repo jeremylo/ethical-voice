@@ -2,28 +2,13 @@ import { Container, Paper, Step, StepLabel, Stepper, Typography } from "@materia
 import { Alert, AlertTitle } from "@material-ui/lab";
 import React from 'react';
 import { addResult } from "../persistence/db";
+import getTests, { defaultTests } from "../persistence/tests";
 import Completion from "./analysis/Completion";
 import MRCDyspnoea from "./analysis/MRCDyspnoea";
 import Speech from "./analysis/Speech";
 import Sputum from "./analysis/Sputum";
 import Welcome from "./analysis/Welcome";
 import Wellbeing from "./analysis/Wellbeing";
-
-
-const defaultTests = {
-    1: {
-        id: 1,
-        possibleDurations: [10, 30, 60, 90, 120],
-        title: "Counting numbers",
-        instruction: "Please count out loud up from one clearly at a fast but comfortable speaking pace until the timer runs out."
-    },
-    2: {
-        id: 2,
-        possibleDurations: [10, 30, 60, 90, 120],
-        title: "Repeating hippopotamus",
-        instruction: "Please repeatedly say 'hippopotamus' at a fast but comfortable speaking pace until the timer runs out."
-    },
-};
 
 export default class Analyse extends React.Component {
 
@@ -131,17 +116,10 @@ export default class Analyse extends React.Component {
         return true;
     }
 
-    componentDidMount() {
-        fetch('/api/tests')
-            .then(response => response.json())
-            .then(tests => {
-                if (Object.keys(tests).length > 0) {
-                    this.setState({ tests });
-                }
-            })
-            .catch(() => {
-                this.setState({ tests: defaultTests });
-            });
+    async componentDidMount() {
+        this.setState({
+            tests: await getTests()
+        })
     }
 
     render() {
@@ -188,8 +166,6 @@ export default class Analyse extends React.Component {
                         : <Completion
                             results={this.state.results}
                             tests={this.state.tests}
-                            test={this.state.selectedTest}
-                            duration={this.state.selectedDuration}
                             handleSubmission={this.handleSubmission}
                         />}
                 </Container>
