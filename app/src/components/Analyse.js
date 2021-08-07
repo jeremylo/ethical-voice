@@ -1,6 +1,7 @@
 import { Container, Paper, Step, StepLabel, Stepper, Typography } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import React from 'react';
+import { addResult } from "../persistence/db";
 import Completion from "./analysis/Completion";
 import MRCDyspnoea from "./analysis/MRCDyspnoea";
 import Speech from "./analysis/Speech";
@@ -104,7 +105,29 @@ export default class Analyse extends React.Component {
         ];
     }
 
-    async handleSubmission() {
+    async saveLocally(data, sharingEnabled) {
+        try {
+            await addResult({
+                audio: this.state.audio,
+                shared: sharingEnabled,
+                ...data
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+
+    }
+
+    async handleSubmission(sharingEnabled) {
+        if (!await this.saveLocally(this.state.results, sharingEnabled)) {
+            return false;
+        }
+
+        if (sharingEnabled) {
+            // TODO: share it with the server
+        }
+
         return true;
     }
 
