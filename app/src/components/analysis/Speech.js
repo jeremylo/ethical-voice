@@ -232,7 +232,7 @@ class Speech extends Component {
                         {this.props.children}
                         <Box textAlign='center' className={classes.statusBox}>
                             {this.state.results
-                                ? <Alert severity="success" textAlign='left'>
+                                ? <Alert severity="success" style={{ textAlign: 'left' }}>
                                     <AlertTitle>Results</AlertTitle>
                                     <strong>Syllables per minute</strong>: {this.state.results.syllablesPerMinute}
                                     {/* <br /><strong>Words per minute</strong>: {this.state.results.wordsPerMinute} */}
