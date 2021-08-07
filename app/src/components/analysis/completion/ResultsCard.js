@@ -2,14 +2,14 @@ import { Card, CardHeader, Divider, Typography } from "@material-ui/core";
 import MicIcon from '@material-ui/icons/Mic';
 import { sputumColours } from "../Sputum";
 
-export default function ResultsCard({ results, tests, test, duration }) {
+export default function ResultsCard({ results, tests }) {
     console.log(results);
     return (
         <Card variant="outlined">
             <CardHeader
                 avatar={<MicIcon />}
-                title={`${tests[test].title} (${duration}s)`}
-                subheader={new Date(results.createdAt).toLocaleDateString()}
+                title={`${tests[results.testId].title} (${results["speech.duration"]}s)`}
+                subheader={new Date(results.createdAt).toLocaleString()}
             />
             <Divider />
             <div style={{ padding: '16px' }}>

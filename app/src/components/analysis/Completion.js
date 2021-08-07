@@ -3,14 +3,12 @@ import { useAuth } from '../../auth/use-auth';
 import ResultsCard from "./completion/ResultsCard";
 import ResultsSubmitter from "./completion/ResultsSubmitter";
 
-export default function Completion({ handleSubmission, results, tests, test, duration }) {
+export default function Completion({ handleSubmission, results, tests }) {
     const auth = useAuth();
     const sharingEnabled = auth.user.sharing ?? false;
     const resultsCard = <ResultsCard
         results={results}
         tests={tests}
-        test={test}
-        duration={duration}
     />;
 
     return (
