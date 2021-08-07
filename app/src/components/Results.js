@@ -1,4 +1,8 @@
 import { Container, makeStyles, Typography } from "@material-ui/core";
+import { useEffect, useState } from "react";
+import { getAllResults } from "../persistence/db";
+import getTests, { defaultTests } from "../persistence/tests";
+import ResultsCard from "./analysis/completion/ResultsCard";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -15,6 +19,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Results() {
     const classes = useStyles();
+    const [loaded, setLoaded] = useState(false);
+    const [results, setResults] = useState([]);
+    const [tests, setTests] = useState(defaultTests);
+
+    useEffect(() => {
+        getTests().then(setTests);
+    }, [setTests])
+
+    useEffect(() => {
+        getAllResults().then(res => {
+            setResults(res);
+            setLoaded(true);
+            console.log(res);
+        });
+    }, [setLoaded]);
 
     return (
         <div className={classes.root}>
@@ -23,7 +42,11 @@ export default function Results() {
             </Container>
 
             <Container maxWidth="sm">
-                Results page.
+                {loaded && (results.length > 0 ? <>
+                    {results.map(r => <ResultsCard results={r} tests={tests} />)}
+                </> : <Typography>
+                    You have no results to display as of yet.
+                </Typography>)}
             </Container>
         </div >
     )
