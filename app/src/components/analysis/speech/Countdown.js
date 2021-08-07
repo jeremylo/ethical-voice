@@ -92,6 +92,12 @@ export default function Countdown({ running, duration, handleStart, handleStop, 
                         variant="determinate"
                         value={100 * progress / duration}
                     />}
+                {finished &&
+                    <CircularProgress
+                        size={68}
+                        className={classes.fabProgress}
+                        variant="indeterminate"
+                    />}
             </div>
         </Box>
     );
