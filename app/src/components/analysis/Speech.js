@@ -231,7 +231,19 @@ class Speech extends Component {
                     <>
                         {this.props.children}
                         <Box textAlign='center' className={classes.statusBox}>
-                            <Countdown running={appStatus === STATUSES.RECORDING} duration={this.props.duration} handleStart={this.startRecording} handleStop={this.stopRecording} disabled={isRecordButtonDisabled} />
+                            {this.state.results
+                                ? <Alert severity="success" textAlign='left'>
+                                    <AlertTitle>Results</AlertTitle>
+                                    <strong>Syllables per minute</strong>: {this.state.results.syllablesPerMinute}
+                                    {/* <br /><strong>Words per minute</strong>: {this.state.results.wordsPerMinute} */}
+                                </Alert> : <Countdown
+                                    running={appStatus === STATUSES.RECORDING}
+                                    duration={this.props.duration}
+                                    handleStart={this.startRecording}
+                                    handleStop={this.stopRecording}
+                                    disabled={isRecordButtonDisabled}
+                                />
+                            }
                         </Box>
                     </>
                 )}
@@ -260,18 +272,6 @@ class Speech extends Component {
                             Reloading the app may fix your issue!
                         </Alert><br /><br />
                     </>
-                )}
-
-                {this.state.results && (
-                    <div className={classes.resultBox}>
-                        <Alert severity="success">
-                            <AlertTitle>Results</AlertTitle>
-                            <strong>Syllables per minute</strong>: {this.state.results.syllablesPerMinute}
-                            {/* <br />
-                            <strong>Words per minute</strong>: {this.state.results.wordsPerMinute} */}
-                        </Alert>
-                        <br />
-                    </div>
                 )}
 
                 {this.state.showNext && <Box textAlign='center'>
