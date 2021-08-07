@@ -67,7 +67,16 @@ export default class Analyse extends React.Component {
                 step: (handleNext, setResults) => <Speech
                     handleNext={handleNext}
                     setResults={setResults}
-                    setAudio={(audio) => { this.setState({ audio }); }}
+                    setAudio={(audio) => {
+                        this.setState(state => ({
+                            audio,
+                            results: {
+                                testId: state.selectedTest,
+                                createdAt: Date.now(),
+                                ...state.results
+                            }
+                        }));
+                    }}
                     duration={this.state.selectedDuration}
                 >
                     <Typography>
