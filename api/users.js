@@ -1,14 +1,5 @@
-import pool from './db.js';
+import { query } from './db.js';
 
-async function query(...args) {
-    let conn;
-    try {
-        conn = await pool.getConnection();
-        return await conn.query(...args);
-    } finally {
-        conn.release();
-    }
-}
 
 export async function findUserById(id) {
     return (await query("SELECT * FROM users WHERE id=? AND status=? LIMIT 1", [id, 1]))[0];
