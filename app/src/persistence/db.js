@@ -17,9 +17,9 @@ export async function getDB() {
 }
 
 export async function addResult(data) {
-    return await getDB().add('results', data);
+    return await (await getDB()).add('results', data);
 }
 
 export async function getAllResults() {
-    return await getDB().getAllFromIndex('results', 'createdAt');
+    return await (await getDB()).getAllFromIndex('results', 'createdAt');
 }
