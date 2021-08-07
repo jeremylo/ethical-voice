@@ -23,7 +23,7 @@ export default function Completion({ handleSubmission, results, tests, test, dur
                     submissionButtonText="Save & share"
                     savingSuccessfulMessage="Your submission was successfully saved and shared with your senior responsible officer."
                     savingUnsuccessfulMessage="Your submission could not be saved and shared with your senior responsible officer."
-                    onSubmit={_ => { handleSubmission(sharingEnabled); }}
+                    onSubmit={async _ => handleSubmission(sharingEnabled)}
                 />
                 : <ResultsSubmitter
                     resultsCard={resultsCard}
@@ -31,7 +31,7 @@ export default function Completion({ handleSubmission, results, tests, test, dur
                     submissionButtonText="Save"
                     savingSuccessfulMessage="Your submission was successfully saved to your device."
                     savingUnsuccessfulMessage="Your submission could not be successfully saved to your device."
-                    onSubmit={_ => { handleSubmission(sharingEnabled); }}
+                    onSubmit={async _ => handleSubmission(sharingEnabled)}
                 />}
         </Paper >
     )
