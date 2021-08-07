@@ -35,6 +35,7 @@ class Speech extends Component {
 
         this.handleNext = props.handleNext;
         this.setResults = props.setResults;
+        this.setAudio = props.setAudio;
 
         this.startRecording = this.startRecording.bind(this);
         this.stopRecording = this.stopRecording.bind(this);
@@ -197,12 +198,13 @@ class Speech extends Component {
         const syllables = words.map(syllable).reduce((a, b) => a + b, 0);
         const syllablesPerMinute = round2dp(syllables / durationInMinutes);
 
-        console.log({ syllables, wordCount: words.length, words: words.join(" ") });
+        this.setAudio(this.state.audioBlob);
 
         this.setResults({
-            audioBlob: this.state.audioBlob,
-            wordsPerMinute,
+            syllableCount: syllables,
             syllablesPerMinute,
+            wordCount: words.length,
+            wordsPerMinute,
             transcription: words.join(" "),
             duration: this.props.duration
         });
