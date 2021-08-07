@@ -1,40 +1,7 @@
 import { Container, makeStyles, Typography } from "@material-ui/core";
+import { useEffect, useState } from "react";
+import { getAllResults } from "../persistence/db";
 import RateChart from "./visualisation/RateChart";
-
-
-// Get dummy data for the graphs
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-}
-
-const generateFakeGoodDatum = () => ({
-    speech: {
-        syllablesPerMinute: getRandomInt(270, 320)
-    },
-    sputum: getRandomInt(1, 3),
-    wellbeing: getRandomInt(7, 11),
-    dyspnoea: getRandomInt(1, 3),
-    createdAt: new Date(2021, getRandomInt(0, 12), getRandomInt(0, 27))
-});
-
-const generateFakeBadDatum = () => ({
-    speech: {
-        syllablesPerMinute: getRandomInt(90, 120)
-    },
-    sputum: getRandomInt(4, 6),
-    wellbeing: getRandomInt(2, 5),
-    dyspnoea: getRandomInt(4, 6),
-    createdAt: new Date(2021, getRandomInt(8, 10), getRandomInt(0, 27))
-});
-
-
-const data = [
-    ...[...Array(20).keys()].map(generateFakeGoodDatum),
-    ...[...Array(1).keys()].map(generateFakeBadDatum),
-].sort((a, b) => a.createdAt - b.createdAt);
-// End getting dummy data
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,10 +18,36 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
     const classes = useStyles();
+    const [loaded, setLoaded] = useState(false);
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        getAllResults().then(res => {
+            setData(res);
+            setLoaded(true);
+        });
+    }, [setLoaded]);
+
+    if (!loaded) {
+        return <></>;
+    }
+
+    if (data.length < 3) {
+        return <div className={classes.root}>
+            <Container maxWidth="sm" className={classes.header}>
+                <Typography variant="h5">Overview</Typography>
+            </Container>
+            <Container maxWidth="sm">
+                <Typography>
+                    Results visualisations will appear here once you have at least three submissions.
+                </Typography>
+            </Container>
+        </div>;
+    }
 
     const syllableRateData = data.map(datum => ({
         x: datum.createdAt,
-        y: datum.speech.syllablesPerMinute
+        y: datum['speech.syllablesPerMinute']
     }));
 
     const sputumColourData = data.map(datum => ({
@@ -107,6 +100,6 @@ export default function Home() {
                 />
                 <br />
             </Container>
-        </div >
-    )
+        </div>
+    );
 }
