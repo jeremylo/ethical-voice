@@ -65,6 +65,7 @@ export default class Analyse extends React.Component {
                 step: (handleNext, setResults) => <Speech
                     handleNext={handleNext}
                     setResults={setResults}
+                    setAudio={(audio) => { this.setState({ audio }); }}
                     duration={this.state.selectedDuration}
                 >
                     <Typography>
@@ -118,10 +119,14 @@ export default class Analyse extends React.Component {
             this.setState((state) => ({
                 results: {
                     ...state.results,
-                    [steps[state.activeStep].key]: results
+                    ...(typeof results === 'object' ?
+                        Object.fromEntries(Object.entries(results)
+                            .map(([k, v]) => [steps[state.activeStep].key + '.' + k, v])
+                        ) : { [steps[state.activeStep].key]: results }
+                    )
                 }
-            }))
-        }
+            }));
+        };
 
         return (
             <div>
