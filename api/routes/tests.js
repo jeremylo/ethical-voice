@@ -1,24 +1,18 @@
 import Router from 'express';
+import { query } from '../db.js';
 
 const router = Router();
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     try {
+        const tests = await query("SELECT * FROM test_types WHERE active=1");
         res.status(200);
-        res.json({
-            1: {
-                id: 1,
-                possibleDurations: [10, 30, 60, 90, 120],
-                title: "Counting numbers",
-                instruction: "Please count out loud up from one clearly at a fast but comfortable speaking pace until the timer runs out."
-            },
-            2: {
-                id: 2,
-                possibleDurations: [10, 30, 60, 90, 120],
-                title: "Repeating hippopotamus",
-                instruction: "Please repeatedly say 'hippopotamus' at a fast but comfortable speaking pace until the timer runs out."
-            },
-        });
+        res.json(Object.fromEntries(tests.map(test => [test.id, {
+            id: test.id,
+            title: test.title,
+            instruction: test.instruction,
+            possibleDurations: JSON.parse(test.possible_durations)
+        }])));
     } catch {
         res.status(500);
         res.json([]);
