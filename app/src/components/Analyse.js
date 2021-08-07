@@ -1,6 +1,7 @@
 import { Container, Paper, Step, StepLabel, Stepper, Typography } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import React from 'react';
+import Completion from "./analysis/Completion";
 import MRCDyspnoea from "./analysis/MRCDyspnoea";
 import Speech from "./analysis/Speech";
 import Sputum from "./analysis/Sputum";
@@ -31,6 +32,7 @@ export default class Analyse extends React.Component {
         this.selectTest = this.selectTest.bind(this);
         this.selectDuration = this.selectDuration.bind(this);
         this.getSteps = this.getSteps.bind(this);
+        this.handleSubmission = this.handleSubmission.bind(this);
 
         this.state = {
             activeStep: 0,
@@ -93,6 +95,10 @@ export default class Analyse extends React.Component {
         ];
     }
 
+    async handleSubmission() {
+        return true;
+    }
+
     componentDidMount() {
         fetch('/api/tests')
             .then(response => response.json())
@@ -147,8 +153,13 @@ export default class Analyse extends React.Component {
 
                 <Container maxWidth="sm">
                     {this.state.activeStep < steps.length ? steps[this.state.activeStep].step(handleNext, setResults)
-                        : <div>We've reached the end.
-                            <br /><br />{console.log(this.state.results)}</div>}
+                        : <Completion
+                            results={this.state.results}
+                            tests={this.state.tests}
+                            test={this.state.selectedTest}
+                            duration={this.state.selectedDuration}
+                            handleSubmission={this.handleSubmission}
+                        />}
                 </Container>
             </div >
         );
