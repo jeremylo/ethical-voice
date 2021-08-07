@@ -9,7 +9,7 @@ export default function ResultsCard({ results, tests, test, duration }) {
             <CardHeader
                 avatar={<MicIcon />}
                 title={`${tests[test].title} (${duration}s)`}
-                subheader={new Date().toLocaleDateString()}
+                subheader={new Date(results.createdAt).toLocaleDateString()}
             />
             <Divider />
             <div style={{ padding: '16px' }}>
