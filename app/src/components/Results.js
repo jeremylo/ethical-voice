@@ -43,7 +43,7 @@ export default function Results() {
 
             <Container maxWidth="sm">
                 {loaded && (results.length > 0 ? <>
-                    {results.map(r => <ResultsCard results={r} tests={tests} />)}
+                    {results.map((r, i) => <ResultsCard results={r} tests={tests} key={i} />)}
                 </> : <Typography>
                     You have no results to display as of yet.
                 </Typography>)}

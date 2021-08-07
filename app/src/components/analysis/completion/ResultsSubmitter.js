@@ -37,7 +37,8 @@ export default function ResultsSubmitter({
 
     return (<>
         <Typography>{submissionInstruction}</Typography>
-        <br />{resultsCard}<br />
+        <br />
+        {resultsCard}
         <Box textAlign="center">
             <Button
                 fullWidth

@@ -1,11 +1,18 @@
-import { Card, CardHeader, Divider, Typography } from "@material-ui/core";
+import { Card, CardHeader, Divider, makeStyles, Typography } from "@material-ui/core";
 import MicIcon from '@material-ui/icons/Mic';
 import { sputumColours } from "../Sputum";
 
+const useStyles = makeStyles((theme) => ({
+    resultsCard: {
+        marginBottom: '1rem'
+    }
+}));
+
 export default function ResultsCard({ results, tests }) {
-    console.log(results);
+    const classes = useStyles();
+
     return (
-        <Card variant="outlined">
+        <Card variant="outlined" className={classes.resultsCard}>
             <CardHeader
                 avatar={<MicIcon />}
                 title={`${tests[results.testId].title} (${results["speech.duration"]}s)`}
