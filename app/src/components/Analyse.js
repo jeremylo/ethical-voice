@@ -8,11 +8,6 @@ import Welcome from "./analysis/Welcome";
 import Wellbeing from "./analysis/Wellbeing";
 
 
-// const genericStep = (step, handleNext, setResults) => <>
-//     <Typography>Step {step + 1}</Typography>
-//     <Button variant="contained" color="primary" onClick={handleNext}>Next</Button>
-// </>;
-
 const defaultTests = {
     1: {
         id: 1,
@@ -35,6 +30,7 @@ export default class Analyse extends React.Component {
 
         this.selectTest = this.selectTest.bind(this);
         this.selectDuration = this.selectDuration.bind(this);
+        this.getSteps = this.getSteps.bind(this);
 
         this.state = {
             activeStep: 0,
@@ -50,24 +46,11 @@ export default class Analyse extends React.Component {
     }
 
     selectDuration(selectedDuration) {
-        this.setState({ selectedDuration })
+        this.setState({ selectedDuration });
     }
 
-    componentDidMount() {
-        fetch('/api/tests')
-            .then(response => response.json())
-            .then(tests => {
-                if (Object.keys(tests).length > 0) {
-                    this.setState({ tests });
-                }
-            })
-            .catch(() => {
-                this.setState({ tests: defaultTests });
-            });
-    }
-
-    render() {
-        const steps = [
+    getSteps() {
+        return [
             {
                 key: 'welcome',
                 step: (handleNext, _) => <Welcome
@@ -107,19 +90,29 @@ export default class Analyse extends React.Component {
                 step: (handleNext, setResults) => <MRCDyspnoea handleNext={handleNext} setResults={setResults} />
             },
         ];
+    }
 
+    componentDidMount() {
+        fetch('/api/tests')
+            .then(response => response.json())
+            .then(tests => {
+                if (Object.keys(tests).length > 0) {
+                    this.setState({ tests });
+                }
+            })
+            .catch(() => {
+                this.setState({ tests: defaultTests });
+            });
+    }
+
+    render() {
+        const steps = this.getSteps();
 
         const handleNext = () => {
             this.setState((state) => ({
                 activeStep: state.activeStep + 1
             }));
         };
-
-        // const handleBack = () => {
-        //     this.setState({
-        //         activeStep: this.state.activeStep - 1
-        //     });
-        // };
 
         const setResults = (results) => {
             this.setState((state) => ({
