@@ -1,4 +1,5 @@
-import { Card, CardHeader, Divider, makeStyles, Typography } from "@material-ui/core";
+import { Card, CardHeader, Divider, IconButton, makeStyles, Tooltip, Typography } from "@material-ui/core";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import MicIcon from '@material-ui/icons/Mic';
 import { sputumColours } from "../Sputum";
 
@@ -15,6 +16,13 @@ export default function ResultsCard({ results, tests }) {
         <Card variant="outlined" className={classes.resultsCard}>
             <CardHeader
                 avatar={<MicIcon />}
+                action={results.shared ?
+                    <IconButton>
+                        <Tooltip title="Shared">
+                            <CheckCircleIcon />
+                        </Tooltip>
+                    </IconButton>
+                    : null}
                 title={`${tests[results.testId].title} (${results["speech.duration"]}s)`}
                 subheader={new Date(results.createdAt).toLocaleString()}
             />
