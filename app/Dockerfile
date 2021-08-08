@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY . ./
 RUN npm -g install npm@latest
-RUN npm install --silent
+RUN npm install --silent --legacy-peer-deps
 
-CMD ["npm", "build"]
+CMD ["npm", "run", "build"]
