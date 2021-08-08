@@ -49,10 +49,13 @@ CREATE TABLE `submissions` (
   `user_id` int(10) unsigned NOT NULL,
   `outward_postcode` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `audio` mediumblob NOT NULL,
+  `test_type_id` int(11) unsigned NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `submissions_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `test_type_id` (`test_type_id`),
+  CONSTRAINT `submissions_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `submissions_ibfk_3` FOREIGN KEY (`test_type_id`) REFERENCES `test_types` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
@@ -67,6 +70,21 @@ CREATE TABLE `submission_metadata` (
   CONSTRAINT `submission_metadata_ibfk_3` FOREIGN KEY (`submission_id`) REFERENCES `submissions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
+DROP TABLE IF EXISTS `test_types`;
+CREATE TABLE `test_types` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `instruction` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `possible_durations` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active` tinyint(3) unsigned NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `test_types` (`id`, `title`, `instruction`, `possible_durations`, `active`) VALUES
+(1,	'Counting numbers',	'Please count out loud up from one clearly at a fast but comfortable speaking pace until the timer runs out.',	'[10,30,60,90,120]',	1),
+(2,	'Repeating hippopotamus',	'Please repeatedly say \'hippopotamus\' at a fast but comfortable speaking pace until the timer runs out.',	'[30,60,90,120]',	1),
+(3,	'Repeating helicopter',	'Please repeatedly say \'helicopter\' at a fast but comfortable speaking pace until the timer runs out.',	'[30,60,90,120]',	1);
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
