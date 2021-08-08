@@ -24,7 +24,7 @@ passport.use(new LocalStrategy(
     async (email, password, done) => {
         try {
             const user = await findUserByEmail(email);
-            if (!(await isValidPasswordHash(password, user.password))) {
+            if (!user || !(await isValidPasswordHash(password, user.password))) {
                 done(null, false);
             }
             return done(null, user);
