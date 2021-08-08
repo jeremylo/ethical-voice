@@ -13,7 +13,7 @@ router.post('/login',
             return res.redirect('/');
         }
 
-        next();
+        return next();
     },
     (req, res, next) => {
         passport.authenticate('local', (err, user, info) => {
@@ -52,7 +52,7 @@ router.post('/login',
                         return next();
                     });
                 } catch (err3) {
-                    next(err3);
+                    return next(err3);
                 }
             });
         })(req, res, next);
