@@ -23,23 +23,23 @@ export default function Results() {
     const [tests, setTests] = useState(defaultTests);
     const newestFirst = true;
 
-    const handleNewResults = (data) => {
-        setResults(data.sort((a, b) => {
-            return (new Date(b.createdAt) - new Date(a.createdAt)) * (newestFirst ? 1 : -1);
-        }));
-    };
-
     useEffect(() => {
         getTests().then(setTests);
     }, [setTests])
 
     useEffect(() => {
+        const handleNewResults = (data) => {
+            setResults(data.sort((a, b) => {
+                return (new Date(b.createdAt) - new Date(a.createdAt)) * (newestFirst ? 1 : -1);
+            }));
+        };
+
         getAllResults().then(res => {
             handleNewResults(res);
             setLoaded(true);
             console.log(res);
         });
-    }, [setLoaded]);
+    }, [newestFirst]);
 
     return (
         <div className={classes.root}>
