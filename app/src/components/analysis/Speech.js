@@ -141,9 +141,9 @@ class Speech extends Component {
     }
 
     startRecording() {
-        this.setState({ appStatus: STATUSES.RECORDING, isRecordButtonDisabled: false });
-
         navigator.mediaDevices.getUserMedia({ audio: true }).then((microphone) => {
+            this.setState({ appStatus: STATUSES.RECORDING, isRecordButtonDisabled: false });
+
             this.recorder = window.RecordRTC(microphone, {
                 type: 'audio',
                 mimeType: 'audio/webm',
