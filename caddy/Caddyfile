@@ -1,6 +1,8 @@
 mydata.jezz.me {
     root * /srv
-    reverse_proxy /api/* localhost:4000
-    try_files {path} /index.html
-    file_server
+    route {
+        reverse_proxy /api/* localhost:4000
+        try_files {path} /index.html
+        file_server
+    }
 }
