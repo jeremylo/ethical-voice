@@ -36,6 +36,8 @@ router.post('/login',
 
                 try {
                     issueRememberMeToken(user).then(token => {
+                        if (res.headersSent) return next();
+
                         res.cookie(
                             process.env.REMEMBER_ME_COOKIE_NAME,
                             token,
@@ -45,7 +47,8 @@ router.post('/login',
                                 maxAge: 604800000,
                                 secure: true,
                                 sameSite: true
-                            });
+                            }
+                        );
                         return next();
                     });
                 } catch (err3) {
