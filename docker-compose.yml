@@ -5,6 +5,8 @@ services:
       context: ./app
     ports:
       - "3000:3000"
+    volumes:
+      - app-build:/app/build
 
   api:
     build:
@@ -47,5 +49,16 @@ services:
     ports:
       - 8080:8080
 
+  caddy:
+    build:
+      context: ./caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - app-build:/srv
+
 volumes:
   redis-data:
+
+  app-build:
