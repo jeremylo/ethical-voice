@@ -187,6 +187,7 @@ class Speech extends Component {
                         appStatus: STATUSES.ERROR,
                     });
                 });
+            this.recorder.microphone.getAudioTracks().forEach(track => track.stop());
         });
     }
 
