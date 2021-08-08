@@ -21,11 +21,11 @@ export default function Results() {
     const [loaded, setLoaded] = useState(false);
     const [results, setResults] = useState([]);
     const [tests, setTests] = useState(defaultTests);
-    const sortByDesc = true;
+    const newestFirst = true;
 
     const handleNewResults = (data) => {
         setResults(data.sort((a, b) => {
-            return new Date(b.createdAt) - new Date(a.createdAt);
+            return (new Date(b.createdAt) - new Date(a.createdAt)) * (newestFirst ? 1 : -1);
         }));
     };
 
