@@ -1,3 +1,4 @@
 mydata.jezz.me {
-    respond "hi!"
+    root * /srv
+    try_files {path} /index.html
 }
