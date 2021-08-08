@@ -4,7 +4,6 @@ import { getAllResults } from "../persistence/db";
 import getTests, { defaultTests } from "../persistence/tests";
 import ResultsCard from "./analysis/completion/ResultsCard";
 
-
 const useStyles = makeStyles((theme) => ({
     header: {
         paddingTop: "1rem",
@@ -22,6 +21,13 @@ export default function Results() {
     const [loaded, setLoaded] = useState(false);
     const [results, setResults] = useState([]);
     const [tests, setTests] = useState(defaultTests);
+    const sortByDesc = true;
+
+    const handleNewResults = (data) => {
+        setResults(data.sort((a, b) => {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+        }));
+    };
 
     useEffect(() => {
         getTests().then(setTests);
@@ -29,7 +35,7 @@ export default function Results() {
 
     useEffect(() => {
         getAllResults().then(res => {
-            setResults(res);
+            handleNewResults(res);
             setLoaded(true);
             console.log(res);
         });
