@@ -6,4 +6,4 @@ COPY . ./
 RUN npm -g install --silent npm@latest
 RUN npm install --silent --legacy-peer-deps
 
-CMD ["npm", "run", "build"]
+RUN npm run build
