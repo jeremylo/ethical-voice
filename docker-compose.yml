@@ -14,6 +14,8 @@ services:
         limits:
           cpus: '1.00'
           memory: 8192M
+    depends_on:
+      - api
 
   api:
     build:
@@ -32,6 +34,9 @@ services:
       - REDIS_HOST=${REDIS_HOST}
       - REDIS_PORT=${REDIS_PORT}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
+    depends_on:
+      - redis
+      - db
 
   redis:
     build:
@@ -56,9 +61,12 @@ services:
     command: --event_scheduler=ON
 
   adminer: # remove this in production!
+    profiles: ["dev"]
     image: adminer
     ports:
       - 8080:8080
+    depends_on:
+      - db
 
   caddy:
     build:
@@ -68,6 +76,9 @@ services:
       - "443:443"
     volumes:
       - app-build:/srv
+    depends_on:
+      - api
+      - app
 
 volumes:
   redis-data:
