@@ -19,6 +19,6 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /deploy/ethical-voice
-            sudo docker-compose down
+            echo ${{ secrets.PASSWORD }} | sudo -S docker-compose down
             git pull
-            sudo docker-compose up --build -d
+            echo ${{ secrets.PASSWORD }} | sudo -S docker-compose up --build -d
