@@ -1,11 +1,12 @@
 import { Box, CircularProgress, createTheme, makeStyles, ThemeProvider, Typography } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors';
 import React from 'react';
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./auth/PrivateRoute";
 import PublicOnlyRoute from './auth/PublicOnlyRoute';
 import { AuthProvider, useAuth } from './auth/use-auth';
 import Analyse from './components/Analyse';
+import Error404 from './components/Error404';
 import Home from './components/Home';
 import Layout from './components/Layout';
 import Login from './components/Login';
@@ -57,20 +58,21 @@ function Routes() {
       </PublicOnlyRoute>
 
       { /* Logged in routes */}
-      <Layout>
-        <PrivateRoute exact path="/">
-          <Home />
-        </PrivateRoute>
-        <PrivateRoute path="/analyse">
-          <Analyse />
-        </PrivateRoute>
-        <PrivateRoute path="/results">
-          <Results />
-        </PrivateRoute>
-        <PrivateRoute path="/settings">
-          <Settings />
-        </PrivateRoute>
-      </Layout>
+      <PrivateRoute exact path="/">
+        <Layout><Home /></Layout>
+      </PrivateRoute>
+      <PrivateRoute path="/analyse">
+        <Layout><Analyse /></Layout>
+      </PrivateRoute>
+      <PrivateRoute path="/results">
+        <Layout><Results /></Layout>
+      </PrivateRoute>
+      <PrivateRoute path="/settings">
+        <Layout><Settings /></Layout>
+      </PrivateRoute>
+
+      { /* 404 */}
+      <Route><Error404 /></Route>
     </Switch>
   </Router>;
 }
