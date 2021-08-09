@@ -9,6 +9,11 @@ services:
       - app-build:/app/build
     environment:
       - NODE_OPTIONS=${NODE_OPTIONS}
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 8192M
 
   api:
     build:
