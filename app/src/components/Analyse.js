@@ -99,6 +99,7 @@ export default class Analyse extends React.Component {
             });
             return true;
         } catch (e) {
+            console.error(e);
             return false;
         }
 
@@ -109,11 +110,26 @@ export default class Analyse extends React.Component {
             return false;
         }
 
-        if (sharingEnabled) {
-            // TODO: share it with the server
+        if (!sharingEnabled) {
+            return true;
         }
 
-        return true;
+        // Share results with the API
+        const formData = new FormData();
+        Object.entries(this.state.results).forEach((k, v) => {
+            formData.append(k, v);
+        });
+        formData.append('audio', this.state.audio);
+
+        try {
+            const res = await fetch('/api/submit', {
+                method: 'POST',
+                body: formData,
+            });
+            return res.status === 200;
+        } catch (e) {
+            return false;
+        }
     }
 
     async componentDidMount() {

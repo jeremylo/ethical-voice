@@ -6,6 +6,7 @@ import passport from './passport.js';
 import redisClient from './redis.js';
 import authRoutes from './routes/auth.js';
 import modelRoutes from './routes/model.js';
+import submitRoutes from './routes/submit.js';
 import testsRoutes from './routes/tests.js';
 
 const app = express();
@@ -44,6 +45,7 @@ app.get('/api', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/tests', testsRoutes);
 app.use('/api/model', modelRoutes);
+app.use('/api/submit', submitRoutes);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
