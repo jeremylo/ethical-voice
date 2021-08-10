@@ -3,7 +3,7 @@ import multer from 'multer';
 import pool from '../db.js';
 import requireAuth from '../requireAuth.js';
 
-const ALLOWED_KEYS = ['testId', 'createdAt', 'speech.syllableCount', 'speech.syllablesPerMinute', 'speech.wordCount', 'speech.wordsPerMinute', 'speech.transcription', 'speech.duration', 'sputum', 'wellbeing', 'dyspnoea'];
+const ALLOWED_KEYS = ['speech.syllableCount', 'speech.syllablesPerMinute', 'speech.wordCount', 'speech.wordsPerMinute', 'speech.transcription', 'speech.duration', 'sputum', 'wellbeing', 'dyspnoea'];
 
 const router = Router();
 
@@ -52,6 +52,16 @@ router.post('/', requireAuth, upload.single('audio'), async (req, res) => {
             +req.body.testId,
             new Date(+req.body.createdAt).toISOString().slice(0, 19).replace('T', ' ')
         ]);
+
+        const metadata = Object.entries(req.body).filter(([k, v]) => (
+            ALLOWED_KEYS.includes(k) && String(k).length < 255 && String(v) < 65535
+        ));
+
+        if (metadata.length > 0) {
+            console.log([metadata.map(([k, v]) => [result.insertId, k, v])]);
+            await conn.batch("INSERT INTO submission_metadata (submission_id, metadata_key, metadata_value) VALUES (?, ?, ?)",
+                metadata.map(([k, v]) => [result.insertId, k, v]));
+        }
 
         res.status(200);
         res.json({ success: true });
