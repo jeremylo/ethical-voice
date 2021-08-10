@@ -47,23 +47,23 @@ export default function Home() {
 
     const syllableRateData = data.map(datum => ({
         x: datum.createdAt,
-        y: datum['speech.syllablesPerMinute']
-    }));
+        y: datum['speech.syllablesPerMinute'] ?? null
+    })).filter(datum => datum.y !== null);
 
     const sputumColourData = data.map(datum => ({
         x: datum.createdAt,
-        y: datum.sputum
-    }));
+        y: datum.sputum ?? null
+    })).filter(datum => datum.y !== null);
 
     const wellbeingData = data.map(datum => ({
         x: datum.createdAt,
-        y: datum.wellbeing
-    }));
+        y: datum.wellbeing ?? null
+    })).filter(datum => datum.y !== null);
 
     const dyspnoeaData = data.map(datum => ({
         x: datum.createdAt,
-        y: datum.dyspnoea
-    }));
+        y: datum.dyspnoea ?? null
+    })).filter(datum => datum.y !== null);
 
     return (
         <div className={classes.root}>
