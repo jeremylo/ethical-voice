@@ -1,31 +1,66 @@
 import Router from 'express';
 import multer from 'multer';
+import pool from '../db.js';
+import requireAuth from '../requireAuth.js';
+
+const ALLOWED_KEYS = ['testId', 'createdAt', 'speech.syllableCount', 'speech.syllablesPerMinute', 'speech.wordCount', 'speech.wordsPerMinute', 'speech.transcription', 'speech.duration', 'sputum', 'wellbeing', 'dyspnoea'];
 
 const router = Router();
 
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
 
-router.post('/', upload.single('audio'), (req, res) => {
+const isNumeric = (x) => /^[1-9][\d]*$/.test(x);
 
-    if (req.file.size > 15 * 1024 * 1024) { // 15MiB
+router.post('/', requireAuth, upload.single('audio'), async (req, res) => {
+
+    const validate = () => {
+        // Ensure submitted files are <15MiB
+        if (req.file.size > 15 * 1024 * 1024)
+            return "The provided audio file is too large.";
+
+        // Ensure submitted audio files are audio/wav
+        if (req.file.mimetype !== "audio/wav")
+            return "The provided file has the wrong MIME type.";
+
+        // Ensure the provided test ID is valid.
+        if (!('testId' in req.body) || !isNumeric(req.body.testId))
+            return "The provided test ID is invalid.";
+
+        // Ensure the creation time is valid
+        if (!('createdAt' in req.body) || !isNumeric(req.body.createdAt) || (new Date(+req.body.createdAt)).getTime() <= 0)
+            return "The provided creation time is invalid.";
+    };
+
+    let error;
+    if (error = validate()) {
         res.status(200);
         res.json({
-            error: "The provided audio file is too large."
+            success: false,
+            error
         });
+        return res;
     }
 
-    console.log(req.body);
-    console.log(req.file);
-
-    res.status(200);
-    res.json({});
-
+    let conn;
     try {
+        conn = await pool.getConnection();
+        const result = await conn.query("INSERT INTO submissions (user_id, outward_postcode, audio, test_type_id, created_at) VALUES (?, ?, BINARY(?), ?, ?)", [
+            req.user.id,
+            req.user.outward_postcode,
+            req.file.buffer,
+            +req.body.testId,
+            new Date(+req.body.createdAt).toISOString().slice(0, 19).replace('T', ' ')
+        ]);
 
-    } catch {
+        res.status(200);
+        res.json({ success: true });
+    } catch (e) {
+        console.log(e);
         res.status(500);
-        res.json([]);
+        res.json({ success: false, error: "Something terrible has happened! D:" });
+    } finally {
+        if (conn) conn.release();
     }
 });
 
