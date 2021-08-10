@@ -2,25 +2,23 @@ import { Box, Button, CircularProgress, Typography } from "@material-ui/core";
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { Alert } from "@material-ui/lab";
 import { useState } from "react";
+import { SUBMISSION_MESSAGES } from "../submission_statuses";
+
 
 export default function ResultsSubmitter({
     resultsCard,
     onSubmit,
     submissionInstruction,
-    submissionButtonText,
-    savingSuccessfulMessage,
-    savingUnsuccessfulMessage,
+    submissionButtonText
 }) {
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
-    const [success, setSuccess] = useState(false);
+    const [status, setStatus] = useState(null);
 
     if (saving) {
-        if (saved) {
+        if (saved && status) {
             return <>
-                {success
-                    ? <Alert severity="success" style={{ margin: '2rem 0' }}>{savingSuccessfulMessage}</Alert>
-                    : <Alert severity="error" style={{ margin: '2rem 0' }}>{savingUnsuccessfulMessage}</Alert>}
+                <Alert severity={SUBMISSION_MESSAGES[status].severity} style={{ margin: '2rem 0' }}>{SUBMISSION_MESSAGES[status].message}</Alert>
                 {resultsCard}
             </>;
         }
@@ -46,8 +44,8 @@ export default function ResultsSubmitter({
                 color="primary"
                 onClick={() => {
                     setSaving(true);
-                    onSubmit().then(success => {
-                        setSuccess(success);
+                    onSubmit().then(submissionStatus => {
+                        setStatus(submissionStatus);
                         setSaved(true);
                     });
                 }}

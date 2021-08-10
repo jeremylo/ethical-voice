@@ -7,8 +7,12 @@ import Completion from "./analysis/Completion";
 import MRCDyspnoea from "./analysis/MRCDyspnoea";
 import Speech from "./analysis/Speech";
 import Sputum from "./analysis/Sputum";
+import { SUBMISSION_STATUSES } from "./analysis/submission_statuses";
 import Welcome from "./analysis/Welcome";
 import Wellbeing from "./analysis/Wellbeing";
+
+
+const MAX_FILE_SIZE = 15 * 1024 * 1024;
 
 export default class Analyse extends React.Component {
 
@@ -107,16 +111,20 @@ export default class Analyse extends React.Component {
 
     async handleSubmission(sharingEnabled) {
         if (!await this.saveLocally(this.state.results, sharingEnabled)) {
-            return false;
+            return SUBMISSION_STATUSES.LOCAL_ERROR;
         }
 
         if (!sharingEnabled) {
-            return true;
+            return SUBMISSION_STATUSES.LOCAL_SUCCESS;
+        }
+
+        if (this.state.audio.size > MAX_FILE_SIZE) {
+            return SUBMISSION_STATUSES.TOO_LARGE_TO_SUBMIT;
         }
 
         // Share results with the API
         const formData = new FormData();
-        Object.entries(this.state.results).forEach((k, v) => {
+        Object.entries(this.state.results).forEach(([k, v]) => {
             formData.append(k, v);
         });
         formData.append('audio', this.state.audio);
@@ -126,9 +134,9 @@ export default class Analyse extends React.Component {
                 method: 'POST',
                 body: formData,
             });
-            return res.status === 200;
+            return res.status === 200 ? SUBMISSION_STATUSES.SUCCESS_SUBMITTING : SUBMISSION_STATUSES.ERROR_SUBMITTING;
         } catch (e) {
-            return false;
+            return SUBMISSION_STATUSES.ERROR_SUBMITTING;
         }
     }
 
