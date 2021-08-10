@@ -134,7 +134,8 @@ export default class Analyse extends React.Component {
                 method: 'POST',
                 body: formData,
             });
-            return res.status === 200 ? SUBMISSION_STATUSES.SUCCESS_SUBMITTING : SUBMISSION_STATUSES.ERROR_SUBMITTING;
+            return res.status === 200 && ((await res.json()).success ?? false)
+                ? SUBMISSION_STATUSES.SUCCESS_SUBMITTING : SUBMISSION_STATUSES.ERROR_SUBMITTING;
         } catch (e) {
             return SUBMISSION_STATUSES.ERROR_SUBMITTING;
         }
