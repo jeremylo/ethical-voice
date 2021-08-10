@@ -51,6 +51,7 @@ CREATE TABLE `submissions` (
   `audio` mediumblob NOT NULL,
   `test_type_id` int(11) unsigned NOT NULL,
   `created_at` datetime NOT NULL,
+  `received_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `test_type_id` (`test_type_id`),
@@ -64,7 +65,7 @@ CREATE TABLE `submission_metadata` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `submission_id` int(11) unsigned NOT NULL,
   `metadata_key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `metadata_value` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `metadata_value` text COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `submission_id` (`submission_id`),
   CONSTRAINT `submission_metadata_ibfk_3` FOREIGN KEY (`submission_id`) REFERENCES `submissions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -104,7 +105,3 @@ CREATE TABLE `users` (
   KEY `sro_id` (`sro_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`sro_id`) REFERENCES `sros` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-REVOKE ALL PRIVILEGES ON `mydata`.* FROM '7L27DLld'@'%';
-GRANT DELETE, INSERT, SELECT, UPDATE ON `mydata`.* TO '7L27DLld'@'%'
