@@ -106,7 +106,7 @@ router.post('/user/password', requireAuth, async (req, res) => {
         }
 
         try {
-            updateUserPassword(req.user, await hashPassword(req.body.newPassword));
+            await updateUserPassword(req.user, await hashPassword(req.body.newPassword));
             res.status(200);
             res.json({
                 message: "The password was updated successfully."
@@ -124,7 +124,7 @@ router.post('/user/password', requireAuth, async (req, res) => {
 router.post('/user/outwardpostcode', requireAuth, async (req, res) => {
     if (req.body.outwardPostcode && isValidOutwardPostcode(req.body.outwardPostcode)) {
         try {
-            updateUserOutwardPostcode(req.user, req.body.outwardPostcode);
+            await updateUserOutwardPostcode(req.user, req.body.outwardPostcode);
             res.status(200);
             res.json({
                 message: "The outward postcode was updated successfully."
@@ -146,7 +146,7 @@ router.post('/user/outwardpostcode', requireAuth, async (req, res) => {
 router.post('/user/sharing', requireAuth, async (req, res) => {
     if (req.body.sharing !== undefined && typeof req.body.sharing === "boolean") {
         try {
-            updateUserSharing(req.user, req.body.sharing);
+            await updateUserSharing(req.user, req.body.sharing);
             res.status(200);
             res.json({
                 message: "The sharing agreement status was updated successfully."
