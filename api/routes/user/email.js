@@ -10,7 +10,7 @@ const router = Router();
 
 router.post('/', requireAuth, async (req, res) => {
     if (!req.body.email || !isValidEmail(req.body.email)) { // || req.body.email === req.user.email
-        res.status(200);
+        res.status(400);
         res.json({
             "error": "The provided email is invalid."
         });
@@ -61,7 +61,7 @@ router.post('/', requireAuth, async (req, res) => {
 
 router.get('/verify', async (req, res) => {
     if (!req.query.userid || !isNumeric(req.query.userid) || +req.query.userid <= 0 || !req.query.token) {
-        res.status(200);
+        res.status(400);
         res.send("Apologies - your email could not be confirmed.");
         return res;
     }
@@ -89,7 +89,7 @@ router.get('/verify', async (req, res) => {
         res.status(200);
         res.send("Your new email has been confirmed! You may now close this window and log back into the app.");
     } catch (e) {
-        res.status(200);
+        res.status(400);
         res.send("Apologies - your email could not be confirmed as this link is either invalid or expired.");
         return res;
     }

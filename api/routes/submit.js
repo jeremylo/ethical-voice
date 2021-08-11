@@ -33,7 +33,7 @@ router.post('/', requireAuth, upload.single('audio'), async (req, res) => {
 
     let error;
     if (error = validate()) {
-        res.status(200);
+        res.status(400);
         res.json({
             success: false,
             error

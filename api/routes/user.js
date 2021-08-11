@@ -30,7 +30,7 @@ router.use('/email', emailRoutes);
 
 router.post('/password', requireAuth, async (req, res) => {
     if (!req.body.oldPassword || !req.body.newPassword) {
-        res.status(401);
+        res.status(400);
         res.json({
             "error": "Not enough information was provided to effectuate the password change."
         });
@@ -74,7 +74,7 @@ router.post('/outwardpostcode', requireAuth, async (req, res) => {
             });
         }
     } else {
-        res.status(500);
+        res.status(400);
         res.json({
             message: "Bad outward postcode input D:"
         });
@@ -95,6 +95,11 @@ router.post('/sharing', requireAuth, async (req, res) => {
                 message: "The sharing agreement status could not be updated successfully."
             });
         }
+    } else {
+        res.status(400);
+        res.json({
+            message: "Bad sharing agreement status provided."
+        });
     }
 });
 

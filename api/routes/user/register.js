@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
     }
 
     if (!req.body.referenceId || !isValidReferenceId(req.body.referenceId)) {
-        res.status(200);
+        res.status(400);
         res.json({
             error: "The provided reference ID is invalid."
         });
@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
     }
 
     if (!req.body.email || !isValidEmail(req.body.email)) {
-        res.status(200);
+        res.status(400);
         res.json({
             error: "The provided email is invalid."
         });
@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
         user = await findUnactivatedUserByReferenceId(referenceId);
     } catch (e) {
         console.log(e);
-        res.status(200);
+        res.status(400);
         res.json({
             error: "Invalid user."
         });
