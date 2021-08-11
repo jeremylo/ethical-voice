@@ -9,6 +9,10 @@ export async function findUserByEmail(email) {
     return (await query("SELECT * FROM users WHERE email=? AND status=? LIMIT 1", [email, 1]))[0];
 }
 
+export async function updateUserEmail(user, email) {
+    return (await query("UPDATE users SET email=? WHERE id=?", [email, user.id]));
+}
+
 export async function updateUserPassword(user, password) {
     return (await query("UPDATE users SET password=? WHERE id=?", [password, user.id]));
 }
