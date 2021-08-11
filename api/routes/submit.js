@@ -2,6 +2,7 @@ import Router from 'express';
 import multer from 'multer';
 import pool from '../db.js';
 import requireAuth from '../requireAuth.js';
+import { isNumeric } from '../utils.js';
 
 const ALLOWED_KEYS = ['speech.syllableCount', 'speech.syllablesPerMinute', 'speech.wordCount', 'speech.wordsPerMinute', 'speech.transcription', 'speech.duration', 'sputum', 'wellbeing', 'dyspnoea'];
 
@@ -9,8 +10,6 @@ const router = Router();
 
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
-
-const isNumeric = (x) => /^[1-9][\d]*$/.test(x);
 
 router.post('/', requireAuth, upload.single('audio'), async (req, res) => {
 
