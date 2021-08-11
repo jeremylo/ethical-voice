@@ -28,13 +28,9 @@ const authenticator = {
         return await res.json();
     },
 
-    async register(refId, email, password) {
-        return {
-            refId: 1234567890,
-            email: 'test@example.com',
-            outwardPostcode: 'SW1',
-            sharing: true
-        };
+    async register(referenceId, email) {
+        const res = await fetchPost('/api/user/register', { referenceId, email });
+        return !("error" in (await res.json()));
     },
 
     async logout() {

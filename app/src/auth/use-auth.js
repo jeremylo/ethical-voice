@@ -39,15 +39,6 @@ function useAuthProvider() {
             }); // TODO: error handling
     };
 
-    const register = (refId, email, password) => {
-        return authenticator
-            .register(refId, email, password)
-            .then((user) => {
-                setUser(user);
-                return user;
-            }); // TODO: error handling
-    };
-
     const logout = () => {
         setUser(null);
         return authenticator
@@ -78,10 +69,10 @@ function useAuthProvider() {
         user,
         setUser,
         login,
-        register,
         logout,
         sendPasswordResetEmail,
         confirmPasswordReset,
+        register: authenticator.register,
         setEmail: authenticator.setEmail,
         setPassword: authenticator.setPassword,
         setOutwardPostcode: authenticator.setOutwardPostcode,

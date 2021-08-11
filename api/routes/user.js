@@ -1,7 +1,7 @@
 import Router from 'express';
 import jwt from 'jsonwebtoken';
 import getMailer, { fillTemplate } from '../email.js';
-import { findUserById, updateUserEmail, updateUserOutwardPostcode, updateUserPassword, updateUserSharing } from '../persistence/users.js';
+import { findUnactivatedUserByReferenceId, findUserById, updateUserEmail, updateUserOutwardPostcode, updateUserPassword, updateUserSharing } from '../persistence/users.js';
 import requireAuth from '../requireAuth.js';
 import { hashPassword, hashSha256, isNumeric, isValidEmail, isValidOutwardPostcode, isValidPasswordHash, isValidReferenceId } from '../utils.js';
 
@@ -52,51 +52,53 @@ router.post('/register', async (req, res) => {
     const referenceId = String(req.body.referenceId).toLowerCase();
     const email = String(req.body.email).toLowerCase();
 
+    let user;
     try {
-        const user = findUnactivatedUserByReferenceId(refId);
+        user = await findUnactivatedUserByReferenceId(referenceId);
+    } catch (e) {
+        console.log(e);
+        res.status(200);
+        res.json({
+            error: "Invalid user."
+        });
+        return res;
+    }
 
-        const confirmationToken = jwt.sign({ referenceId, email }, hashSha256(user.id), { expiresIn: '1h' });
-        const link = `https://mydata.jezz.me/activate/${referenceId}/${confirmationToken}`;
+    const confirmationToken = jwt.sign({ referenceId, email }, hashSha256(String(user.id)), { expiresIn: '1h' });
+    const link = `https://mydata.jezz.me/activate/${referenceId}/${confirmationToken}`;
 
-        console.log(`New account email confirmation token generated: ${confirmationToken}`);
+    console.log(`New account email confirmation token generated: ${confirmationToken}`);
 
-        getMailer()
-            .send({
-                to: email,
-                from: {
-                    email: 'noreply@mydata.jezz.me',
-                    name: 'My Data'
-                },
-                subject: 'Confirm your email',
-                html: fillTemplate(
-                    `
+    getMailer()
+        .send({
+            to: email,
+            from: {
+                email: 'noreply@mydata.jezz.me',
+                name: 'My Data'
+            },
+            subject: 'Confirm your email',
+            html: fillTemplate(
+                `
                 <h1>Confirm your email address</h1>
                 <p>Hi,</p>
                 <p>To confirm your email address, click the following link: <a href="${link}">${link}</a></p>
                 <p>Best wishes,</p>
                 <p>My Data</p>
                 `
-                ),
-            })
-            .then(() => {
-                res.status(200);
-                res.json({
-                    message: "A confirmation email has been sent."
-                });
-            })
-            .catch((error) => {
-                res.status(500);
-                res.json({
-                    message: "The confirmation email could not be sent."
-                });
-            })
-
-    } catch (e) {
-        res.status(200);
-        res.json({
-            error: "Invalid user."
+            ),
         })
-    }
+        .then(() => {
+            res.status(200);
+            res.json({
+                message: "A confirmation email has been sent."
+            });
+        })
+        .catch((error) => {
+            res.status(500);
+            res.json({
+                message: "The confirmation email could not be sent."
+            });
+        });
 });
 
 router.post('/email', requireAuth, async (req, res) => {

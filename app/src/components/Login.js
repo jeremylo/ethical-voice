@@ -1,6 +1,5 @@
 import { Link as MuiLink, Snackbar } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -12,7 +11,6 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/use-auth';
-import Copyright from './layout/Copyright';
 import TopBar from './layout/TopBar';
 import { isValidEmail } from './utils';
 
@@ -153,9 +151,6 @@ export default function Login() {
                         </Alert>
                     </Snackbar>
                 </div>
-                <Box mt={8}>
-                    <Copyright />
-                </Box>
             </Container>
         </>
     );

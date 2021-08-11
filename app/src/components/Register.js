@@ -1,17 +1,17 @@
-import { Grid, InputLabel, Link as MuiLink } from '@material-ui/core';
+import { Grid, InputLabel, Link as MuiLink, Snackbar } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { AccountCircleRounded } from '@material-ui/icons';
+import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Copyright from './layout/Copyright';
+import { useAuth } from '../auth/use-auth';
 import TopBar from './layout/TopBar';
-import { isValidEmail, isValidPassword, isValidReferenceId } from './utils';
+import { isValidEmail, isValidReferenceId } from './utils';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,10 +36,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Register() {
     const classes = useStyles();
+    const auth = useAuth();
 
+    const [open, setOpen] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+    const [snackbarProperties, setSnackbarProperties] = useState({
+        severity: "error",
+        message: "Registration failed — please double-check your details and try again."
+    });
     const [refId, setRefId] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
 
     const handleRefIdChange = (event) => {
         let val = event.target.value.toLowerCase();
@@ -50,10 +56,6 @@ export default function Register() {
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value.toLowerCase());
-    };
-
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value.toLowerCase());
     };
 
     const refIdInvalid = !isValidReferenceId(refId);
@@ -68,11 +70,41 @@ export default function Register() {
         helperText: "Please enter a valid email."
     } : {};
 
-    const passwordInvalid = !isValidPassword(password);
-    const passwordAttributes = (password && passwordInvalid) ? {
-        error: true,
-        helperText: "Please enter a valid password that is at least 10 characters in length."
-    } : {};
+    // Form submission
+    const handleSubmit = () => {
+        setSubmitted(true);
+        auth.register(refId, email)
+            .then((successful) => {
+                if (successful) {
+                    setSnackbarProperties({
+                        severity: "success",
+                        message: "Registration successful — please click the confirmation link sent to your email."
+                    });
+                } else {
+                    setSnackbarProperties({
+                        severity: "error",
+                        message: "Registration failed — please double-check your details and try again."
+                    });
+                    setSubmitted(false);
+                }
+                setOpen(true);
+            })
+            .catch(() => {
+                setSnackbarProperties({
+                    severity: "error",
+                    message: "Registration failed — your details could not be verified at this time."
+                });
+                setOpen(true);
+            });
+    };
+
+    // Snackbar
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
 
     return (<>
         <TopBar />
@@ -116,27 +148,14 @@ export default function Register() {
                         onChange={handleEmailChange}
                         {...emailAttributes}
                     />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="registration-password"
-                        autoComplete="current-password"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        {...passwordAttributes}
-                    />
                     <Button
-                        type="submit"
+                        type="button"
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        disabled={!email || !password || !refId || emailInvalid || refIdInvalid}
+                        disabled={!email || !refId || emailInvalid || refIdInvalid || submitted}
+                        onClick={handleSubmit}
                     >
                         Register
                     </Button>
@@ -151,9 +170,10 @@ export default function Register() {
                     </Grid>
                 </form>
             </div>
-            <Box mt={8}>
-                <Copyright />
-            </Box>
+
+            <Snackbar open={open} autoHideDuration={10000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity={snackbarProperties.severity}>{snackbarProperties.message}</Alert>
+            </Snackbar>
         </Container>
     </>
     );
