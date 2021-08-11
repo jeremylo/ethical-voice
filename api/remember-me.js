@@ -1,5 +1,5 @@
 import { createHash, randomBytes } from 'crypto';
-import { deleteRememberMeToken, findRememberMeToken, insertRememberMeToken } from './persistence/remember-me';
+import { deleteRememberMeToken, findRememberMeToken, insertRememberMeToken } from './persistence/remember-me.js';
 
 
 export function hashRememberMeToken(token) {
