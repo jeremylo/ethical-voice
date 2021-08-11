@@ -94,13 +94,13 @@ export default class Analyse extends React.Component {
         ];
     }
 
-    async saveLocally(data, sharingEnabled) {
+    async saveLocally(data, sharingEnabled, referenceId) {
         try {
             await addResult({
                 audio: this.state.audio,
                 shared: sharingEnabled,
                 ...data
-            });
+            }, referenceId);
             return true;
         } catch (e) {
             console.error(e);
@@ -109,8 +109,8 @@ export default class Analyse extends React.Component {
 
     }
 
-    async handleSubmission(sharingEnabled) {
-        if (!await this.saveLocally(this.state.results, sharingEnabled)) {
+    async handleSubmission(sharingEnabled, referenceId) {
+        if (!await this.saveLocally(this.state.results, sharingEnabled, referenceId)) {
             return SUBMISSION_STATUSES.LOCAL_ERROR;
         }
 

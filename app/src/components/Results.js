@@ -1,5 +1,6 @@
 import { Container, makeStyles, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
+import { useAuth } from "../auth/use-auth";
 import { getAllResults } from "../persistence/db";
 import getTests, { defaultTests } from "../persistence/tests";
 import ResultsCard from "./analysis/completion/ResultsCard";
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Results() {
     const classes = useStyles();
+    const auth = useAuth();
     const [loaded, setLoaded] = useState(false);
     const [results, setResults] = useState([]);
     const [tests, setTests] = useState(defaultTests);
@@ -34,12 +36,11 @@ export default function Results() {
             }));
         };
 
-        getAllResults().then(res => {
+        getAllResults(auth.user.refId).then(res => {
             handleNewResults(res);
             setLoaded(true);
-            console.log(res);
         });
-    }, [newestFirst]);
+    }, [newestFirst, auth.user]);
 
     return (
         <div className={classes.root}>

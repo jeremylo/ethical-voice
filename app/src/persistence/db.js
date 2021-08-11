@@ -1,11 +1,7 @@
 import { openDB } from 'idb/with-async-ittr.js';
 
-let db;
-
-export async function getDB() {
-    if (db) return db;
-
-    return (db = await openDB('mydata', 1, {
+export async function getDB(referenceId) {
+    return await openDB(`mydata_${referenceId}`, 1, {
         upgrade(db) { // db, oldVersion, newVersion, transaction
             const store = db.createObjectStore('results', {
                 keyPath: 'id',
@@ -13,13 +9,13 @@ export async function getDB() {
             });
             store.createIndex('createdAt', 'createdAt');
         },
-    }));
+    });
 }
 
-export async function addResult(data) {
-    return await (await getDB()).add('results', data);
+export async function addResult(data, referenceId) {
+    return await (await getDB(referenceId)).add('results', data);
 }
 
-export async function getAllResults() {
-    return await (await getDB()).getAllFromIndex('results', 'createdAt');
+export async function getAllResults(referenceId) {
+    return await (await getDB(referenceId)).getAllFromIndex('results', 'createdAt');
 }

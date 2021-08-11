@@ -1,5 +1,6 @@
 import { Container, makeStyles, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
+import { useAuth } from "../auth/use-auth";
 import { getAllResults } from "../persistence/db";
 import RateChart from "./visualisation/RateChart";
 
@@ -18,15 +19,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
     const classes = useStyles();
+    const auth = useAuth();
     const [loaded, setLoaded] = useState(false);
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        getAllResults().then(res => {
+        getAllResults(auth.user.refId).then(res => {
             setData(res);
             setLoaded(true);
         });
-    }, [setLoaded]);
+    }, [setLoaded, auth.user]);
 
     if (!loaded) {
         return <></>;
