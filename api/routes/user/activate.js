@@ -1,7 +1,7 @@
 import Router from 'express';
 import jwt from 'jsonwebtoken';
 import { activateUser, findUnactivatedUserByReferenceId } from '../../persistence/users.js';
-import { hashPassword, hashSha256, isValidEmail, isValidPassword, isValidReferenceId } from '../../utils.js';
+import { hashPassword, hashSha256, isValidEmail, isValidOutwardPostcode, isValidPassword, isValidReferenceId } from '../../utils.js';
 
 const router = Router();
 
@@ -26,6 +26,14 @@ router.post('/', async (req, res) => {
         res.status(400);
         res.json({
             error: "The provided password is invalid."
+        });
+        return res;
+    }
+
+    if (!req.body.outwardPostcode || !isValidOutwardPostcode(req.body.outwardPostcode)) {
+        res.status(400);
+        res.json({
+            error: "The provided outward postcode is invalid."
         });
         return res;
     }
@@ -67,7 +75,7 @@ router.post('/', async (req, res) => {
         return res;
     }
 
-    await activateUser(user.id, referenceId, String(decoded.email).toLowerCase(), await hashPassword(req.body.password));
+    await activateUser(user.id, referenceId, String(decoded.email).toLowerCase(), await hashPassword(req.body.password), String(req.body.outwardPostcode).toUpperCase());
 
     res.status(200);
     res.json({

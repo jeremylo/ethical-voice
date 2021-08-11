@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useAuth } from '../auth/use-auth';
 import TopBar from './layout/TopBar';
-import { isValidPassword, isValidReferenceId } from './utils';
+import { isValidOutwardPostcode, isValidPassword, isValidReferenceId } from './utils';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,6 +42,7 @@ export default function Activate() {
     const [open, setOpen] = useState(false);
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [outwardPostcode, setOutwardPostcode] = useState('');
     const [submitted, setSubmitted] = useState(false);
 
     if (!isValidReferenceId(refId)) {
@@ -74,10 +75,22 @@ export default function Activate() {
         helperText: "Please enter a valid password that is at least 10 characters in length."
     } : {};
 
+    const handleOutwardPostcodeChange = (event) => {
+        setOutwardPostcode(event.target.value.toUpperCase());
+    };
+
+    const outwardPostcodeInvalid = !isValidOutwardPostcode(outwardPostcode);
+    const outwardPostcodeAttributes = (outwardPostcode && outwardPostcodeInvalid) ? {
+        error: true,
+        helperText: "Please enter a valid outward postcode."
+    } : {
+        helperText: "Please enter the first part of your postcode (before the space)."
+    };
+
     // Form submission
     const handleSubmission = () => {
         setSubmitted(true);
-        auth.activate(refId, token, password)
+        auth.activate(refId, token, password, outwardPostcode)
             .then((successful) => {
                 if (successful) {
                     history.push('/login/successful_activation');
@@ -141,13 +154,28 @@ export default function Activate() {
                         }}
                     />
 
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="outward-postcode"
+                        name="outward-postcode"
+                        label="Outward postcode"
+                        type="text"
+                        autoComplete="outward-postcode"
+                        value={outwardPostcode}
+                        onChange={handleOutwardPostcodeChange}
+                        {...outwardPostcodeAttributes}
+                    />
+
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        disabled={!password || passwordInvalid || submitted}
+                        disabled={!password || passwordInvalid || !outwardPostcode || outwardPostcodeInvalid || submitted}
                         onClick={handleSubmission}
                     >
                         Activate your account

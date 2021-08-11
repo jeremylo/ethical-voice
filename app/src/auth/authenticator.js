@@ -33,8 +33,8 @@ const authenticator = {
         return !("error" in (await res.json()));
     },
 
-    async activate(referenceId, token, password) {
-        const res = await fetchPost('/api/user/activate', { referenceId, token, password });
+    async activate(referenceId, token, password, outwardPostcode) {
+        const res = await fetchPost('/api/user/activate', { referenceId, token, password, outwardPostcode });
         return !("error" in (await res.json()));
     },
 
