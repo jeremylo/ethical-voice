@@ -2,6 +2,7 @@ import Router from 'express';
 import { updateUserOutwardPostcode, updateUserPassword, updateUserSharing } from '../persistence/users.js';
 import requireAuth from '../requireAuth.js';
 import { hashPassword, isValidOutwardPostcode, isValidPasswordHash } from '../utils.js';
+import activateRoutes from './user/activate.js';
 import emailRoutes from './user/email.js';
 import registerRoutes from './user/register.js';
 
@@ -25,6 +26,7 @@ router.get('/', requireAuth, async (req, res) => {
     }
 });
 
+router.use('/activate', activateRoutes);
 router.use('/register', registerRoutes);
 router.use('/email', emailRoutes);
 

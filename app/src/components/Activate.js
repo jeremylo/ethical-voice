@@ -77,7 +77,7 @@ export default function Activate() {
     // Form submission
     const handleSubmission = () => {
         setSubmitted(true);
-        auth.register(refId, token, password)
+        auth.activate(refId, token, password)
             .then((successful) => {
                 if (successful) {
                     history.push('/login/successful_activation');

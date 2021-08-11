@@ -13,6 +13,10 @@ export async function findUserByEmail(email) {
     return (await query("SELECT * FROM users WHERE email=? AND status=? LIMIT 1", [email, 1]))[0];
 }
 
+export async function activateUser(id, referenceId, email, password) {
+    return (await query("UPDATE users SET email=?, password=?, status=? WHERE id=? AND reference_id=?", [email, password, 1, id, referenceId]));
+}
+
 export async function updateUserEmail(user, email) {
     return (await query("UPDATE users SET email=? WHERE id=?", [email, user.id]));
 }
