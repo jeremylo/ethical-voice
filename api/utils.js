@@ -23,3 +23,7 @@ export async function isValidPasswordHash(password, hash) {
 export async function hashPassword(password) {
     return await bcrypt.hash(password, 14);
 }
+
+export function hashSha256(token) {
+    return createHash('sha256').update(token).digest('hex');
+}

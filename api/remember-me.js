@@ -1,14 +1,11 @@
-import { createHash, randomBytes } from 'crypto';
+import { randomBytes } from 'crypto';
 import { deleteRememberMeToken, findRememberMeToken, insertRememberMeToken } from './persistence/remember-me.js';
+import { hashSha256 } from './utils.js';
 
-
-export function hashRememberMeToken(token) {
-    return createHash('sha256').update(token).digest('hex');
-}
 
 // Consume remember-me token (tokens are single-use!)
 export function consumeRememberMeToken(token, done) {
-    const tokenHash = hashRememberMeToken(token);
+    const tokenHash = hashSha256(token);
     try {
         const tokenData = findRememberMeToken(tokenHash);
         deleteRememberMeToken(tokenHash);
@@ -30,7 +27,7 @@ export function consumeRememberMeToken(token, done) {
 export async function issueRememberMeToken(user) {
     const token = randomBytes(64).toString('base64');
     try {
-        await insertRememberMeToken(user.id, hashRememberMeToken(token));
+        await insertRememberMeToken(user.id, hashSha256(token));
         return token;
     } catch (e) {
         throw new Error("Unable to issue a new remember-me token.");
