@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./auth/PrivateRoute";
 import PublicOnlyRoute from './auth/PublicOnlyRoute';
 import { AuthProvider, useAuth } from './auth/use-auth';
+import Activate from './components/Activate';
 import Analyse from './components/Analyse';
 import Error404 from './components/Error404';
 import Home from './components/Home';
@@ -50,11 +51,14 @@ function Routes() {
   return <Router>
     <Switch>
       { /* Logged out routes */}
-      <PublicOnlyRoute path="/login">
+      <PublicOnlyRoute path="/login/:status?">
         <Login />
       </PublicOnlyRoute>
       <PublicOnlyRoute path="/register">
         <Register />
+      </PublicOnlyRoute>
+      <PublicOnlyRoute path="/activate/:refId/:token">
+        <Activate />
       </PublicOnlyRoute>
 
       { /* Logged in routes */}

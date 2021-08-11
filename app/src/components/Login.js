@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import { useAuth } from '../auth/use-auth';
 import TopBar from './layout/TopBar';
 import { isValidEmail } from './utils';
@@ -43,6 +43,7 @@ export default function Login() {
     const history = useHistory();
     const location = useLocation();
     const auth = useAuth();
+    const { status } = useParams();
 
     const [open, setOpen] = useState(false);
     const [email, setEmail] = useState('');
@@ -92,6 +93,9 @@ export default function Login() {
                     <Typography component="h1" variant="h5">
                         Log in
                     </Typography>
+                    {status === 'successful_activation' && <><br /><MuiAlert severity="success">
+                        Your account has been activated successfully, so you may now log in.
+                    </MuiAlert></>}
                     <form className={classes.form}>
                         <TextField
                             variant="outlined"

@@ -73,6 +73,7 @@ function useAuthProvider() {
         sendPasswordResetEmail,
         confirmPasswordReset,
         register: authenticator.register,
+        activate: authenticator.activate,
         setEmail: authenticator.setEmail,
         setPassword: authenticator.setPassword,
         setOutwardPostcode: authenticator.setOutwardPostcode,
