@@ -1,4 +1,4 @@
-import { query } from './db.js';
+import { query } from '../db.js';
 
 
 export async function findUserById(id) {

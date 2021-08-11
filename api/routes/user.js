@@ -1,7 +1,7 @@
 import Router from 'express';
+import { updateUserOutwardPostcode, updateUserPassword, updateUserSharing } from '../persistence/users.js';
 import requireAuth from '../requireAuth.js';
-import { updateUserOutwardPostcode, updateUserPassword, updateUserSharing } from '../users.js';
-import { hashPassword, isValidOutwardPostcode, isValidPasswordHash } from '../utils.js';
+import { hashPassword, isValidEmail, isValidOutwardPostcode, isValidPasswordHash } from '../utils.js';
 
 
 const router = Router();

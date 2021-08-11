@@ -1,8 +1,8 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as RememberMeStrategy } from 'passport-remember-me';
+import { findUserByEmail, findUserById } from './persistence/users.js';
 import { consumeRememberMeToken, issueRememberMeToken } from './remember-me.js';
-import { findUserByEmail, findUserById } from './users.js';
 import { isValidPasswordHash } from './utils.js';
 
 
