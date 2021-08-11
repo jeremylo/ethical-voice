@@ -11,7 +11,7 @@ async function fetchPost(url, data) {
 const authenticator = {
 
     async getLoggedInUser() {
-        const res = await fetch('/api/auth/user');
+        const res = await fetch('/api/user');
 
         if (res.status !== 200) {
             return false;
@@ -43,17 +43,17 @@ const authenticator = {
     },
 
     async setPassword(oldPassword, newPassword) {
-        const res = await fetchPost('/api/auth/user/password', { oldPassword, newPassword });
+        const res = await fetchPost('/api/user/password', { oldPassword, newPassword });
         return res.status === 200;
     },
 
     async setOutwardPostcode(outwardPostcode) {
-        const res = await fetchPost('/api/auth/user/outwardpostcode', { outwardPostcode });
+        const res = await fetchPost('/api/user/outwardpostcode', { outwardPostcode });
         return res.status === 200;
     },
 
     async setSharing(sharing) {
-        const res = await fetchPost('/api/auth/user/sharing', { sharing: !!sharing });
+        const res = await fetchPost('/api/user/sharing', { sharing: !!sharing });
         return res.status === 200;
     },
 };

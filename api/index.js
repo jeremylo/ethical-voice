@@ -8,6 +8,7 @@ import authRoutes from './routes/auth.js';
 import modelRoutes from './routes/model.js';
 import submitRoutes from './routes/submit.js';
 import testsRoutes from './routes/tests.js';
+import userRoutes from './routes/user.js';
 
 const app = express();
 const port = 4000;
@@ -46,6 +47,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/tests', testsRoutes);
 app.use('/api/model', modelRoutes);
 app.use('/api/submit', submitRoutes);
+app.use('/api/user', userRoutes);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
