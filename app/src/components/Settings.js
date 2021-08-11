@@ -51,7 +51,7 @@ export default function Settings() {
 
     // Settings options
     const [open, setOpen] = useState(null);
-    const [email, setEmail] = useState(auth.user.email);
+    const email = auth.user.email;
     const [outwardPostcode, setOutwardPostcode] = useState(auth.user.outwardPostcode);
     const [sharing, setSharing] = useState(auth.user.sharing);
 
@@ -63,14 +63,23 @@ export default function Settings() {
         if (newValue !== undefined) {
             switch (open) {
                 case 'email':
-                    // setEmail(newValue); // TODO: implement this!
-
-                    // Temporary message
-                    setEmail(email);
-                    handleSnackbarOpen({
-                        severity: 'error',
-                        message: 'Server error — awfully sorry, we cannot change your email right now.'
-                    });
+                    auth.setEmail(newValue)
+                        .then((successful) => {
+                            if (successful) {
+                                handleSnackbarOpen({
+                                    severity: 'success',
+                                    message: 'A confirmation email has been sent to your new email. Click the link inside within the next hour to effectuate the change.'
+                                });
+                            } else {
+                                throw new Error("Email could not be updated.");
+                            }
+                        })
+                        .catch(() => {
+                            handleSnackbarOpen({
+                                severity: 'error',
+                                message: 'Server error — awfully sorry, we cannot change your email right now.'
+                            });
+                        })
                     break;
 
                 case 'password':

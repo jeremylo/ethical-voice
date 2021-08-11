@@ -12,7 +12,6 @@ const authenticator = {
 
     async getLoggedInUser() {
         const res = await fetch('/api/user');
-
         if (res.status !== 200) {
             return false;
         }
@@ -40,6 +39,11 @@ const authenticator = {
 
     async logout() {
         await fetch('/api/auth/logout');
+    },
+
+    async setEmail(email) {
+        const res = await fetchPost('/api/user/email', { email });
+        return res.status === 200;
     },
 
     async setPassword(oldPassword, newPassword) {
