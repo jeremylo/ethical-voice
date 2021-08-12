@@ -8,6 +8,7 @@ import { AuthProvider, useAuth } from './auth/use-auth';
 import Activate from './components/Activate';
 import Analyse from './components/Analyse';
 import Error404 from './components/Error404';
+import ForgotPassword from './components/ForgotPassword';
 import Home from './components/Home';
 import Layout from './components/Layout';
 import Login from './components/Login';
@@ -59,6 +60,9 @@ function Routes() {
       </PublicOnlyRoute>
       <PublicOnlyRoute path="/activate/:refId/:token">
         <Activate />
+      </PublicOnlyRoute>
+      <PublicOnlyRoute path="/request-password-reset">
+        <ForgotPassword />
       </PublicOnlyRoute>
 
       { /* Logged in routes */}

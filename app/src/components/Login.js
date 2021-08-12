@@ -137,7 +137,11 @@ export default function Login() {
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <MuiLink href="#" variant="body2">Forgot password?</MuiLink>
+                                <MuiLink
+                                    variant="body2"
+                                    component={Link}
+                                    to="/request-password-reset"
+                                >Forgot password?</MuiLink>
                             </Grid>
                             <Grid item>
                                 <MuiLink
