@@ -1,0 +1,22 @@
+{
+  "name": "dashboard-api",
+  "version": "0.1.0",
+  "description": "The API powering the My Data dashboard.",
+  "main": "index.js",
+  "repository": "https://github.com/jeremylo/ethical-voice.git",
+  "author": "Jeremy <jeremyloyingping@googlemail.com>",
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "@sendgrid/mail": "^7.4.6",
+    "bcrypt": "^5.0.1",
+    "connect-redis": "^6.0.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mariadb": "^2.5.4",
+    "passport-local": "^1.0.0",
+    "redis": "^3.1.2"
+  }
+}
