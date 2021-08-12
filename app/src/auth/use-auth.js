@@ -48,32 +48,16 @@ function useAuthProvider() {
             });
     };
 
-    const sendPasswordResetEmail = (email) => {
-        // return authenticator
-        //     .sendPasswordResetEmail(email)
-        //     .then(() => {
-        //         return true;
-        //     });
-    };
-
-    const confirmPasswordReset = (code, password) => {
-        // return authenticator
-        //     .confirmPasswordReset(code, password)
-        //     .then(() => {
-        //         return true;
-        //     });
-    };
-
     // Return the user object and auth methods
     return {
         user,
         setUser,
         login,
         logout,
-        sendPasswordResetEmail,
-        confirmPasswordReset,
         register: authenticator.register,
         activate: authenticator.activate,
+        requestPasswordReset: authenticator.requestPasswordReset,
+        resetPassword: authenticator.resetPassword,
         setEmail: authenticator.setEmail,
         setPassword: authenticator.setPassword,
         setOutwardPostcode: authenticator.setOutwardPostcode,

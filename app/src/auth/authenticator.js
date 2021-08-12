@@ -30,12 +30,22 @@ const authenticator = {
 
     async register(referenceId, email) {
         const res = await fetchPost('/api/user/register', { referenceId, email });
-        return !("error" in (await res.json()));
+        return res.status === 200 && !("error" in (await res.json()));
     },
 
     async activate(referenceId, token, password, outwardPostcode) {
         const res = await fetchPost('/api/user/activate', { referenceId, token, password, outwardPostcode });
-        return !("error" in (await res.json()));
+        return res.status === 200 && !("error" in (await res.json()));
+    },
+
+    async requestPasswordReset(email) {
+        const res = await fetchPost('/api/user/request-passsword-reset', { email });
+        return res.status === 200 && !("error" in (await res.json()));
+    },
+
+    async resetPassword(referenceId, token, password) {
+        const res = await fetchPost('/api/user/reset-password', { referenceId, token, password });
+        return res.status === 200 && !("error" in (await res.json()));
     },
 
     async logout() {
