@@ -93,7 +93,7 @@ export default function Login() {
                     <Typography component="h1" variant="h5">
                         Log in
                     </Typography>
-                    {status === 'successful_activation' && <><br /><MuiAlert severity="success">
+                    {status === 'successful-activation' && <><br /><MuiAlert severity="success">
                         Your account has been activated successfully, so you may now log in.
                     </MuiAlert></>}
                     <form className={classes.form}>

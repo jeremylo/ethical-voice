@@ -93,7 +93,7 @@ export default function Activate() {
         auth.activate(refId, token, password, outwardPostcode)
             .then((successful) => {
                 if (successful) {
-                    history.push('/login/successful_activation');
+                    history.push('/login/successful-activation');
                 } else {
                     setOpen(true);
                 }
