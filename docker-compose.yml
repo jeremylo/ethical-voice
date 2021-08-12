@@ -7,8 +7,6 @@ services:
       - "3000:3000"
     volumes:
       - app-build:/app/build
-    environment:
-      - NODE_OPTIONS=${NODE_OPTIONS}
     deploy:
       resources:
         limits:
@@ -56,10 +54,11 @@ services:
       - MARIADB_DATABASE=${MARIADB_DATABASE}
     volumes:
       - ./mariadb:/docker-entrypoint-initdb.d
+      - ./keys:/etc/mysql/encryption
       - db-data:/var/lib/mysql
     ports:
       - "3306:3306" # remove this line in production!
-    command: --event_scheduler=ON --max-allowed-packet=67108864
+    command: --event_scheduler=ON --max-allowed-packet=67108864 --plugin-load-add=file_key_management --loose_file_key_management_filename=/etc/mysql/encryption/keyfile --file-key-management=FORCE
 
   adminer: # remove this in production!
     profiles: ["dev"]
