@@ -2,19 +2,12 @@ import Router from 'express';
 import jwt from 'jsonwebtoken';
 import getMailer, { fillTemplate } from '../../email.js';
 import { findUnactivatedUserByReferenceId } from '../../persistence/users.js';
+import { requireNoAuth } from '../../requireAuth.js';
 import { hashSha256, isValidEmail, isValidReferenceId } from '../../utils.js';
 
 const router = Router();
 
-router.post('/', async (req, res) => {
-    if (req.isAuthenticated()) {
-        res.status(401);
-        res.json({
-            error: "Logged in users should not be registering."
-        });
-        return res;
-    }
-
+router.post('/', requireNoAuth, async (req, res) => {
     if (!req.body.referenceId || !isValidReferenceId(req.body.referenceId)) {
         res.status(400);
         res.json({

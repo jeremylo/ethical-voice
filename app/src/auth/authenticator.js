@@ -39,12 +39,12 @@ const authenticator = {
     },
 
     async requestPasswordReset(email) {
-        const res = await fetchPost('/api/user/request-passsword-reset', { email });
+        const res = await fetchPost('/api/user/password/request-reset', { email });
         return res.status === 200 && !("error" in (await res.json()));
     },
 
     async resetPassword(referenceId, token, password) {
-        const res = await fetchPost('/api/user/reset-password', { referenceId, token, password });
+        const res = await fetchPost('/api/user/password/reset', { referenceId, token, password });
         return res.status === 200 && !("error" in (await res.json()));
     },
 
