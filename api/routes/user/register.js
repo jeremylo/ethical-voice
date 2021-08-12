@@ -9,19 +9,11 @@ const router = Router();
 
 router.post('/', requireNoAuth, async (req, res) => {
     if (!req.body.referenceId || !isValidReferenceId(req.body.referenceId)) {
-        res.status(400);
-        res.json({
-            error: "The provided reference ID is invalid."
-        });
-        return res;
+        return res.status(400).json({ error: "The provided reference ID is invalid." });
     }
 
     if (!req.body.email || !isValidEmail(req.body.email)) {
-        res.status(400);
-        res.json({
-            error: "The provided email is invalid."
-        });
-        return res;
+        return res.status(400).json({ error: "The provided email is invalid." });
     }
 
     const referenceId = String(req.body.referenceId).toLowerCase();
@@ -31,12 +23,7 @@ router.post('/', requireNoAuth, async (req, res) => {
     try {
         user = await findUnactivatedUserByReferenceId(referenceId);
     } catch (e) {
-        console.log(e);
-        res.status(400);
-        res.json({
-            error: "Invalid user."
-        });
-        return res;
+        return res.status(400).json({ error: "Invalid user." });
     }
 
     const confirmationToken = jwt.sign({ referenceId, email }, hashSha256(String(user.id)), { expiresIn: '1h' });
@@ -63,16 +50,10 @@ router.post('/', requireNoAuth, async (req, res) => {
             ),
         })
         .then(() => {
-            res.status(200);
-            res.json({
-                message: "A confirmation email has been sent."
-            });
+            return res.status(200).json({ message: "A confirmation email has been sent." });
         })
         .catch((error) => {
-            res.status(500);
-            res.json({
-                message: "The confirmation email could not be sent."
-            });
+            return res.status(500).json({ message: "The confirmation email could not be sent." });
         });
 });
 

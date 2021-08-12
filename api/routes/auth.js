@@ -20,11 +20,7 @@ router.post('/login',
             }
 
             if (!user) {
-                res.status(401);
-                res.json({
-                    error: "Login failure."
-                });
-                return;
+                return res.status(401).json({ error: "Login failure." });
             }
 
             req.login(user, (err2) => {
@@ -56,8 +52,7 @@ router.post('/login',
         })(req, res, next);
     },
     (req, res) => {
-        res.status(200);
-        res.json({
+        return res.status(200).json({
             refId: req.user.reference_id,
             email: req.user.email,
             outwardPostcode: req.user.outward_postcode,
@@ -70,10 +65,7 @@ router.get('/logout', async (req, res) => {
     res.clearCookie(process.env.REMEMBER_ME_COOKIE_NAME, { path: '/' });
     req.session.destroy();
     req.logout();
-    res.status(200);
-    res.json({
-        message: "Logging out successful."
-    })
+    return res.status(200).json({ message: "Logging out successful." });
 });
 
 

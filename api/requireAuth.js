@@ -3,10 +3,7 @@ export default function requireAuth(req, res, next) {
         return next();
     }
 
-    res.status(401);
-    res.json({
-        error: "Login required."
-    })
+    return res.status(401).json({ error: "Login required." });
 }
 
 export function requireNoAuth(req, res, next) {
@@ -14,8 +11,5 @@ export function requireNoAuth(req, res, next) {
         return next();
     }
 
-    res.status(401);
-    res.json({
-        error: "This action is prohibited for logged in users."
-    })
+    return res.status(401).json({ error: "This action is prohibited for logged in users." });
 }

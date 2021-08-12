@@ -33,12 +33,7 @@ router.post('/', requireAuth, upload.single('audio'), async (req, res) => {
 
     let error;
     if (error = validate()) {
-        res.status(400);
-        res.json({
-            success: false,
-            error
-        });
-        return res;
+        return res.status(400).json({ success: false, error });
     }
 
     let conn;
@@ -62,12 +57,9 @@ router.post('/', requireAuth, upload.single('audio'), async (req, res) => {
                 metadata.map(([k, v]) => [result.insertId, k, v]));
         }
 
-        res.status(200);
-        res.json({ success: true });
+        return res.status(200).json({ success: true });
     } catch (e) {
-        console.log(e);
-        res.status(500);
-        res.json({ success: false, error: "Something terrible has happened! D:" });
+        return res.status(500).json({ success: false, error: "Something terrible has happened! D:" });
     } finally {
         if (conn) conn.release();
     }

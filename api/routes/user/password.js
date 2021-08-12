@@ -10,42 +10,24 @@ const router = Router();
 
 router.post('/', requireAuth, async (req, res) => {
     if (!req.body.oldPassword || !req.body.newPassword) {
-        res.status(400);
-        res.json({
-            "error": "Not enough information was provided to effectuate the password change."
-        });
-        return res;
+        return res.status(400).json({ "error": "Not enough information was provided to effectuate the password change." });
     }
 
     if (!(await isValidPasswordHash(req.body.oldPassword, req.user.password))) {
-        res.status(401);
-        res.json({
-            "error": "The password was incorrect."
-        });
-        return res;
+        return res.status(401).json({ "error": "The password was incorrect." });
     }
 
     try {
         await updateUserPassword(req.user, await hashPassword(req.body.newPassword));
-        res.status(200);
-        res.json({
-            message: "The password was updated successfully."
-        });
+        return res.status(200).json({ message: "The password was updated successfully." });
     } catch (e) {
-        res.status(500);
-        res.json({
-            message: "The password could not be updated successfully."
-        });
+        return res.status(500).json({ message: "The password could not be updated successfully." });
     }
 });
 
 router.post('/request-reset', requireNoAuth, async (req, res) => {
     if (!req.body.email || !isValidEmail(req.body.email)) {
-        res.status(400);
-        res.json({
-            error: "The provided email is invalid."
-        });
-        return res;
+        return res.status(400).json({ error: "The provided email is invalid." });
     }
 
     const email = String(req.body.email).toLowerCase();
@@ -54,12 +36,7 @@ router.post('/request-reset', requireNoAuth, async (req, res) => {
     try {
         user = await findUserByEmail(email);
     } catch (e) {
-        console.log(e);
-        res.status(400);
-        res.json({
-            error: "Invalid user."
-        });
-        return res;
+        return res.status(400).json({ error: "Invalid user." });
     }
 
     // By signing the password reset token with the user's current password hash,
@@ -90,42 +67,24 @@ router.post('/request-reset', requireNoAuth, async (req, res) => {
             ),
         })
         .then(() => {
-            res.status(200);
-            res.json({
-                message: "A confirmation email has been sent."
-            });
+            return res.status(200).json({ message: "A confirmation email has been sent." });
         })
-        .catch((error) => {
-            res.status(500);
-            res.json({
-                message: "The confirmation email could not be sent."
-            });
+        .catch((e) => {
+            return res.status(500).json({ message: "The confirmation email could not be sent." });
         });
 });
 
 router.post('/reset', async (req, res) => {
     if (!req.body.referenceId || !isValidReferenceId(req.body.referenceId)) {
-        res.status(400);
-        res.json({
-            error: "The provided reference ID is invalid."
-        });
-        return res;
+        return res.status(400).json({ error: "The provided reference ID is invalid." });
     }
 
     if (!req.body.token || typeof req.body.token !== "string" || req.body.token.length < 32) {
-        res.status(400);
-        res.json({
-            error: "The provided token is invalid."
-        });
-        return res;
+        return res.status(400).json({ error: "The provided token is invalid." });
     }
 
     if (!req.body.password || !isValidPassword(req.body.password)) {
-        res.status(400);
-        res.json({
-            error: "The provided password is invalid."
-        });
-        return res;
+        return res.status(400).json({ error: "The provided password is invalid." });
     }
 
     const referenceId = String(req.body.referenceId).toLowerCase();
@@ -134,12 +93,7 @@ router.post('/reset', async (req, res) => {
     try {
         user = await findActivatedUserByReferenceId(referenceId);
     } catch (e) {
-        console.log(e);
-        res.status(400);
-        res.json({
-            error: "This reference ID cannot be used to reset a password."
-        });
-        return res;
+        return res.status(400).json({ error: "This reference ID cannot be used to reset a password." });
     }
 
     let decoded;
@@ -153,24 +107,14 @@ router.post('/reset', async (req, res) => {
             throw new Error("Bad token.");
         }
     } catch (e) {
-        res.status(400);
-        res.json({
-            error: "The provided token is invalid."
-        });
-        return res;
+        return res.status(400).json({ error: "The provided token is invalid." });
     }
 
     try {
         await updateUserPassword(user, await hashPassword(req.body.password));
-        res.status(200);
-        res.json({
-            message: "User account activation successful."
-        });
+        return res.status(200).json({ message: "User account activation successful." });
     } catch (e) {
-        res.status(500);
-        res.json({
-            message: "Error updating the password."
-        });
+        return res.status(500).json({ message: "Error updating the password." });
     }
 });
 

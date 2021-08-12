@@ -7,35 +7,19 @@ const router = Router();
 
 router.post('/', async (req, res) => {
     if (!req.body.referenceId || !isValidReferenceId(req.body.referenceId)) {
-        res.status(400);
-        res.json({
-            error: "The provided reference ID is invalid."
-        });
-        return res;
+        return res.status(400).json({ error: "The provided reference ID is invalid." });
     }
 
     if (!req.body.token || typeof req.body.token !== "string" || req.body.token.length < 32) {
-        res.status(400);
-        res.json({
-            error: "The provided token is invalid."
-        });
-        return res;
+        return res.status(400).json({ error: "The provided token is invalid." });
     }
 
     if (!req.body.password || !isValidPassword(req.body.password)) {
-        res.status(400);
-        res.json({
-            error: "The provided password is invalid."
-        });
-        return res;
+        return res.status(400).json({ error: "The provided password is invalid." });
     }
 
     if (!req.body.outwardPostcode || !isValidOutwardPostcode(req.body.outwardPostcode)) {
-        res.status(400);
-        res.json({
-            error: "The provided outward postcode is invalid."
-        });
-        return res;
+        return res.status(400).json({ error: "The provided outward postcode is invalid." });
     }
 
     const referenceId = String(req.body.referenceId).toLowerCase();
@@ -44,12 +28,7 @@ router.post('/', async (req, res) => {
     try {
         user = await findUnactivatedUserByReferenceId(referenceId);
     } catch (e) {
-        console.log(e);
-        res.status(400);
-        res.json({
-            error: "This reference ID cannot be used to activate an account."
-        });
-        return res;
+        return res.status(400).json({ error: "This reference ID cannot be used to activate an account." });
     }
 
     let decoded;
@@ -61,26 +40,15 @@ router.post('/', async (req, res) => {
         }
 
         if (!decoded.email || !isValidEmail(decoded.email)) {
-            res.status(400);
-            res.json({
-                error: "The provided email is invalid."
-            });
-            return res;
+            return res.status(400).json({ error: "The provided email is invalid." });
         }
     } catch (e) {
-        res.status(400);
-        res.json({
-            error: "The provided token is invalid."
-        });
-        return res;
+        return res.status(400).json({ error: "The provided token is invalid." });
     }
 
     await activateUser(user.id, referenceId, String(decoded.email).toLowerCase(), await hashPassword(req.body.password), String(req.body.outwardPostcode).toUpperCase());
 
-    res.status(200);
-    res.json({
-        message: "User account activation successful."
-    });
+    return res.status(200).json({ message: "User account activation successful." });
 });
 
 export default router;

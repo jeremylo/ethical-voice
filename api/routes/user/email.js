@@ -9,20 +9,14 @@ import { hashSha256, isNumeric, isValidEmail } from '../../utils.js';
 const router = Router();
 
 router.post('/', requireAuth, async (req, res) => {
-    if (!req.body.email || !isValidEmail(req.body.email)) { // || req.body.email === req.user.email
-        res.status(400);
-        res.json({
-            "error": "The provided email is invalid."
-        });
-        return res;
+    if (!req.body.email || !isValidEmail(req.body.email) || req.body.email.toLowerCase() !== req.user.email.toLowerCase()) {
+        return res.status(400).json({ "error": "The provided email is invalid." });
     }
-
-    const email = String(req.body.email).toLowerCase();
 
     // By signing with a SHA256 hash of the user's current email,
     // the JWT effectively becomes "single-use" as any generated
     // tokens are invalidated whenever the email is subsequently changed.
-    const confirmationToken = jwt.sign({ userid: req.user.id, email }, hashSha256(req.user.email), { expiresIn: '1h' });
+    const confirmationToken = jwt.sign({ userid: req.user.id, email: req.user.email }, hashSha256(req.user.email), { expiresIn: '1h' });
     const link = `https://mydata.jezz.me/api/user/email/verify?userid=${req.user.id}&token=${confirmationToken}`;
 
     console.log(`New email update confirmation token generated: ${confirmationToken}`);
@@ -46,24 +40,16 @@ router.post('/', requireAuth, async (req, res) => {
             ),
         })
         .then(() => {
-            res.status(200);
-            res.json({
-                message: "A confirmation email has been sent."
-            });
+            return res.status(200).json({ message: "A confirmation email has been sent." });
         })
         .catch((error) => {
-            res.status(500);
-            res.json({
-                message: "The email could not be updated successfully."
-            });
+            return res.status(500).json({ message: "The email could not be updated successfully." });
         })
 });
 
 router.get('/verify', async (req, res) => {
     if (!req.query.userid || !isNumeric(req.query.userid) || +req.query.userid <= 0 || !req.query.token) {
-        res.status(400);
-        res.send("Apologies - your email could not be confirmed.");
-        return res;
+        return res.status(400).send("Apologies - your email could not be confirmed.");
     }
 
     try {
@@ -86,12 +72,9 @@ router.get('/verify', async (req, res) => {
             req.logout();
         }
 
-        res.status(200);
-        res.send("Your new email has been confirmed! You may now close this window and log back into the app.");
+        return res.status(200).send("Your new email has been confirmed! You may now close this window and log back into the app."); // TODO: bake into the app?
     } catch (e) {
-        res.status(400);
-        res.send("Apologies - your email could not be confirmed as this link is either invalid or expired.");
-        return res;
+        return res.status(400).send("Apologies - your email could not be confirmed as this link is either invalid or expired.");
     }
 });
 
