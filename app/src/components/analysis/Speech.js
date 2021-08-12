@@ -130,7 +130,7 @@ class Speech extends Component {
             })
                 .then((zip) => {
                     this.idbHandler.add('model', zip)
-                        .catch(console.log) // TODO: Better error!
+                        .catch(console.error) // The model could not be saved, but we're proceeding anyway.
                         .finally(() => {
                             this.setState({ appStatus: STATUSES.LOADING });
                             resolve({ value: zip });

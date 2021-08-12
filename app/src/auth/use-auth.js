@@ -21,7 +21,6 @@ function useAuthProvider() {
         authenticator
             .getLoggedInUser()
             .then((user) => {
-                console.log(user);
                 setUser(user);
             });
     };
