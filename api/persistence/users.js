@@ -5,6 +5,10 @@ export async function findUserById(id) {
     return (await query("SELECT * FROM users WHERE id=? AND status=? LIMIT 1", [id, 1]))[0];
 }
 
+export async function findActivatedUserByReferenceId(refId) {
+    return (await query("SELECT * FROM users WHERE reference_id=? AND status=? LIMIT 1", [refId, 1]))[0];
+}
+
 export async function findUnactivatedUserByReferenceId(refId) {
     return (await query("SELECT * FROM users WHERE reference_id=? AND status=? LIMIT 1", [refId, 0]))[0];
 }
