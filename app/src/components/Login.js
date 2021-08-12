@@ -96,6 +96,9 @@ export default function Login() {
                     {status === 'successful-activation' && <><br /><MuiAlert severity="success">
                         Your account has been activated successfully, so you may now log in.
                     </MuiAlert></>}
+                    {status === 'successful-password-reset' && <><br /><MuiAlert severity="success">
+                        Your password has been reset successfully. You may now log in with your new password.
+                    </MuiAlert></>}
                     <form className={classes.form}>
                         <TextField
                             variant="outlined"

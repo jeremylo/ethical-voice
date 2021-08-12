@@ -13,6 +13,7 @@ import Home from './components/Home';
 import Layout from './components/Layout';
 import Login from './components/Login';
 import Register from './components/Register';
+import ResetPassword from './components/ResetPassword';
 import Results from './components/Results';
 import Settings from './components/Settings';
 
@@ -63,6 +64,9 @@ function Routes() {
       </PublicOnlyRoute>
       <PublicOnlyRoute path="/request-password-reset">
         <ForgotPassword />
+      </PublicOnlyRoute>
+      <PublicOnlyRoute path="/reset-password/:refId/:token">
+        <ResetPassword />
       </PublicOnlyRoute>
 
       { /* Logged in routes */}
