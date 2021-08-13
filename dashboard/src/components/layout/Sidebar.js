@@ -6,11 +6,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
+import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import LayersIcon from '@material-ui/icons/Layers';
 import PeopleIcon from '@material-ui/icons/People';
+import SettingsVoiceIcon from '@material-ui/icons/SettingsVoice';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
@@ -77,24 +78,36 @@ export default function Sidebar({ open, handleDrawerClose }) {
                 </ListItemIcon>
                 <ListItemText primary="Home" />
             </ListItem>
-            <ListItem button>
+            <ListItem button component={Link} to="/">
                 <ListItemIcon>
                     <PeopleIcon />
                 </ListItemIcon>
-                <ListItemText primary="Customers" />
+                <ListItemText primary="My patients" />
             </ListItem>
-            <ListItem button>
+            <ListItem button component={Link} to="/">
                 <ListItemIcon>
                     <BarChartIcon />
                 </ListItemIcon>
-                <ListItemText primary="Reports" />
+                <ListItemText primary="Submissions" />
             </ListItem>
-            <ListItem button>
+            <ListItem button component={Link} to="/">
+                <ListItemIcon>
+                    <SettingsVoiceIcon />
+                </ListItemIcon>
+                <ListItemText primary="Speaking tests" />
+            </ListItem>
+            <ListItem button component={Link} to="/">
+                <ListItemIcon>
+                    <AccessibilityNewIcon />
+                </ListItemIcon>
+                <ListItemText primary="SRO management" />
+            </ListItem>
+            {/* <ListItem button component={Link} to="/">
                 <ListItemIcon>
                     <LayersIcon />
                 </ListItemIcon>
                 <ListItemText primary="Integrations" />
-            </ListItem>
+            </ListItem> */}
         </List>
         {/* <Divider />
         <List className={classes.navList}>
