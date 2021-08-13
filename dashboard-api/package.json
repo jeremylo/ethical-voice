@@ -6,6 +6,11 @@
   "repository": "https://github.com/jeremylo/ethical-voice.git",
   "author": "Jeremy <jeremyloyingping@googlemail.com>",
   "license": "SEE LICENSE IN LICENSE",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon -r dotenv/config index.js dotenv_config_path=../.env",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "@sendgrid/mail": "^7.4.6",
     "bcrypt": "^5.0.1",
@@ -16,6 +21,7 @@
     "express-session": "^1.17.2",
     "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.5.4",
+    "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "redis": "^3.1.2"
   }
