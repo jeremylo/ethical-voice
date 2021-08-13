@@ -1,7 +1,9 @@
+import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import { useAuth } from '../auth/use-auth';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -17,9 +19,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
     const classes = useStyles();
+    const auth = useAuth();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-    return (
+    return (<>
+        <Typography variant="h4">Hello, {auth.sro.name}</Typography>
+        <br />
         <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
@@ -40,5 +45,5 @@ export default function Home() {
                 </Paper>
             </Grid>
         </Grid>
-    );
+    </>);
 }
