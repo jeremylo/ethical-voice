@@ -46,9 +46,13 @@ router.post('/', async (req, res) => {
         return res.status(400).json({ error: "The provided token is invalid." });
     }
 
-    await activateUser(user.id, referenceId, String(decoded.email).toLowerCase(), await hashPassword(req.body.password), String(req.body.outwardPostcode).toUpperCase());
+    try {
+        await activateUser(user.id, referenceId, String(decoded.email).toLowerCase(), await hashPassword(req.body.password), String(req.body.outwardPostcode).toUpperCase());
 
-    return res.status(200).json({ message: "User account activation successful." });
+        return res.status(200).json({ message: "User account activation successful." });
+    } catch (e) {
+        return res.status(500).json({ message: "User account activation failure." });
+    }
 });
 
 export default router;
