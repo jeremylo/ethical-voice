@@ -53,6 +53,8 @@ function useAuthProvider() {
         setSro,
         login,
         logout,
+        invite: authenticator.invite,
+        activate: authenticator.activate,
         requestPasswordReset: authenticator.requestPasswordReset,
         resetPassword: authenticator.resetPassword,
         setName: authenticator.setName,

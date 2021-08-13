@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./auth/PrivateRoute";
 import PublicOnlyRoute from './auth/PublicOnlyRoute';
 import { AuthProvider, useAuth } from './auth/use-auth';
+import Activate from './components/Activate';
 import Error404 from './components/Error404';
 import ForgotPassword from './components/ForgotPassword';
 import Home from './components/Home';
@@ -51,12 +52,9 @@ function Routes() {
       <PublicOnlyRoute path="/login/:status?">
         <Login />
       </PublicOnlyRoute>
-      {/* <PublicOnlyRoute path="/register">
-        <Register />
-      </PublicOnlyRoute>
-      <PublicOnlyRoute path="/activate/:refId/:token">
+      <PublicOnlyRoute path="/activate/:token">
         <Activate />
-      </PublicOnlyRoute> */}
+      </PublicOnlyRoute>
       <PublicOnlyRoute path="/request-password-reset">
         <ForgotPassword />
       </PublicOnlyRoute>

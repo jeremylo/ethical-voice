@@ -31,6 +31,16 @@ const authenticator = {
         await fetch('/api/auth/logout');
     },
 
+    async invite(email, trusted) {
+        const res = await fetchPost('/api/sro/invite', { email, trusted });
+        return res.status === 200 && !("error" in (await res.json()));
+    },
+
+    async activate(token, fullname, password) {
+        const res = await fetchPost('/api/sro/activate', { token, name: fullname, password });
+        return res.status === 200 && !("error" in (await res.json()));
+    },
+
     async requestPasswordReset(email) {
         const res = await fetchPost('/api/sro/password/request-reset', { email });
         return res.status === 200 && !("error" in (await res.json()));
