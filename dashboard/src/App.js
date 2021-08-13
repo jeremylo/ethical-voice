@@ -1,13 +1,15 @@
 import { Box, CircularProgress, createTheme, makeStyles, ThemeProvider, Typography } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors';
-import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./auth/PrivateRoute";
 import PublicOnlyRoute from './auth/PublicOnlyRoute';
 import { AuthProvider, useAuth } from './auth/use-auth';
 import Error404 from './components/Error404';
+import ForgotPassword from './components/ForgotPassword';
 import Home from './components/Home';
 import Layout from './components/Layout';
 import Login from './components/Login';
+import ResetPassword from './components/ResetPassword';
 import Settings from './components/Settings';
 
 
@@ -38,7 +40,6 @@ function Loading() {
 
 
 function Routes() {
-  const history = useHistory();
   const auth = useAuth();
   if (auth.sro === null) {
     return <Loading />;
@@ -55,13 +56,13 @@ function Routes() {
       </PublicOnlyRoute>
       <PublicOnlyRoute path="/activate/:refId/:token">
         <Activate />
-      </PublicOnlyRoute>
+      </PublicOnlyRoute> */}
       <PublicOnlyRoute path="/request-password-reset">
         <ForgotPassword />
       </PublicOnlyRoute>
-      <PublicOnlyRoute path="/reset-password/:refId/:token">
+      <PublicOnlyRoute path="/reset-password/:sroid/:token">
         <ResetPassword />
-      </PublicOnlyRoute> */}
+      </PublicOnlyRoute>
 
       { /* Logged in routes */}
       <PrivateRoute exact path="/">

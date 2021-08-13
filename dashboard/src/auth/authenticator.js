@@ -31,6 +31,16 @@ const authenticator = {
         await fetch('/api/auth/logout');
     },
 
+    async requestPasswordReset(email) {
+        const res = await fetchPost('/api/sro/password/request-reset', { email });
+        return res.status === 200 && !("error" in (await res.json()));
+    },
+
+    async resetPassword(sroid, token, password) {
+        const res = await fetchPost('/api/sro/password/reset', { sroid, token, password });
+        return res.status === 200 && !("error" in (await res.json()));
+    },
+
     async setName(n) {
         const res = await fetchPost('/api/sro/name', { name: n });
         return res.status === 200;

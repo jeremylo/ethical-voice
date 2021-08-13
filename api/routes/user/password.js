@@ -112,7 +112,7 @@ router.post('/reset', async (req, res) => {
 
     try {
         await updateUserPassword(user, await hashPassword(req.body.password));
-        return res.status(200).json({ message: "User account activation successful." });
+        return res.status(200).json({ message: "Password reset successful." });
     } catch (e) {
         return res.status(500).json({ message: "Error updating the password." });
     }
