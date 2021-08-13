@@ -1,6 +1,6 @@
 import { Box, CircularProgress, createTheme, makeStyles, ThemeProvider, Typography } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
 import PrivateRoute from "./auth/PrivateRoute";
 import PublicOnlyRoute from './auth/PublicOnlyRoute';
 import { AuthProvider, useAuth } from './auth/use-auth';
@@ -37,6 +37,7 @@ function Loading() {
 
 
 function Routes() {
+  const history = useHistory();
   const auth = useAuth();
   if (auth.sro === null) {
     return <Loading />;

@@ -9,7 +9,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SettingsIcon from '@material-ui/icons/Settings';
 import clsx from 'clsx';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from '../auth/use-auth';
 import Sidebar, { drawerWidth } from './layout/Sidebar';
 
 const useStyles = makeStyles((theme) => ({
@@ -57,6 +58,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Layout({ children }) {
     const classes = useStyles();
+    const auth = useAuth();
+    const history = useHistory();
     const [open, setOpen] = useState(true);
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -84,7 +87,7 @@ export default function Layout({ children }) {
                     <IconButton color="inherit" component={Link} to="/settings">
                         <SettingsIcon />
                     </IconButton>
-                    <IconButton color="inherit" component={Link} to="/logout">
+                    <IconButton color="inherit" onClick={() => { auth.logout(); history.push("/login"); }}>
                         <ExitToAppIcon />
                     </IconButton>
                 </Toolbar>
