@@ -31,6 +31,11 @@ const authenticator = {
         await fetch('/api/auth/logout');
     },
 
+    async setName(n) {
+        const res = await fetchPost('/api/sro/name', { name: n });
+        return res.status === 200;
+    },
+
     async setEmail(email) {
         const res = await fetchPost('/api/sro/email', { email });
         return res.status === 200;

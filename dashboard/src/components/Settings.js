@@ -5,6 +5,7 @@ import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { useAuth } from '../auth/use-auth';
 import ChangeEmailDialog from './settings/ChangeEmailDialog';
+import ChangeNameDialog from './settings/ChangeNameDialog';
 import ChangePasswordDialog from './settings/ChangePasswordDialog';
 
 
@@ -53,6 +54,7 @@ export default function Settings() {
 
     // Settings options
     const [open, setOpen] = useState(null);
+    const [fullname, setFullname] = useState(auth.sro.name);
     const email = auth.sro.email;
 
     const handleOpen = (id) => {
@@ -62,6 +64,28 @@ export default function Settings() {
     const handleClose = (newValue) => {
         if (newValue !== undefined) {
             switch (open) {
+                case 'name':
+                    auth.setName(newValue)
+                        .then((successful) => {
+                            if (successful) {
+                                setFullname(newValue);
+                                handleSnackbarOpen({
+                                    severity: 'success',
+                                    message: 'Name changed successfully.'
+                                });
+                            } else {
+                                throw new Error("Bad name.");
+                            }
+                        })
+                        .catch(() => {
+                            handleSnackbarOpen({
+                                severity: 'error',
+                                message: 'Server error — awfully sorry, your name could not be updated. Please try again later!'
+                            });
+                        })
+
+                    break;
+
                 case 'email':
                     auth.setEmail(newValue)
                         .then((successful) => {
@@ -104,7 +128,6 @@ export default function Settings() {
                                 message: 'Server error — awfully sorry, your password could not be updated. Please try again later!'
                             });
                         })
-
                     break;
 
                 default:
@@ -128,6 +151,14 @@ export default function Settings() {
                     <Divider />
                     <ListItem divider button>
                         <ListItemText
+                            primary="Name"
+                            secondary={fullname}
+                            aria-haspopup="true"
+                            onClick={_ => handleOpen('name')}
+                        />
+                    </ListItem>
+                    <ListItem divider button>
+                        <ListItemText
                             primary="Email"
                             secondary={email}
                             aria-haspopup="true"
@@ -143,6 +174,11 @@ export default function Settings() {
                         />
                     </ListItem>
 
+                    <ChangeNameDialog
+                        open={open === 'name'}
+                        onClose={handleClose}
+                        value={fullname}
+                    />
                     <ChangeEmailDialog
                         open={open === 'email'}
                         onClose={handleClose}

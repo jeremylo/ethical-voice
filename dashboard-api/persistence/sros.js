@@ -17,6 +17,10 @@ export async function activateSro(id, email, password) {
     return (await query("UPDATE sros SET email=?, password=?, status=? WHERE id=?", [email, password, 1, id]));
 }
 
+export async function updateSroName(user, n) {
+    return (await query("UPDATE sros SET name=? WHERE id=?", [n, user.id]));
+}
+
 export async function updateSroEmail(user, email) {
     return (await query("UPDATE sros SET email=? WHERE id=?", [email, user.id]));
 }
