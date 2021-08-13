@@ -1,5 +1,6 @@
 import Router from 'express';
 import requireAuth from '../requireAuth.js';
+import passwordRoutes from './sro/password.js';
 
 
 const router = Router();
@@ -11,5 +12,7 @@ router.get('/', requireAuth, async (req, res) => {
         trusted: req.user.trusted,
     });
 });
+
+router.use('/password', passwordRoutes);
 
 export default router;
