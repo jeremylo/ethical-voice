@@ -93,6 +93,9 @@ export default function Login() {
                     <Typography component="h1" variant="h5">
                         Log in
                     </Typography>
+                    {status === 'email-update-successful' && <><br /><MuiAlert severity="success">
+                        Your email has been updated successfully. Please log back in with your new email.
+                    </MuiAlert></>}
                     {status === 'successful-activation' && <><br /><MuiAlert severity="success">
                         Your account has been activated successfully, so you may now log in.
                     </MuiAlert></>}
