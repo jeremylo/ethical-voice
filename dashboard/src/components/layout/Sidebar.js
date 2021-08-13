@@ -49,7 +49,10 @@ const useStyles = makeStyles((theme) => ({
     navList: {
         '& .MuiListItem-gutters': {
             paddingLeft: '24px'
-        }
+        },
+        '& .MuiListSubheader-inset': {
+            paddingLeft: '80px'
+        },
     }
 }));
 
