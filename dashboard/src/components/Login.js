@@ -146,13 +146,13 @@ export default function Login() {
                                     to="/request-password-reset"
                                 >Forgot password?</MuiLink>
                             </Grid>
-                            <Grid item>
+                            {/* <Grid item>
                                 <MuiLink
                                     variant="body2"
                                     component={Link}
                                     to="/register"
                                 >Don't have an account? Register</MuiLink>
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                     </form>
 
