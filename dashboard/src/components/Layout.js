@@ -1,14 +1,15 @@
 import AppBar from '@material-ui/core/AppBar';
-import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuIcon from '@material-ui/icons/Menu';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import SettingsIcon from '@material-ui/icons/Settings';
 import clsx from 'clsx';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Sidebar, { drawerWidth } from './layout/Sidebar';
 
 const useStyles = makeStyles((theme) => ({
@@ -80,10 +81,11 @@ export default function Layout({ children }) {
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         My Data Dashboard
                     </Typography>
-                    <IconButton color="inherit">
-                        <Badge badgeContent={4} color="secondary">
-                            <NotificationsIcon />
-                        </Badge>
+                    <IconButton color="inherit" component={Link} to="/settings">
+                        <SettingsIcon />
+                    </IconButton>
+                    <IconButton color="inherit" component={Link} to="/logout">
+                        <ExitToAppIcon />
                     </IconButton>
                 </Toolbar>
             </AppBar>

@@ -1,5 +1,6 @@
 import { Button, Container, makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
 import TopBar from './layout/TopBar';
 
 
@@ -23,8 +24,8 @@ export default function Error404() {
                     <br />
                     It seems that you're in the wrong place.
                     <br /><br />
-                    <Button variant="contained" color="primary" href="/">
-                        Return to the app
+                    <Button variant="contained" color="primary" component={Link} to="/">
+                        Return to the dashboard
                     </Button>
                 </Typography>
             </Container>

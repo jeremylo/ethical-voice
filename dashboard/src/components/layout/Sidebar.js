@@ -5,16 +5,14 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import { makeStyles } from '@material-ui/core/styles';
-import AssignmentIcon from '@material-ui/icons/Assignment';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import LayersIcon from '@material-ui/icons/Layers';
 import PeopleIcon from '@material-ui/icons/People';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 
 export const drawerWidth = 240;
 
@@ -77,13 +75,7 @@ export default function Sidebar({ open, handleDrawerClose }) {
                 <ListItemIcon>
                     <DashboardIcon />
                 </ListItemIcon>
-                <ListItemText primary="Dashboard" />
-            </ListItem>
-            <ListItem button>
-                <ListItemIcon>
-                    <ShoppingCartIcon />
-                </ListItemIcon>
-                <ListItemText primary="Orders" />
+                <ListItemText primary="Home" component={Link} to="/" />
             </ListItem>
             <ListItem button>
                 <ListItemIcon>
@@ -104,27 +96,27 @@ export default function Sidebar({ open, handleDrawerClose }) {
                 <ListItemText primary="Integrations" />
             </ListItem>
         </List>
-        <Divider />
+        {/* <Divider />
         <List className={classes.navList}>
             <ListSubheader inset>Saved reports</ListSubheader>
             <ListItem button>
                 <ListItemIcon>
                     <AssignmentIcon />
                 </ListItemIcon>
-                <ListItemText primary="Current month" />
+                <ListItemText primary="1" />
             </ListItem>
             <ListItem button>
                 <ListItemIcon>
                     <AssignmentIcon />
                 </ListItemIcon>
-                <ListItemText primary="Last quarter" />
+                <ListItemText primary="2" />
             </ListItem>
             <ListItem button>
                 <ListItemIcon>
                     <AssignmentIcon />
                 </ListItemIcon>
-                <ListItemText primary="Year-end sale" />
+                <ListItemText primary="3" />
             </ListItem>
-        </List>
+        </List> */}
     </Drawer>;
 }
