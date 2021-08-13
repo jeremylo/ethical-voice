@@ -30,6 +30,16 @@ const authenticator = {
     async logout() {
         await fetch('/api/auth/logout');
     },
+
+    async setEmail(email) {
+        const res = await fetchPost('/api/sro/email', { email });
+        return res.status === 200;
+    },
+
+    async setPassword(oldPassword, newPassword) {
+        const res = await fetchPost('/api/sro/password', { oldPassword, newPassword });
+        return res.status === 200;
+    },
 };
 
 export default authenticator;

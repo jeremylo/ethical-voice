@@ -71,11 +71,11 @@ export default function Sidebar({ open, handleDrawerClose }) {
         </div>
         <Divider />
         <List className={classes.navList}>
-            <ListItem button>
+            <ListItem button component={Link} to="/">
                 <ListItemIcon>
                     <DashboardIcon />
                 </ListItemIcon>
-                <ListItemText primary="Home" component={Link} to="/" />
+                <ListItemText primary="Home" />
             </ListItem>
             <ListItem button>
                 <ListItemIcon>

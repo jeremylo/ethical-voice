@@ -8,6 +8,7 @@ import Error404 from './components/Error404';
 import Home from './components/Home';
 import Layout from './components/Layout';
 import Login from './components/Login';
+import Settings from './components/Settings';
 
 
 const theme = createTheme({
@@ -71,10 +72,10 @@ function Routes() {
       </PrivateRoute>
       <PrivateRoute path="/results">
         <Layout><Results /></Layout>
-      </PrivateRoute>
+      </PrivateRoute>*/}
       <PrivateRoute path="/settings">
         <Layout><Settings /></Layout>
-      </PrivateRoute> */}
+      </PrivateRoute>
 
       { /* 404 */}
       <Route><Error404 /></Route>

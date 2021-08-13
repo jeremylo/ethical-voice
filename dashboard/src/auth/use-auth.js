@@ -53,5 +53,7 @@ function useAuthProvider() {
         setSro,
         login,
         logout,
+        setEmail: authenticator.setEmail,
+        setPassword: authenticator.setPassword,
     };
 }
