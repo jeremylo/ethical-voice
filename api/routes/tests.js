@@ -1,9 +1,10 @@
 import Router from 'express';
 import { query } from '../db.js';
+import requireAuth from '../requireAuth.js';
 
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.get('/', requireAuth, async (req, res) => {
     try {
         const tests = await query("SELECT * FROM test_types WHERE active=1");
         return res.status(200).json(Object.fromEntries(tests.map(test => [test.id, {
