@@ -15,42 +15,42 @@ export const useAuth = () => {
 
 // Provider hook that creates auth object and handles state
 function useAuthProvider() {
-    const [user, setUser] = useState(null);
+    const [sro, setSro] = useState(null);
 
     const refresh = () => {
         authenticator
             .getLoggedInUser()
             .then((user) => {
-                setUser(user);
+                setSro(user);
             });
     };
 
     useEffect(() => {
         refresh();
-    }, [setUser])
+    }, [setSro])
 
     const login = (email, password) => {
         return authenticator
             .loginWithCredentials(email, password)
             .then((user) => {
-                setUser(user);
+                setSro(user);
                 return user;
             }); // TODO: error handling
     };
 
     const logout = () => {
-        setUser(null);
+        setSro(null);
         return authenticator
             .logout()
             .then(() => {
-                setUser(false);
+                setSro(false);
             });
     };
 
     // Return the user object and auth methods
     return {
-        user,
-        setUser,
+        sro,
+        setSro,
         login,
         logout,
     };

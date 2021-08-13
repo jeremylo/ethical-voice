@@ -12,9 +12,4 @@ router.get('/', requireAuth, async (req, res) => {
     });
 });
 
-// router.use('/activate', activateRoutes);
-// router.use('/register', registerRoutes);
-// router.use('/email', emailRoutes);
-// router.use('/password', passwordRoutes);
-
 export default router;

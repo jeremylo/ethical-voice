@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
     const classes = useStyles();
     const auth = useAuth();
-    console.log(auth.user);
+    console.log(auth.sro);
 
     return <div className={classes.root}>
         <Container maxWidth="sm" className={classes.header}>

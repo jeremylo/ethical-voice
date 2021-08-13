@@ -9,7 +9,13 @@ router.post('/login', requireNoAuth,
     (req, res, next) => {
         passport.authenticate('local', (err, sro, info) => {
             if (err || !sro) { return res.status(401).json({ error: "Login failure." }); }
-            req.login(sro, (err2) => { if (err2) return next(err2); });
+            req.login(sro, (err2) => {
+                if (err2) {
+                    return next(err2);
+                } else {
+                    next();
+                }
+            });
         })(req, res, next);
     },
     (req, res) => {
