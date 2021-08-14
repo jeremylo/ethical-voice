@@ -22,6 +22,7 @@ const columns = [
 
 function RegisteredPatients() {
     const [patients, setPatients] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(_ => {
         fetch('/api/patients')
@@ -31,20 +32,18 @@ function RegisteredPatients() {
                     setPatients(res.patients);
                 }
             })
-            .catch(console.error);
+            .catch(console.error)
+            .finally(_ => {
+                setLoading(false);
+            });
     }, [setPatients]);
-
-    if (patients.length < 1) {
-        return <Typography>
-            It appears you have yet to refer any patients to this service. When you do so and they have activated their accounts, they will appear here.
-        </Typography>;
-    }
 
     return <div style={{ height: '70vh', width: '100%', marginTop: '1rem' }}>
         <DataGrid
             rows={patients}
             columns={columns}
             disableSelectionOnClick
+            loading={loading}
             components={{
                 Toolbar: CustomToolbar,
             }}
