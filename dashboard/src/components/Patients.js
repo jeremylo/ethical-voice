@@ -7,8 +7,14 @@ const columns = [
     { field: 'referenceId', headerName: 'Reference ID', flex: 0.5 },
     { field: 'email', headerName: 'Email', flex: 0.8 },
     { field: 'outwardPostcode', headerName: 'Postcode', description: 'Outward postcode', flex: 0.5 },
-    { field: 'createdAt', headerName: 'Referral date', flex: 0.5 },
-    { field: 'updatedAt', headerName: 'Last update', flex: 0.5 },
+    {
+        field: 'createdAt', headerName: 'Referral date', flex: 0.5,
+        valueFormatter: (params) => new Date(params.value).toLocaleString()
+    },
+    {
+        field: 'updatedAt', headerName: 'Last update', flex: 0.5,
+        valueFormatter: (params) => new Date(params.value).toLocaleString()
+    },
 ];
 
 const patientData = [
