@@ -7,9 +7,26 @@ import { useState } from 'react';
 
 export default function NewReferral() {
     const [newRefId, setNewRefId] = useState(null);
+    const [generating, setGenerating] = useState(false);
 
     const generateNewReferral = () => {
-        setNewRefId('000000000001');
+        setGenerating(true);
+
+        fetch('/api/referral', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({})
+        })
+            .then(res => res.json())
+            .then(res => {
+                if (res.referenceId) {
+                    setNewRefId(res.referenceId);
+                    setGenerating(false);
+                }
+            })
+            .catch(console.error);
     }
 
     const link = newRefId ? `https://mydata.jezz.me/register/${newRefId}` : '';
@@ -19,7 +36,7 @@ export default function NewReferral() {
         <Typography>
             To refer a new patient to the service, you must first generate a <strong>reference ID</strong> that will be required when the patient registers for the <em>My Data</em> app.
         </Typography>
-        {newRefId && <Alert severity="success">
+        {newRefId && !generating && <Alert severity="success">
             <AlertTitle>New reference ID generated successfully</AlertTitle>
             Please give the reference ID below to the patient you are referring to this service; they will require it to register with the application. A direct link to the registration page has been provided for the patient's convenience.
             <br /><br />
@@ -68,7 +85,7 @@ export default function NewReferral() {
             />
         </Alert>}
         <br />
-        <Button variant="contained" size="large" color="primary" onClick={generateNewReferral}>
+        <Button variant="contained" size="large" color="primary" onClick={generateNewReferral} disabled={generating}>
             Generate new reference ID
         </Button>
     </>);

@@ -17,6 +17,10 @@ export async function findUserByEmail(email) {
     return (await query("SELECT * FROM users WHERE email=? AND status=? LIMIT 1", [email, 1]))[0];
 }
 
+export async function createUnactivatedUser(referenceId, sroId) {
+    return (await query("INSERT INTO users (reference_id, sro_id) VALUES (?, ?)", [referenceId, sroId]));
+}
+
 export async function activateUser(id, referenceId, email, password, outwardPostcode) {
     return (await query("UPDATE users SET email=?, password=?, outward_postcode=?, status=? WHERE id=? AND reference_id=?", [email, password, outwardPostcode, 1, id, referenceId]));
 }

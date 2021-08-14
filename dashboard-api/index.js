@@ -5,6 +5,7 @@ import session from 'express-session';
 import passport from './passport.js';
 import redisClient from './redis.js';
 import authRoutes from './routes/auth.js';
+import referralRoutes from './routes/referral.js';
 import sroRoutes from './routes/sro.js';
 
 const app = express();
@@ -39,6 +40,7 @@ app.get('/api', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/sro', sroRoutes);
+app.use('/api/referral', referralRoutes);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);

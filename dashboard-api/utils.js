@@ -28,3 +28,7 @@ export function hashSha256(token) {
 export function isNumeric(x) {
     return /^[1-9][\d]*$/.test(x);
 }
+
+export function generateReferenceId() {
+    return String(Math.floor(Math.random() * Math.pow(10, 12)) + 1).padStart(12, '0');
+}
