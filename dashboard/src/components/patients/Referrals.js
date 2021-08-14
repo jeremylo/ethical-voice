@@ -17,6 +17,9 @@ const patientData = [
 export default function Referrals() {
     return (<>
         <Typography variant="h5">Open Referrals</Typography>
+        <Typography>
+            All reference IDs you have generated that remain unregistered by patients are listed below.
+        </Typography>
         <br />
         {patientData.length > 0 ? <div style={{ height: '50vh', width: '100%' }}>
             <DataGrid
