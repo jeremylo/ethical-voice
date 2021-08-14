@@ -1,10 +1,9 @@
 import { Paper, Typography } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import { useEffect, useState } from 'react';
-
+import CustomToolbar from './CustomToolbar';
 
 const columns = [
-    { field: 'id', headerName: 'ID', flex: 0.3, hide: true },
     { field: 'referenceId', headerName: 'Reference ID', flex: 0.5 },
     {
         field: 'createdAt', headerName: 'Referral date', flex: 0.5,
@@ -37,6 +36,9 @@ export default function Referrals() {
                 rows={referrals}
                 columns={columns}
                 disableSelectionOnClick
+                components={{
+                    Toolbar: CustomToolbar,
+                }}
             />
         </div> : <Paper style={{ padding: '1rem' }}><Typography>
             It appears you have yet to refer any patients to this service. When you do so and they have activated their accounts, they will appear here.

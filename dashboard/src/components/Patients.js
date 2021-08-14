@@ -1,21 +1,12 @@
 import { Typography } from '@material-ui/core';
 import {
-    DataGrid, GridToolbarContainer,
-    GridToolbarExport
+    DataGrid
 } from '@material-ui/data-grid';
 import { useEffect, useState } from 'react';
+import CustomToolbar from './patients/CustomToolbar';
 
-
-function CustomToolbar() {
-    return (
-        <GridToolbarContainer>
-            <GridToolbarExport />
-        </GridToolbarContainer>
-    );
-}
 
 const columns = [
-    { field: 'id', headerName: 'ID', flex: 0.3, hide: true },
     { field: 'referenceId', headerName: 'Reference ID', flex: 0.5 },
     { field: 'email', headerName: 'Email', flex: 0.8 },
     { field: 'outwardPostcode', headerName: 'Postcode', description: 'Outward postcode', flex: 0.5 },
