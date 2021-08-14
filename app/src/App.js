@@ -56,7 +56,7 @@ function Routes() {
       <PublicOnlyRoute path="/login/:status?">
         <Login />
       </PublicOnlyRoute>
-      <PublicOnlyRoute path="/register">
+      <PublicOnlyRoute path="/register/:refId?">
         <Register />
       </PublicOnlyRoute>
       <PublicOnlyRoute path="/activate/:refId/:token">

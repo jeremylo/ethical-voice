@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { AccountCircleRounded } from '@material-ui/icons';
 import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useAuth } from '../auth/use-auth';
 import TopBar from './layout/TopBar';
 import { isValidEmail, isValidReferenceId } from './utils';
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Register() {
     const classes = useStyles();
     const auth = useAuth();
+    const params = useParams();
 
     const [open, setOpen] = useState(false);
     const [submitted, setSubmitted] = useState(false);
@@ -44,7 +45,7 @@ export default function Register() {
         severity: "error",
         message: "Registration failed — please double-check your details and try again."
     });
-    const [refId, setRefId] = useState('');
+    const [refId, setRefId] = useState(params.refId ?? '');
     const [email, setEmail] = useState('');
 
     const handleRefIdChange = (event) => {
