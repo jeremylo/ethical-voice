@@ -14,6 +14,7 @@ import Patients from './components/Patients';
 import Refer from './components/Refer';
 import ResetPassword from './components/ResetPassword';
 import Settings from './components/Settings';
+import Tests from './components/Tests';
 
 
 const theme = createTheme({
@@ -70,6 +71,9 @@ function Routes() {
       </PrivateRoute>
       <PrivateRoute path="/patients">
         <Layout><Patients /></Layout>
+      </PrivateRoute>
+      <PrivateRoute path="/tests">
+        <Layout><Tests /></Layout>
       </PrivateRoute>
       <PrivateRoute path="/refer">
         <Layout><Refer /></Layout>

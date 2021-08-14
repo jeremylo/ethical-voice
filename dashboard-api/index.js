@@ -8,6 +8,7 @@ import authRoutes from './routes/auth.js';
 import patientsRoutes from './routes/patients.js';
 import referralRoutes from './routes/referral.js';
 import sroRoutes from './routes/sro.js';
+import testsRoutes from './routes/tests.js';
 
 const app = express();
 const port = 4001;
@@ -43,6 +44,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/sro', sroRoutes);
 app.use('/api/referral', referralRoutes);
 app.use('/api/patients', patientsRoutes);
+app.use('/api/tests', testsRoutes);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
