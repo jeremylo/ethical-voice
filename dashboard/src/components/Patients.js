@@ -1,7 +1,18 @@
 import { Typography } from '@material-ui/core';
-import { DataGrid } from '@material-ui/data-grid';
+import {
+    DataGrid, GridToolbarContainer,
+    GridToolbarExport
+} from '@material-ui/data-grid';
 import { useEffect, useState } from 'react';
 
+
+function CustomToolbar() {
+    return (
+        <GridToolbarContainer>
+            <GridToolbarExport />
+        </GridToolbarContainer>
+    );
+}
 
 const columns = [
     { field: 'id', headerName: 'ID', flex: 0.3, hide: true },
@@ -43,6 +54,9 @@ function RegisteredPatients() {
             rows={patients}
             columns={columns}
             disableSelectionOnClick
+            components={{
+                Toolbar: CustomToolbar,
+            }}
         />
     </div>;
 }
