@@ -10,6 +10,8 @@ import ForgotPassword from './components/ForgotPassword';
 import Home from './components/Home';
 import Layout from './components/Layout';
 import Login from './components/Login';
+import Patients from './components/Patients';
+import Refer from './components/Refer';
 import ResetPassword from './components/ResetPassword';
 import Settings from './components/Settings';
 
@@ -66,12 +68,12 @@ function Routes() {
       <PrivateRoute exact path="/">
         <Layout><Home /></Layout>
       </PrivateRoute>
-      {/* <PrivateRoute path="/analyse">
-        <Layout><Analyse /></Layout>
+      <PrivateRoute path="/patients">
+        <Layout><Patients /></Layout>
       </PrivateRoute>
-      <PrivateRoute path="/results">
-        <Layout><Results /></Layout>
-      </PrivateRoute>*/}
+      <PrivateRoute path="/refer">
+        <Layout><Refer /></Layout>
+      </PrivateRoute>
       <PrivateRoute path="/settings">
         <Layout><Settings /></Layout>
       </PrivateRoute>

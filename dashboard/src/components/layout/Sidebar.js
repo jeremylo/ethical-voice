@@ -7,6 +7,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
 import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
+import AddIcon from '@material-ui/icons/Add';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -78,25 +79,31 @@ export default function Sidebar({ open, handleDrawerClose }) {
                 </ListItemIcon>
                 <ListItemText primary="Home" />
             </ListItem>
-            <ListItem button component={Link} to="/">
+            <ListItem button component={Link} to="/patients">
                 <ListItemIcon>
                     <PeopleIcon />
                 </ListItemIcon>
                 <ListItemText primary="My patients" />
             </ListItem>
-            <ListItem button component={Link} to="/">
+            <ListItem button component={Link} to="/refer">
+                <ListItemIcon>
+                    <AddIcon />
+                </ListItemIcon>
+                <ListItemText primary="Refer a patient" />
+            </ListItem>
+            <ListItem button component={Link} to="/submissions">
                 <ListItemIcon>
                     <BarChartIcon />
                 </ListItemIcon>
                 <ListItemText primary="Submissions" />
             </ListItem>
-            <ListItem button component={Link} to="/">
+            <ListItem button component={Link} to="/tests">
                 <ListItemIcon>
                     <SettingsVoiceIcon />
                 </ListItemIcon>
                 <ListItemText primary="Speaking tests" />
             </ListItem>
-            <ListItem button component={Link} to="/">
+            <ListItem button component={Link} to="/sros">
                 <ListItemIcon>
                     <AccessibilityNewIcon />
                 </ListItemIcon>
