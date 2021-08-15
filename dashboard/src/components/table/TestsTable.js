@@ -1,4 +1,4 @@
-import { Checkbox } from '@material-ui/core';
+import { Checkbox, Snackbar } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -7,7 +7,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import React from 'react';
+import { Alert } from '@material-ui/lab';
+import React, { useState } from 'react';
 import EnhancedTableHead from './EnhancedTableHead';
 
 function descendingComparator(a, b, orderBy) {
@@ -60,27 +61,18 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function TestsTable({ rows, headCells }) {
+export default function TestsTable({ rows, headCells, refresh }) {
     const classes = useStyles();
-    const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('id');
-    const [selected, setSelected] = React.useState([]);
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [order, setOrder] = useState('asc');
+    const [orderBy, setOrderBy] = useState('id');
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [open, setOpen] = useState(false);
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
-    };
-
-    const handleSelectAllClick = (event) => {
-        if (event.target.checked) {
-            const newSelecteds = rows.map((n) => n.name);
-            setSelected(newSelecteds);
-            return;
-        }
-        setSelected([]);
     };
 
     const handleChangePage = (event, newPage) => {
@@ -91,6 +83,8 @@ export default function TestsTable({ rows, headCells }) {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+
+    const handleClose = () => { setOpen(false); };
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -106,12 +100,9 @@ export default function TestsTable({ rows, headCells }) {
                     >
                         <EnhancedTableHead
                             classes={classes}
-                            numSelected={selected.length}
                             order={order}
                             orderBy={orderBy}
-                            onSelectAllClick={handleSelectAllClick}
                             onRequestSort={handleRequestSort}
-                            rowCount={rows.length}
                             headCells={headCells}
                         />
                         <TableBody>
@@ -130,6 +121,23 @@ export default function TestsTable({ rows, headCells }) {
                                                 <Checkbox
                                                     checked={row.active}
                                                     inputProps={{ 'aria-labelledby': `tests-table-checkbox-${index}` }}
+                                                    onChange={_ => {
+                                                        fetch('/api/tests/visibility', {
+                                                            method: 'POST',
+                                                            headers: {
+                                                                'Content-Type': 'application/json',
+                                                            },
+                                                            body: JSON.stringify({
+                                                                testId: row.id,
+                                                                active: row.active === 0
+                                                            })
+                                                        })
+                                                            .then(res => res.json())
+                                                            .then(res => {
+                                                                refresh();
+                                                                setOpen(true);
+                                                            });
+                                                    }}
                                                 />
                                             </TableCell>
                                         </TableRow>
@@ -153,6 +161,12 @@ export default function TestsTable({ rows, headCells }) {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper>
+
+            <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success">
+                    The visibility of this test was changed successfully.
+                </Alert>
+            </Snackbar>
         </div>
     );
 }

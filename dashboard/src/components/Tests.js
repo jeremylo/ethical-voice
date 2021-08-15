@@ -15,7 +15,7 @@ export default function Tests() {
     const [tests, setTests] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(_ => {
+    const refresh = _ => {
         fetch('/api/tests')
             .then(async (res) => await res.json())
             .then(res => {
@@ -25,8 +25,9 @@ export default function Tests() {
             .finally(_ => {
                 setLoading(false);
             });
-    }, [setTests]);
-    console.log(tests);
+    }
+
+    useEffect(refresh, [setTests]);
 
     return (<>
         <Typography variant="h4">Speaking test types</Typography>
@@ -35,6 +36,6 @@ export default function Tests() {
             To preserve the original test description for any submission, test types may not be modified or deleted - only disabled with a new test type created to supplant it.
         </Alert>
         <br />
-        <TestsTable rows={tests} headCells={headCells} />
+        {!loading && <TestsTable rows={tests} headCells={headCells} refresh={refresh} />}
     </>);
 }
