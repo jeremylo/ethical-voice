@@ -3,8 +3,6 @@ services:
   app:
     build:
       context: ./app
-    ports:
-      - "3000:3000"
     volumes:
       - app-build:/app/build
     deploy:
@@ -20,6 +18,41 @@ services:
       context: ./api
     ports:
       - "4000:4000"
+    environment:
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+      - MARIADB_HOST=${MARIADB_HOST}
+      - MARIADB_DATABASE=${MARIADB_DATABASE}
+      - COOKIE_SECRET=${COOKIE_SECRET}
+      - SESSION_COOKIE_NAME=${SESSION_COOKIE_NAME}
+      - REMEMBER_ME_COOKIE_NAME=${REMEMBER_ME_COOKIE_NAME}
+      - BCRYPT_SALT_ROUNDS=${BCRYPT_SALT_ROUNDS}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+    depends_on:
+      - redis
+      - db
+
+  dashboard:
+    build:
+      context: ./dashboard
+    volumes:
+      - dashboard-build:/dashboard/build
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 8192M
+    depends_on:
+      - dashboard-api
+
+  dashboard-api:
+    build:
+      context: ./dashboard-api
+    ports:
+      - "4001:4001"
     environment:
       - MARIADB_USER=${MARIADB_USER}
       - MARIADB_PASSWORD=${MARIADB_PASSWORD}
@@ -84,5 +117,7 @@ volumes:
   redis-data:
 
   app-build:
+
+  dashboard-build:
 
   db-data:
