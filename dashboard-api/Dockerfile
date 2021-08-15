@@ -1,6 +1,6 @@
 FROM node:16-alpine3.11
 
-WORKDIR /api
+WORKDIR /dashboard-api
 
 COPY . ./
 RUN npm -g install --silent npm@latest
