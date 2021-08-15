@@ -1,24 +1,14 @@
 import { Typography } from '@material-ui/core';
-import {
-    DataGrid
-} from '@material-ui/data-grid';
+import { Alert } from '@material-ui/lab';
 import { useEffect, useState } from 'react';
-import CustomToolbar from './patients/CustomToolbar';
+import TestsTable from './table/TestsTable';
 
-
-const columns = [
-    { field: 'id', headerName: 'Test ID', flex: 0.5 },
-    { field: 'title', headerName: 'Title', flex: 0.8 },
-    { field: 'instruction', headerName: 'Instruction', flex: 1.5, editable: true },
-    {
-        field: 'possibleDurations', headerName: 'Possible durations (sec)', flex: 1,
-        valueFormatter: (params) => JSON.stringify(params.value).slice(1, -1)
-    },
-    {
-        field: 'active', headerName: 'Enabled', flex: 0.5, type: 'boolean',
-        valueFormatter: (params) => params.value ? 1 : 0,
-        editable: true
-    },
+const headCells = [
+    { id: 'id', label: 'ID' },
+    { id: 'title', label: 'Title' },
+    { id: 'instruction', label: 'Instruction' },
+    { id: 'possibleDurations', label: 'Possible durations (sec)' },
+    { id: 'active', label: 'Enabled' },
 ];
 
 export default function Tests() {
@@ -36,21 +26,15 @@ export default function Tests() {
                 setLoading(false);
             });
     }, [setTests]);
+    console.log(tests);
 
     return (<>
         <Typography variant="h4">Speaking test types</Typography>
-        <Typography>
-            <strong>Note</strong>: in order to preserve the relationship between submissions and test definitions, test types may not be modified or deleted once created. Instead, create a new test type and disable any test types you do not wish to show patients.
-        </Typography>
-        <div style={{ height: '70vh', width: '100%', marginTop: '1rem' }}>
-            <DataGrid
-                rows={tests}
-                columns={columns}
-                loading={loading}
-                components={{
-                    Toolbar: CustomToolbar,
-                }}
-            />
-        </div>
+        <br />
+        <Alert severity="info">
+            To preserve the original test description for any submission, test types may not be modified or deleted - only disabled with a new test type created to supplant it.
+        </Alert>
+        <br />
+        <TestsTable rows={tests} headCells={headCells} />
     </>);
 }
