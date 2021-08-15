@@ -109,6 +109,7 @@ services:
       - "443:443"
     volumes:
       - app-build:/srv
+      - dashboard-build:/srv-dashboard
     depends_on:
       - api
       - app
