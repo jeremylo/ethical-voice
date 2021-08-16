@@ -2,6 +2,7 @@ import { Box, Button, FormControl, InputLabel, makeStyles, MenuItem, Paper, Sele
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { useState } from "react";
 import { useAuth } from '../../auth/use-auth';
+import { useMountEffect } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -14,6 +15,8 @@ export default function Welcome({ handleNext, tests, selectTest, selectDuration 
     const classes = useStyles();
     const auth = useAuth();
     const sharingEnabled = auth.user.sharing ?? false;
+
+    useMountEffect(() => { auth.refresh(); });
 
     const [test, setTest] = useState('');
     const handleTestChange = (event) => {

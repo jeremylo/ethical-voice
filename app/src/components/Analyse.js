@@ -144,7 +144,7 @@ export default class Analyse extends React.Component {
     async componentDidMount() {
         this.setState({
             tests: await getTests()
-        })
+        });
     }
 
     render() {
