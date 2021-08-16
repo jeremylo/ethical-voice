@@ -11,6 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import ImportExportIcon from '@material-ui/icons/ImportExport';
 import PeopleIcon from '@material-ui/icons/People';
 import SettingsVoiceIcon from '@material-ui/icons/SettingsVoice';
 import clsx from 'clsx';
@@ -102,6 +103,12 @@ export default function Sidebar({ open, handleDrawerClose }) {
                     <SettingsVoiceIcon />
                 </ListItemIcon>
                 <ListItemText primary="Speaking tests" />
+            </ListItem>
+            <ListItem button component={Link} to="/export">
+                <ListItemIcon>
+                    <ImportExportIcon />
+                </ListItemIcon>
+                <ListItemText primary="Export data" />
             </ListItem>
             <ListItem button component={Link} to="/sros">
                 <ListItemIcon>

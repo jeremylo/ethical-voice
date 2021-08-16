@@ -6,6 +6,7 @@ import PublicOnlyRoute from './auth/PublicOnlyRoute';
 import { AuthProvider, useAuth } from './auth/use-auth';
 import Activate from './components/Activate';
 import Error404 from './components/Error404';
+import Export from './components/Export';
 import ForgotPassword from './components/ForgotPassword';
 import Home from './components/Home';
 import Layout from './components/Layout';
@@ -80,6 +81,9 @@ function Routes() {
       </PrivateRoute>
       <PrivateRoute path="/settings">
         <Layout><Settings /></Layout>
+      </PrivateRoute>
+      <PrivateRoute path="/export">
+        <Layout><Export /></Layout>
       </PrivateRoute>
 
       { /* 404 */}
