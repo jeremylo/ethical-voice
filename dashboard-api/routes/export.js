@@ -38,7 +38,10 @@ router.get('/', requireAuth, async (req, res) => {
         }
         zip.addFile('metadata.json', Buffer.from(JSON.stringify(submissionData)));
 
-        res.status(200).send(zip.toBuffer());
+        res
+            .set('Content-Disposition', `attachment; filename="export-${new Date().toISOString().slice(0, 10)}.zip"`)
+            .status(200)
+            .send(zip.toBuffer());
     } catch {
         return res.status(500).send('Awfully sorry - there was an error exporting the data!');
     }
