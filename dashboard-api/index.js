@@ -5,6 +5,7 @@ import session from 'express-session';
 import passport from './passport.js';
 import redisClient from './redis.js';
 import authRoutes from './routes/auth.js';
+import exportRoutes from './routes/export.js';
 import patientsRoutes from './routes/patients.js';
 import referralRoutes from './routes/referral.js';
 import sroRoutes from './routes/sro.js';
@@ -45,6 +46,7 @@ app.use('/api/sro', sroRoutes);
 app.use('/api/referral', referralRoutes);
 app.use('/api/patients', patientsRoutes);
 app.use('/api/tests', testsRoutes);
+app.use('/api/export', exportRoutes);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
