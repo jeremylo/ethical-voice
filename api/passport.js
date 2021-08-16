@@ -29,7 +29,7 @@ passport.use(new LocalStrategy(
             }
             return done(null, user);
         } catch (e) {
-            return done(e, false);
+            return done(e);
         }
     }
 ));
