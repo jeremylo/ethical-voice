@@ -48,7 +48,7 @@ router.post('/', requireAuth, upload.single('audio'), async (req, res) => {
         ]);
 
         const metadata = Object.entries(req.body).filter(([k, v]) => (
-            ALLOWED_KEYS.includes(k) && String(k).length < 255 && String(v) < 65535
+            ALLOWED_KEYS.includes(k) && String(k).length < 255 && String(v).length < 65535
         ));
 
         if (metadata.length > 0) {
