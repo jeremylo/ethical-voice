@@ -4,7 +4,7 @@ import {
 } from '@material-ui/data-grid';
 import { useEffect, useState } from 'react';
 import CustomToolbar from './patients/CustomToolbar';
-
+import { useForceLogin } from './utils';
 
 const columns = [
     { field: 'referenceId', headerName: 'Reference ID', flex: 0.5 },
@@ -21,6 +21,8 @@ const columns = [
 ];
 
 function RegisteredPatients() {
+    useForceLogin();
+
     const [patients, setPatients] = useState([]);
     const [loading, setLoading] = useState(true);
 

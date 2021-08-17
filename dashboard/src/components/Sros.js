@@ -2,9 +2,12 @@ import { Typography } from '@material-ui/core';
 import Invite from './sros/Invite';
 import RegisteredSros from './sros/RegisteredSros';
 import Transfer from './sros/Transfer';
+import { useForceLogin } from './utils';
 
 
 export default function Sros() {
+    useForceLogin();
+
     return (<>
         <Typography variant="h4">Senior responsible officers</Typography>
         <Typography variant="h5">Registered senior responsible officers</Typography>
