@@ -69,9 +69,6 @@ export default function Invite() {
                 message: "I'm sorry - this action could not be performed."
             });
         });
-
-
-
     };
 
     const isInvalid = !isValidEmail(value);

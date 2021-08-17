@@ -1,7 +1,7 @@
 import Router from 'express';
 import jwt from 'jsonwebtoken';
 import { createSro } from '../../persistence/sros.js';
-import { isValidEmail, isValidName, isValidPassword } from '../../utils.js';
+import { hashPassword, isValidEmail, isValidName, isValidPassword } from '../../utils.js';
 
 const router = Router();
 
@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
         decoded = jwt.verify(String(req.body.token), process.env.JWT_SECRET);
 
         if (!decoded.email || !isValidEmail(decoded.email)
-            || !decoded.trusted || typeof decoded.trusted !== "boolean") {
+            || decoded.trusted === undefined || typeof decoded.trusted !== "boolean") {
             throw new Error("Bad token.");
         }
     } catch (e) {
@@ -34,7 +34,7 @@ router.post('/', async (req, res) => {
         await createSro(
             req.body.name.replace(/\s+/g, ' ').trim(),
             decoded.email.toLowerCase(),
-            req.body.password,
+            hashPassword(req.body.password),
             decoded.trusted
         );
         return res.status(200).json({ message: "SRO account activation successful." });
