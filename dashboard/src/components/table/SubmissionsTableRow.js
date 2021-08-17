@@ -1,4 +1,4 @@
-import { Box, Collapse, IconButton, TableHead } from '@material-ui/core';
+import { Box, Collapse, IconButton, Link, TableHead, Typography } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -69,6 +69,16 @@ export default function SubmissionsTableRow({ row }) {
                             Submission metadata
                         </Typography> */}
                         <SubmissionMetadataTable row={row} />
+                        <Typography>
+                            <br />
+                            <Link
+                                href={`/api/submissions/audio/${row.submission_id}`}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Listen to submission audio
+                            </Link>
+                        </Typography>
                     </Box>
                 </Collapse>
             </TableCell>
