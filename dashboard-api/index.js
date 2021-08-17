@@ -9,6 +9,7 @@ import exportRoutes from './routes/export.js';
 import patientsRoutes from './routes/patients.js';
 import referralRoutes from './routes/referral.js';
 import sroRoutes from './routes/sro.js';
+import srosRoutes from './routes/sros.js';
 import submissionsRoutes from './routes/submissions.js';
 import testsRoutes from './routes/tests.js';
 
@@ -44,6 +45,7 @@ app.get('/api', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/sro', sroRoutes);
+app.use('/api/sros', srosRoutes);
 app.use('/api/referral', referralRoutes);
 app.use('/api/patients', patientsRoutes);
 app.use('/api/tests', testsRoutes);

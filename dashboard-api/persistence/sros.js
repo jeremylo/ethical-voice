@@ -1,6 +1,10 @@
 import { query } from '../db.js';
 
 
+export async function findActivatedSros() {
+    return (await query("SELECT * FROM sros WHERE status=?", [1]));
+}
+
 export async function findSroById(id) {
     return (await query("SELECT * FROM sros WHERE id=? AND status=? LIMIT 1", [id, 1]))[0];
 }
