@@ -16,6 +16,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import SettingsVoiceIcon from '@material-ui/icons/SettingsVoice';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../auth/use-auth';
 
 export const drawerWidth = 240;
 
@@ -59,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Sidebar({ open, handleDrawerClose }) {
     const classes = useStyles();
+    const auth = useAuth();
 
     return <Drawer
         variant="permanent"
@@ -110,12 +112,12 @@ export default function Sidebar({ open, handleDrawerClose }) {
                 </ListItemIcon>
                 <ListItemText primary="Export data" />
             </ListItem>
-            <ListItem button component={Link} to="/sros">
+            {auth.sro.trusted ? <ListItem button component={Link} to="/sros">
                 <ListItemIcon>
                     <AccessibilityNewIcon />
                 </ListItemIcon>
                 <ListItemText primary="SRO management" />
-            </ListItem>
+            </ListItem> : null}
             {/* <ListItem button component={Link} to="/">
                 <ListItemIcon>
                     <LayersIcon />
