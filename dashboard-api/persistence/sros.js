@@ -28,3 +28,7 @@ export async function updateSroEmail(user, email) {
 export async function updateSroPassword(user, password) {
     return (await query("UPDATE sros SET password=? WHERE id=?", [password, user.id]));
 }
+
+export async function transferPatients(from, to) {
+    return (await query("UPDATE users SET sro_id=? WHERE sro_id=?", [to, from]));
+}

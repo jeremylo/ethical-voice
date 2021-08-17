@@ -9,3 +9,7 @@ export function isValidEmail(email) {
 export function isValidPassword(password) {
     return String(password).length >= 10;
 }
+
+export function isNumeric(x) {
+    return /^[1-9][\d]*$/.test(x);
+}

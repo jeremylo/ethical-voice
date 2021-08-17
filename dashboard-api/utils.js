@@ -18,7 +18,7 @@ export async function isValidPasswordHash(password, hash) {
 }
 
 export async function hashPassword(password) {
-    return await bcrypt.hash(password, 14);
+    return await bcrypt.hash(password, process.env.BCRYPT_SALT_ROUNDS ?? 14);
 }
 
 export function hashSha256(token) {

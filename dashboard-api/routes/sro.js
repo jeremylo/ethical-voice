@@ -5,6 +5,7 @@ import emailRoutes from './sro/email.js';
 import inviteRoutes from './sro/invite.js';
 import nameRoutes from './sro/name.js';
 import passwordRoutes from './sro/password.js';
+import transferRoutes from './sro/transfer.js';
 
 
 const router = Router();
@@ -22,5 +23,6 @@ router.use('/email', emailRoutes);
 router.use('/password', passwordRoutes);
 router.use('/invite', inviteRoutes);
 router.use('/activate', activateRoutes);
+router.use('/transfer', transferRoutes);
 
 export default router;

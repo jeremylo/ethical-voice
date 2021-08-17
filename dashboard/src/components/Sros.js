@@ -1,6 +1,7 @@
 import { Typography } from '@material-ui/core';
 import Invite from './sros/Invite';
 import RegisteredSros from './sros/RegisteredSros';
+import Transfer from './sros/Transfer';
 
 
 export default function Sros() {
@@ -12,7 +13,8 @@ export default function Sros() {
         <Typography variant="h5">Invite new senior responsible officer</Typography>
         <Invite />
         <br />
-        {/* <Typography variant="h5">Transfer patients</Typography> */}
+        <Typography variant="h5">Transfer patients to a different senior responsible officer</Typography>
+        <Transfer />
         <br /><br /><br /><br /><br /><br /><br />
     </>);
 }
