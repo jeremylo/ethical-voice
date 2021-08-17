@@ -1,6 +1,7 @@
 import { Typography } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import SubmissionsTable from './table/SubmissionsTable';
+import { useForceLogin } from './utils';
 
 const headCells = [
     { id: '', label: '' },
@@ -13,6 +14,8 @@ const headCells = [
 ];
 
 export default function Submissions() {
+    useForceLogin();
+
     const [tests, setTests] = useState([]);
     const [loading, setLoading] = useState(true);
 

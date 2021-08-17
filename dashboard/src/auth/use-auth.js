@@ -50,6 +50,7 @@ function useAuthProvider() {
     // Return the user object and auth methods
     return {
         sro,
+        refresh,
         setSro,
         login,
         logout,
