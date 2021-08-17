@@ -6,10 +6,10 @@ import CustomToolbar from '../patients/CustomToolbar';
 
 
 const columns = [
-    { field: 'id', headerName: 'ID', flex: 0.4 },
-    { field: 'name', headerName: 'Name', flex: 0.8 },
-    { field: 'email', headerName: 'Email', flex: 0.8 },
-    { field: 'trusted', headerName: 'Trusted', flex: 0.4, type: 'boolean' },
+    { field: 'id', headerName: 'ID', flex: 0.3 },
+    { field: 'name', headerName: 'Name', flex: 0.6 },
+    { field: 'email', headerName: 'Email', flex: 0.6 },
+    { field: 'trusted', headerName: 'Manager', flex: 0.35, type: 'boolean' },
     {
         field: 'createdAt', headerName: 'Referral date', flex: 0.5,
         valueFormatter: (params) => new Date(params.value).toLocaleString()
