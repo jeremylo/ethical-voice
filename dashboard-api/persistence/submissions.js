@@ -1,5 +1,8 @@
-import pool from '../db.js';
+import pool, { query } from '../db.js';
 
+export async function fetchSubmissionAudioByIdAndSro(id, sroId) {
+    return (await query("SELECT submissions.audio FROM submissions, users WHERE submissions.id=? AND submissions.user_id=users.id AND users.sro_id=? LIMIT 1", [id, sroId]))[0];
+}
 
 export async function fetchSubmissionData(sroId, withAudio = true) {
     let conn;
