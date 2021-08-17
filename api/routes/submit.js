@@ -4,7 +4,12 @@ import pool from '../db.js';
 import requireAuth from '../requireAuth.js';
 import { isNumeric } from '../utils.js';
 
-const ALLOWED_KEYS = ['speech.syllableCount', 'speech.syllablesPerMinute', 'speech.wordCount', 'speech.wordsPerMinute', 'speech.transcription', 'speech.duration', 'sputum', 'wellbeing', 'dyspnoea'];
+
+const isValidKey = (key) => {
+    const k = String(key);
+    if (k.length < 1 || k.length > 255) return false;
+    return /[A-Za-z0-9]+(\.[A-Za-z0-9]+)?(\.[A-Za-z0-9]+)?/.test(k);
+};
 
 const router = Router();
 
@@ -48,7 +53,7 @@ router.post('/', requireAuth, upload.single('audio'), async (req, res) => {
         ]);
 
         const metadata = Object.entries(req.body).filter(([k, v]) => (
-            ALLOWED_KEYS.includes(k) && String(k).length < 255 && String(v).length < 65535
+            isValidKey(k) && String(v).length < 65535
         ));
 
         if (metadata.length > 0) {
