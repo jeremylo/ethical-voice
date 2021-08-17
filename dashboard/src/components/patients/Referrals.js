@@ -41,7 +41,7 @@ export default function Referrals() {
                 }}
             />
         </div> : <Paper style={{ padding: '1rem' }}><Typography>
-            It appears you have yet to refer any patients to this service. When you do so and they have activated their accounts, they will appear here.
+            You do not have any open referrals that have yet to be claimed by patients.
         </Typography></Paper>}
     </>);
 }
