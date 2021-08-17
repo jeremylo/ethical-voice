@@ -45,10 +45,33 @@ export default function Invite() {
     };
 
     const handleSubmit = () => {
-        handleSnackbarOpen({
-            severity: "success",
-            message: "Success!"
+        fetch('/api/sro/invite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: value,
+                trusted: checked
+            })
+        }).then(res => {
+            if (res.status !== 200) {
+                throw new Error("Invitation failed.");
+            }
+
+            handleSnackbarOpen({
+                severity: "success",
+                message: "An email invitation was sent to the email address."
+            });
+        }).catch(e => {
+            handleSnackbarOpen({
+                severity: "error",
+                message: "I'm sorry - this action could not be performed."
+            });
         });
+
+
+
     };
 
     const isInvalid = !isValidEmail(value);

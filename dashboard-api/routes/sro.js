@@ -1,6 +1,8 @@
 import Router from 'express';
 import requireAuth from '../requireAuth.js';
+import activateRoutes from './sro/activate.js';
 import emailRoutes from './sro/email.js';
+import inviteRoutes from './sro/invite.js';
 import nameRoutes from './sro/name.js';
 import passwordRoutes from './sro/password.js';
 
@@ -18,5 +20,7 @@ router.get('/', requireAuth, async (req, res) => {
 router.use('/name', nameRoutes);
 router.use('/email', emailRoutes);
 router.use('/password', passwordRoutes);
+router.use('/invite', inviteRoutes);
+router.use('/activate', activateRoutes);
 
 export default router;
