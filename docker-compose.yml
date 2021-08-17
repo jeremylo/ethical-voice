@@ -108,8 +108,14 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - app-build:/srv
-      - dashboard-build:/srv-dashboard
+      - type: volume
+        source: app-build
+        target: /srv
+        read_only: true
+      - type: volume
+        source: dashboard-build
+        target: /srv-dashboard
+        read_only: true
     depends_on:
       - api
       - app
