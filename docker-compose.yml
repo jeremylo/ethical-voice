@@ -113,6 +113,8 @@ services:
     depends_on:
       - api
       - app
+      - dashboard
+      - dashboard-api
 
 volumes:
   redis-data:
