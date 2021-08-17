@@ -15,6 +15,7 @@ import Patients from './components/Patients';
 import Refer from './components/Refer';
 import ResetPassword from './components/ResetPassword';
 import Settings from './components/Settings';
+import Submissions from './components/Submissions';
 import Tests from './components/Tests';
 
 
@@ -84,6 +85,9 @@ function Routes() {
       </PrivateRoute>
       <PrivateRoute path="/export">
         <Layout><Export /></Layout>
+      </PrivateRoute>
+      <PrivateRoute path="/submissions">
+        <Layout><Submissions /></Layout>
       </PrivateRoute>
 
       { /* 404 */}
