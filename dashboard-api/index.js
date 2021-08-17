@@ -9,6 +9,7 @@ import exportRoutes from './routes/export.js';
 import patientsRoutes from './routes/patients.js';
 import referralRoutes from './routes/referral.js';
 import sroRoutes from './routes/sro.js';
+import submissionsRoutes from './routes/submissions.js';
 import testsRoutes from './routes/tests.js';
 
 const app = express();
@@ -47,6 +48,7 @@ app.use('/api/referral', referralRoutes);
 app.use('/api/patients', patientsRoutes);
 app.use('/api/tests', testsRoutes);
 app.use('/api/export', exportRoutes);
+app.use('/api/submissions', submissionsRoutes);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
