@@ -7,9 +7,10 @@ import CustomToolbar from './patients/CustomToolbar';
 
 
 const columns = [
-    { field: 'referenceId', headerName: 'Reference ID', flex: 0.5 },
+    { field: 'id', headerName: 'ID', flex: 0.4 },
+    { field: 'name', headerName: 'Name', flex: 0.8 },
     { field: 'email', headerName: 'Email', flex: 0.8 },
-    { field: 'outwardPostcode', headerName: 'Postcode', description: 'Outward postcode', flex: 0.5 },
+    { field: 'trusted', headerName: 'Trusted', flex: 0.4, type: 'boolean' },
     {
         field: 'createdAt', headerName: 'Referral date', flex: 0.5,
         valueFormatter: (params) => new Date(params.value).toLocaleString()
@@ -20,27 +21,27 @@ const columns = [
     },
 ];
 
-function RegisteredPatients() {
-    const [patients, setPatients] = useState([]);
+function RegisteredSros() {
+    const [sros, setSros] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(_ => {
-        fetch('/api/patients')
+        fetch('/api/sros')
             .then(res => res.json())
             .then(res => {
-                if (res.patients) {
-                    setPatients(res.patients);
+                if (res.sros) {
+                    setSros(res.sros);
                 }
             })
             .catch(console.error)
             .finally(_ => {
                 setLoading(false);
             });
-    }, [setPatients]);
+    }, [setSros]);
 
     return <div style={{ height: '70vh', width: '100%', marginTop: '1rem' }}>
         <DataGrid
-            rows={patients}
+            rows={sros}
             columns={columns}
             disableSelectionOnClick
             loading={loading}
@@ -51,9 +52,14 @@ function RegisteredPatients() {
     </div>;
 }
 
-export default function Patients() {
+export default function Sros() {
     return (<>
-        <Typography variant="h4">My patients</Typography>
-        <RegisteredPatients />
+        <Typography variant="h4">Senior responsible officers</Typography>
+        <Typography variant="h5">Registered senior responsible officers</Typography>
+        <RegisteredSros />
+        <br />
+        <Typography variant="h5">Invite new senior responsible officer</Typography>
+        <br />
+        <Typography variant="h5">Transfer patients</Typography>
     </>);
 }
