@@ -59,7 +59,6 @@ router.post('/', requireAuth, upload.single('audio'), async (req, res) => {
         ));
 
         if (metadata.length > 0) {
-            console.log([metadata.map(([k, v]) => [result.insertId, k, v])]);
             await conn.batch("INSERT INTO submission_metadata (submission_id, metadata_key, metadata_value) VALUES (?, ?, ?)",
                 metadata.map(([k, v]) => [result.insertId, k, v]));
         }

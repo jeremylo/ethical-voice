@@ -82,7 +82,6 @@ export default function CreateTest({ refresh }) {
             });
             refresh();
         }).catch(e => {
-            console.log(e);
             handleSnackbarOpen({
                 severity: "error",
                 message: "I'm sorry - this action could not be performed."
