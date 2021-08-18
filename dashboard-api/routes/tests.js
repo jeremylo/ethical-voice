@@ -20,6 +20,35 @@ router.get('/', requireAuth, async (req, res) => {
     }
 });
 
+const validatePossibleDurationsList = (durations) => {
+    for (const duration of durations) {
+        if (!isNumeric(String(duration)) || +duration < 5 || +duration >= 1000) return false;
+    }
+    return true;
+};
+
+router.post('/', requireAuth, async (req, res) => {
+    if (!req.body.title || req.body.title.length > 255
+        || !req.body.instruction || req.body.instruction.length > 65536
+        || !req.body.possibleDurations || typeof req.body.possibleDurations !== "object"
+        || !validatePossibleDurationsList(req.body.possibleDurations)
+        || req.body.active === undefined) {
+        return res.status(400).json({ error: "Bad request." });
+    }
+
+    try {
+        await query("INSERT INTO test_types (title, instruction, possible_durations, active) VALUES (?,?,?,?)", [
+            req.body.title,
+            req.body.instruction,
+            JSON.stringify(req.body.possibleDurations),
+            req.body.active ? 1 : 0,
+        ]);
+        return res.status(200).json({ message: "Test type created successfully." });
+    } catch {
+        return res.status(500).json({ error: "Test type could not be created." });
+    }
+});
+
 router.post('/visibility', requireAuth, async (req, res) => {
     if (!req.body.testId || !isNumeric(req.body.testId) || +req.body.testId <= 0
         || req.body.active === undefined || typeof req.body.active !== "boolean") {
