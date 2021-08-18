@@ -11,7 +11,7 @@ USE `mydata`;
 
 DELIMITER ;;
 
-CREATE EVENT `Clear month-old tokens` ON SCHEDULE EVERY 1 DAY STARTS '2021-08-05 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM remember_me WHERE created_at < NOW() - INTERVAL 4 WEEK;;
+CREATE DEFINER=`root`@`localhost` EVENT `Clear month-old tokens` ON SCHEDULE EVERY 1 DAY STARTS '2021-08-05 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM remember_me WHERE created_at < NOW() - INTERVAL 4 WEEK;;
 
 DELIMITER ;
 
@@ -40,7 +40,7 @@ CREATE TABLE `sros` (
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ENCRYPTED=YES;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci `ENCRYPTED`=YES;
 
 
 DROP TABLE IF EXISTS `submissions`;
@@ -48,7 +48,7 @@ CREATE TABLE `submissions` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
   `outward_postcode` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `audio` mediumblob NOT NULL,
+  `audio` mediumblob DEFAULT NULL,
   `test_type_id` int(11) unsigned NOT NULL,
   `created_at` datetime NOT NULL,
   `received_at` datetime NOT NULL DEFAULT current_timestamp(),
@@ -57,7 +57,7 @@ CREATE TABLE `submissions` (
   KEY `test_type_id` (`test_type_id`),
   CONSTRAINT `submissions_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `submissions_ibfk_3` FOREIGN KEY (`test_type_id`) REFERENCES `test_types` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ENCRYPTED=YES;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci `ENCRYPTED`=YES;
 
 
 DROP TABLE IF EXISTS `submission_metadata`;
@@ -69,7 +69,7 @@ CREATE TABLE `submission_metadata` (
   PRIMARY KEY (`id`),
   KEY `submission_id` (`submission_id`),
   CONSTRAINT `submission_metadata_ibfk_3` FOREIGN KEY (`submission_id`) REFERENCES `submissions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ENCRYPTED=YES;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci `ENCRYPTED`=YES;
 
 
 DROP TABLE IF EXISTS `test_types`;
@@ -104,4 +104,4 @@ CREATE TABLE `users` (
   UNIQUE KEY `email` (`email`),
   KEY `sro_id` (`sro_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`sro_id`) REFERENCES `sros` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ENCRYPTED=YES;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci `ENCRYPTED`=YES;
