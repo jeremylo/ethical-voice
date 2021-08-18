@@ -1,0 +1,9 @@
+├─ MIT: 121
+├─ ISC: 30
+├─ Apache-2.0: 4
+├─ BSD-3-Clause: 3
+├─ Custom: LICENSE: 1
+├─ BSD-2-Clause: 1
+├─ LGPL-2.1-or-later: 1
+└─ MIT*: 1
+
