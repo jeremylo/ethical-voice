@@ -14,7 +14,9 @@ router.get('/', requireAuth, async (req, res) => {
         for (const submission of submissions) {
             const { audio, ...submissionDatum } = submission;
             submissionData[submission.submission_id] = submissionDatum;
-            zip.addFile(`${directoryName}/submission_${submission.submission_id}.wav`, audio);
+            if (audio) {
+                zip.addFile(`${directoryName}/submission_${submission.submission_id}.wav`, audio);
+            }
         }
 
         for (const metadatum of metadata) {

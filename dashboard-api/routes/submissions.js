@@ -35,6 +35,9 @@ router.get('/audio/:id', requireAuth, async (req, res) => {
 
     try {
         const submission = await fetchSubmissionAudioByIdAndSro(+req.params.id, req.user.id);
+        if (!submission.audio) {
+            throw new Error("Missing audio.");
+        }
         return res.set('Content-Type', 'audio/wav').status(200).send(submission.audio);
     } catch (e) {
         return res.status(500).json({

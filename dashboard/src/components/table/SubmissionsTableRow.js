@@ -69,7 +69,7 @@ export default function SubmissionsTableRow({ row }) {
                             Submission metadata
                         </Typography> */}
                         <SubmissionMetadataTable row={row} />
-                        <Typography>
+                        {row.has_audio !== undefined && row.has_audio === 1 && <Typography>
                             <br />
                             <Link
                                 href={`/api/submissions/audio/${row.submission_id}`}
@@ -78,7 +78,7 @@ export default function SubmissionsTableRow({ row }) {
                             >
                                 Listen to submission audio
                             </Link>
-                        </Typography>
+                        </Typography>}
                     </Box>
                 </Collapse>
             </TableCell>
