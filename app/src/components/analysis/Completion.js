@@ -20,13 +20,15 @@ export default function Completion({ handleSubmission, results, tests }) {
                     resultsCard={resultsCard}
                     submissionInstruction="When you press the button, your submission will be saved to this device and shared with your senior responsible officer."
                     submissionButtonText="Save & share"
-                    onSubmit={async _ => handleSubmission(sharingEnabled, auth.user.refId)}
+                    submitAudioText="Share & retain the speech recording"
+                    onSubmit={async (submitAudio) => handleSubmission(sharingEnabled, auth.user.refId, submitAudio)}
                 />
                 : <ResultsSubmitter
                     resultsCard={resultsCard}
                     submissionInstruction="When you press save, your submission will be saved to this device."
                     submissionButtonText="Save"
-                    onSubmit={async _ => handleSubmission(sharingEnabled, auth.user.refId)}
+                    submitAudioText="Retain the speech recording on-device"
+                    onSubmit={async (submitAudio) => handleSubmission(sharingEnabled, auth.user.refId, submitAudio)}
                 />}
         </Paper >
     )

@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Typography } from "@material-ui/core";
+import { Box, Button, Checkbox, CircularProgress, FormControlLabel, Typography } from "@material-ui/core";
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { Alert } from "@material-ui/lab";
 import { useState } from "react";
@@ -9,11 +9,17 @@ export default function ResultsSubmitter({
     resultsCard,
     onSubmit,
     submissionInstruction,
-    submissionButtonText
+    submissionButtonText,
+    submitAudioText
 }) {
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
+    const [submitAudio, setSubmitAudio] = useState(true);
     const [status, setStatus] = useState(null);
+
+    const handleSubmitAudioChanged = (event) => {
+        setSubmitAudio(!submitAudio);
+    };
 
     if (saving) {
         if (saved && status) {
@@ -37,6 +43,12 @@ export default function ResultsSubmitter({
         <Typography>{submissionInstruction}</Typography>
         <br />
         {resultsCard}
+        <Box>
+            <FormControlLabel
+                control={<Checkbox checked={submitAudio} onChange={handleSubmitAudioChanged} name="submit-audio-checkbox" />}
+                label={submitAudioText}
+            />
+        </Box>
         <Box textAlign="center">
             <Button
                 fullWidth
@@ -44,7 +56,7 @@ export default function ResultsSubmitter({
                 color="primary"
                 onClick={() => {
                     setSaving(true);
-                    onSubmit().then(submissionStatus => {
+                    onSubmit(submitAudio).then(submissionStatus => {
                         setStatus(submissionStatus);
                         setSaved(true);
                     });

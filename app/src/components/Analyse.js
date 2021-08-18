@@ -109,7 +109,11 @@ export default class Analyse extends React.Component {
 
     }
 
-    async handleSubmission(sharingEnabled, referenceId) {
+    async handleSubmission(sharingEnabled, referenceId, submitAudio) {
+        if (!submitAudio) {
+            this.setState({ audio: null });
+        }
+
         if (!await this.saveLocally(this.state.results, sharingEnabled, referenceId)) {
             return SUBMISSION_STATUSES.LOCAL_ERROR;
         }
@@ -118,7 +122,7 @@ export default class Analyse extends React.Component {
             return SUBMISSION_STATUSES.LOCAL_SUCCESS;
         }
 
-        if (this.state.audio.size > MAX_FILE_SIZE) {
+        if (this.state.audio && this.state.audio.size > MAX_FILE_SIZE) {
             return SUBMISSION_STATUSES.TOO_LARGE_TO_SUBMIT;
         }
 
@@ -127,7 +131,7 @@ export default class Analyse extends React.Component {
         Object.entries(this.state.results).forEach(([k, v]) => {
             formData.append(k, v);
         });
-        formData.append('audio', this.state.audio);
+        if (this.state.audio) formData.append('audio', this.state.audio);
 
         try {
             const res = await fetch('/api/submit', {
