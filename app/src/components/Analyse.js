@@ -75,7 +75,7 @@ export default class Analyse extends React.Component {
 
                     <Alert severity="info" icon={false}>
                         <AlertTitle>Task</AlertTitle>
-                        <Typography>{this.state.tests[this.state.selectedTest] ? this.state.tests[this.state.selectedTest].instruction : "Error."}</Typography>
+                        <Typography style={{ whiteSpace: 'pre-wrap' }}>{this.state.tests[this.state.selectedTest] ? this.state.tests[this.state.selectedTest].instruction : "Error."}</Typography>
                     </Alert>
                 </Speech>
             },
