@@ -20,11 +20,11 @@ router.post('/', requireAuth, upload.single('audio'), async (req, res) => {
 
     const validate = () => {
         // Ensure submitted files are <15MiB
-        if (req.file.size > 15 * 1024 * 1024)
+        if (req.file !== undefined && req.file.size > 15 * 1024 * 1024)
             return "The provided audio file is too large.";
 
         // Ensure submitted audio files are audio/wav
-        if (req.file.mimetype !== "audio/wav")
+        if (req.file !== undefined && req.file.mimetype !== "audio/wav")
             return "The provided file has the wrong MIME type.";
 
         // Ensure the provided test ID is valid.
@@ -49,7 +49,7 @@ router.post('/', requireAuth, upload.single('audio'), async (req, res) => {
         const result = await conn.query("INSERT INTO submissions (user_id, outward_postcode, audio, test_type_id, created_at) VALUES (?, ?, BINARY(?), ?, ?)", [
             req.user.id,
             req.user.outward_postcode,
-            req.file.buffer,
+            req.file ? req.file.buffer : null,
             +testId,
             new Date(+createdAt).toISOString().slice(0, 19).replace('T', ' ')
         ]);
