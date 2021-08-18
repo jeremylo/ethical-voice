@@ -43,16 +43,18 @@ router.post('/', requireAuth, upload.single('audio'), async (req, res) => {
 
     let conn;
     try {
+        let { testId, createdAt, ...unfilteredMetadata } = req.body;
+
         conn = await pool.getConnection();
         const result = await conn.query("INSERT INTO submissions (user_id, outward_postcode, audio, test_type_id, created_at) VALUES (?, ?, BINARY(?), ?, ?)", [
             req.user.id,
             req.user.outward_postcode,
             req.file.buffer,
-            +req.body.testId,
-            new Date(+req.body.createdAt).toISOString().slice(0, 19).replace('T', ' ')
+            +testId,
+            new Date(+createdAt).toISOString().slice(0, 19).replace('T', ' ')
         ]);
 
-        const metadata = Object.entries(req.body).filter(([k, v]) => (
+        const metadata = Object.entries(unfilteredMetadata).filter(([k, v]) => (
             isValidKey(k) && String(v).length < 65535
         ));
 
