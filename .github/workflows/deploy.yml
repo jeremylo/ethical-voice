@@ -19,6 +19,8 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /deploy/ethical-voice
-            echo ${{ secrets.PASSWORD }} | sudo -S docker-compose down
+            echo ${{ secrets.PASSWORD }} | sudo -S docker-compose down --rmi local
+            echo ${{ secrets.PASSWORD }} | sudo -S docker volume rm ethical-voice_app-build
+            echo ${{ secrets.PASSWORD }} | sudo -S docker volume rm ethical-voice_dashboard-build
             git pull
             echo ${{ secrets.PASSWORD }} | sudo -S docker-compose up --build -d
