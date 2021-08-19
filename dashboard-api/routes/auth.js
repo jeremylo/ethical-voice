@@ -19,6 +19,8 @@ router.post('/login', requireNoAuth,
         })(req, res, next);
     },
     (req, res) => {
+        if (!req.user) return res.status(500).json({ error: "Login failure." });
+
         return res.status(200).json({
             name: req.user.name,
             email: req.user.email,
