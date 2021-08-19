@@ -99,6 +99,7 @@ CREATE TABLE `users` (
   `status` tinyint(4) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `extra` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `reference_id` (`reference_id`),
   UNIQUE KEY `email` (`email`),
