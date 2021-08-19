@@ -41,11 +41,13 @@ export default function Export() {
                     "test_type_id": 1, <br />
                     "created_at": "2021-08-16T14:15:32.585Z", <br />
                     "received_at": "2021-08-16T14:19:07.766Z", <br />
+                    "extra": "Additional information tied to this user supplied by their SRO.", <br />
                     "speech.syllableCount": "50", <br />
                     "speech.syllablesPerMinute": "300", <br />
                     "speech.wordCount": "31", <br />
                     "speech.wordsPerMinute": "186", <br />
                     "speech.duration": "10", <br />
+                    "speech.transcription": "A record of what was said in the audio clip.", <br />
                     "sputum": "1", <br />
                     "wellbeing": "7", <br />
                     "dyspnoea": "1" <br />

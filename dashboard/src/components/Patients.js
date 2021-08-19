@@ -18,6 +18,7 @@ const columns = [
         field: 'updatedAt', headerName: 'Last update', flex: 0.5,
         valueFormatter: (params) => new Date(params.value).toLocaleString()
     },
+    { field: 'extra', headerName: 'Extra notes', flex: 0.8 },
 ];
 
 function RegisteredPatients() {

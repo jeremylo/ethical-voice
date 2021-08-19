@@ -9,13 +9,14 @@ router.get('/', requireAuth, async (req, res) => {
     try {
         const patients = await findActivatedUsersBySro(req.user.id);
         return res.status(200).json({
-            patients: patients.map(({ id, reference_id, email, outward_postcode, created_at, updated_at }) => ({
+            patients: patients.map(({ id, reference_id, email, outward_postcode, created_at, updated_at, extra }) => ({
                 id,
                 referenceId: reference_id,
                 email,
                 outwardPostcode: outward_postcode,
                 createdAt: created_at,
                 updatedAt: updated_at,
+                extra: extra ?? ''
             }))
         })
     } catch (e) {
