@@ -18,9 +18,24 @@ const defaultTests = {
 export { defaultTests };
 
 export default async function getTests() {
+    let cachedAt = sessionStorage.getItem('cachedTestsAt');
+    if (cachedAt) {
+        if (Date.now() - +cachedAt < 600000) { // cache for ten minutes
+            let cachedTests = JSON.parse(sessionStorage.getItem('cachedTests') ?? '{}');
+            if (Object.keys(cachedTests).length > 0) {
+                return cachedTests;
+            }
+        }
+
+        sessionStorage.removeItem('cachedTests');
+        sessionStorage.removeItem('cachedTestsAt');
+    }
+
     try {
         const tests = await (await fetch('/api/tests')).json();
         if (Object.keys(tests).length > 0) {
+            sessionStorage.setItem('cachedTests', JSON.stringify(tests));
+            sessionStorage.setItem('cachedTestsAt', Date.now());
             return tests;
         }
     } catch (e) {
