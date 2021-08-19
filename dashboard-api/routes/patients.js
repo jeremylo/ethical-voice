@@ -1,6 +1,7 @@
 import Router from 'express';
-import { findActivatedUsersBySro } from '../persistence/users.js';
+import { findActivatedUsersBySro, findUserById, updateUserExtra } from '../persistence/users.js';
 import requireAuth from '../requireAuth.js';
+import { isNumeric } from '../utils.js';
 
 
 const router = Router();
@@ -25,5 +26,26 @@ router.get('/', requireAuth, async (req, res) => {
         })
     }
 });
+
+router.post('/extra', requireAuth, async (req, res) => {
+    if (!req.body.id || !isNumeric(req.body.id) || +req.body.id <= 0
+        || req.body.extra === undefined || typeof req.body.extra !== "string" || String(req.body.extra).length >= 255) {
+        return res.status(400).json({
+            error: "Apologies - we couldn't make out what you're asking for."
+        });
+    }
+
+    try {
+        const user = await findUserById(+req.body.id)
+        await updateUserExtra(user, req.body.extra);
+        return res.status(200).json({
+            message: "This action was successful."
+        })
+    } catch (e) {
+        return res.status(400).json({
+            error: "This action could not be performed."
+        })
+    }
+})
 
 export default router;

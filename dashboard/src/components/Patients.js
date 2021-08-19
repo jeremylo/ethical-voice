@@ -1,8 +1,9 @@
-import { Typography } from '@material-ui/core';
+import { Snackbar, Typography } from '@material-ui/core';
 import {
     DataGrid
 } from '@material-ui/data-grid';
-import { useEffect, useState } from 'react';
+import Alert from '@material-ui/lab/Alert';
+import { useCallback, useEffect, useState } from 'react';
 import CustomToolbar from './patients/CustomToolbar';
 import { useForceLogin } from './utils';
 
@@ -18,7 +19,7 @@ const columns = [
         field: 'updatedAt', headerName: 'Last update', flex: 0.5,
         valueFormatter: (params) => new Date(params.value).toLocaleString()
     },
-    { field: 'extra', headerName: 'Extra notes', flex: 0.8 },
+    { field: 'extra', headerName: 'Extra notes', flex: 0.8, editable: true },
 ];
 
 function RegisteredPatients() {
@@ -41,6 +42,59 @@ function RegisteredPatients() {
             });
     }, [setPatients]);
 
+    const [open, setOpen] = useState(false);
+    const [snackbarProperties, setSnackbarProperties] = useState({
+        severity: "success",
+        message: "Success!"
+    });
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
+
+    const handleCellEditCommit = useCallback(
+        ({ id, field, value }) => {
+            if (field === 'extra' && value.length < 255) {
+                const updatedPatients = patients.map((row) => {
+                    if (row.id === id) {
+                        return { ...row, extra: value };
+                    }
+                    return row;
+                });
+
+                fetch('/api/patients/extra', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id, extra: value })
+                })
+                    .then(res => {
+                        if (res.status !== 200) throw new Error("Bad request.");
+                        return res.json();
+                    })
+                    .then(res => {
+                        setPatients(updatedPatients);
+                        setSnackbarProperties({
+                            severity: 'success',
+                            message: 'Field updated successfully.'
+                        });
+                        setOpen(true);
+                    })
+                    .catch(e => {
+                        setSnackbarProperties({
+                            severity: 'error',
+                            message: 'Apologies - this field could not be updated.'
+                        });
+                    })
+            }
+        },
+        [patients],
+    );
+
     return <div style={{ height: '70vh', width: '100%', marginTop: '1rem' }}>
         <DataGrid
             rows={patients}
@@ -50,13 +104,19 @@ function RegisteredPatients() {
             components={{
                 Toolbar: CustomToolbar,
             }}
+            onCellEditCommit={handleCellEditCommit}
         />
+
+        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity={snackbarProperties.severity}>{snackbarProperties.message}</Alert>
+        </Snackbar>
     </div>;
 }
 
 export default function Patients() {
     return (<>
         <Typography variant="h4">My patients</Typography>
+        <Typography>The patients for whom you are responsible are listed below. You may modify a patient's 'extra notes' field at any time by double-clicking the field, making the change and pressing enter. You may use this extra 255-character field however you see fit, e.g. for additional identifiers or short notes.</Typography>
         <RegisteredPatients />
     </>);
 }

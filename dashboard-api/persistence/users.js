@@ -48,3 +48,7 @@ export async function updateUserOutwardPostcode(user, outwardPostcode) {
 export async function updateUserSharing(user, sharing) {
     return (await query("UPDATE users SET sharing=? WHERE id=?", [sharing ? 1 : 0, user.id]));
 }
+
+export async function updateUserExtra(user, extra) {
+    return (await query("UPDATE users SET extra=? WHERE id=?", [extra, user.id]));
+}
