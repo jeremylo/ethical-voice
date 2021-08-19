@@ -259,6 +259,9 @@ class Speech extends Component {
                 {appStatus === STATUSES.DOWNLOADING && (
                     <Box textAlign='center' className={classes.statusBox}>
                         <Typography>Downloading the speech recognition model</Typography>
+                        <br />
+                        <Typography color="textSecondary">This may take a few minutes.</Typography>
+                        <br />
                         <LabelledLinearProgress
                             value={downloadProgress}
                         />
