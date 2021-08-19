@@ -173,6 +173,12 @@ export default function Settings() {
                             onClick={_ => handleOpen('password')}
                         />
                     </ListItem>
+                    <ListItem divider button component="a" href="https://github.com/jeremylo/ethical-voice">
+                        <ListItemText
+                            primary="GitHub"
+                            secondary="This project's code is open source on GitHub."
+                        />
+                    </ListItem>
 
                     <ChangeNameDialog
                         open={open === 'name'}
@@ -199,7 +205,7 @@ export default function Settings() {
 
             <br />
 
-            <Paper>
+            {/* <Paper>
                 <Container className={classes.header}>
                     <Typography variant="h5">
                         About this project
@@ -213,7 +219,7 @@ export default function Settings() {
                         The aim of the project was to provide a way for patients to track their symptoms over time — including through the use of an offline, on-device speech model to garner a measure of speaking rate as a potential proxy for breathlessness — and only at their behest, share the data collected — over which they maintain full control — so that it may potentially contribute towards valuable research into respiratory conditions.
                     </Typography>
                 </Container>
-            </Paper>
+            </Paper> */}
         </div>
     )
 }
