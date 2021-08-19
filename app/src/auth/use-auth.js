@@ -13,11 +13,27 @@ export const useAuth = () => {
     return useContext(AuthContext);
 };
 
+const ANONYMOUS_USER = {
+    refId: "ANONYMOUS_USER",
+    email: "",
+    outwardPostcode: "",
+    sharing: false
+};
+
 // Provider hook that creates auth object and handles state
 function useAuthProvider() {
     const [user, setUser] = useState(null);
+    const [anonymous, setAnonymous] = useState(() => {
+        if (localStorage.getItem('loggedInAnonymously') === "true") {
+            setUser(ANONYMOUS_USER);
+            return true;
+        } else {
+            return false;
+        }
+    });
 
     const refresh = () => {
+        if (anonymous) return;
         authenticator
             .getLoggedInUser()
             .then((user) => {
@@ -27,7 +43,8 @@ function useAuthProvider() {
 
     useEffect(() => {
         refresh();
-    }, [setUser])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []) // disabled so that this only runs once!
 
     const login = (email, password) => {
         return authenticator
@@ -38,8 +55,25 @@ function useAuthProvider() {
             }); // TODO: error handling
     };
 
+    const loginAnonymously = () => {
+        if (user) return;
+
+        setUser(null);
+        localStorage.setItem('loggedInAnonymously', 'true');
+        setAnonymous(true);
+        setUser(ANONYMOUS_USER);
+    }
+
     const logout = () => {
         setUser(null);
+
+        if (anonymous) {
+            localStorage.removeItem('loggedInAnonymously');
+            setAnonymous(false);
+            setUser(false);
+            return;
+        }
+
         return authenticator
             .logout()
             .then(() => {
@@ -47,13 +81,7 @@ function useAuthProvider() {
             });
     };
 
-    // Return the user object and auth methods
-    return {
-        user,
-        refresh,
-        setUser,
-        login,
-        logout,
+    const authMethods = {
         register: authenticator.register,
         activate: authenticator.activate,
         requestPasswordReset: authenticator.requestPasswordReset,
@@ -62,5 +90,24 @@ function useAuthProvider() {
         setPassword: authenticator.setPassword,
         setOutwardPostcode: authenticator.setOutwardPostcode,
         setSharing: authenticator.setSharing
+    };
+
+    // bypass real auth methods while logged in anonymously
+    if (anonymous === true) {
+        Object.keys(authMethods).forEach(method =>
+            authMethods[method] = (async () => false)
+        );
+    }
+
+    // Return the user object and auth methods
+    return {
+        user,
+        refresh,
+        setUser,
+        login,
+        logout,
+        anonymous,
+        loginAnonymously,
+        ...authMethods
     };
 }

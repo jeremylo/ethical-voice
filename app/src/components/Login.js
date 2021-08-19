@@ -74,6 +74,13 @@ export default function Login() {
         }
     };
 
+    const handleAnonymousLogin = async () => {
+        auth.loginAnonymously();
+
+        const { from } = location.state || { from: { pathname: "/" } };
+        history.replace(from);
+    };
+
     // Snackbar
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -152,6 +159,22 @@ export default function Login() {
                                     component={Link}
                                     to="/register"
                                 >Don't have an account? Register</MuiLink>
+                            </Grid>
+                        </Grid>
+                        <br />
+                        <Grid container>
+                            {/* <Grid item xs>
+                                <MuiLink
+                                    variant="body2"
+                                    component={Link}
+                                    to="/request-password-reset"
+                                >Forgot password?</MuiLink>
+                            </Grid> */}
+                            <Grid item>
+                                <MuiLink
+                                    variant="body2"
+                                    onClick={handleAnonymousLogin}
+                                >Haven't been referred to the service? Log in anonymously for personal use only</MuiLink>
                             </Grid>
                         </Grid>
                     </form>

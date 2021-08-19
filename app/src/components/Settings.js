@@ -171,41 +171,43 @@ export default function Settings() {
 
             <List>
                 <Divider />
-                <ListItem divider>
-                    <ListItemText primary="Reference ID" secondary={auth.user.refId} />
-                </ListItem>
-                <ListItem divider button>
-                    <ListItemText
-                        primary="Email"
-                        secondary={email}
-                        aria-haspopup="true"
-                        onClick={_ => handleOpen('email')}
-                    />
-                </ListItem>
-                <ListItem divider button>
-                    <ListItemText
-                        primary="Password"
-                        secondary="Click to update"
-                        aria-haspopup="true"
-                        onClick={_ => handleOpen('password')}
-                    />
-                </ListItem>
-                <ListItem divider button>
-                    <ListItemText
-                        primary="Outward Postcode"
-                        secondary={outwardPostcode}
-                        aria-haspopup="true"
-                        onClick={_ => handleOpen('outward-postcode')}
-                    />
-                </ListItem>
-                <ListItem divider button>
-                    <ListItemText
-                        primary="Sharing agreement"
-                        secondary={sharing ? "You have chosen to share future submissions with your senior responsible officer." : "You have chosen not to share future submissions with your senior responsible officer."}
-                        aria-haspopup="true"
-                        onClick={_ => handleOpen('sharing')}
-                    />
-                </ListItem>
+                {!auth.anonymous && <>
+                    <ListItem divider>
+                        <ListItemText primary="Reference ID" secondary={auth.user.refId} />
+                    </ListItem>
+                    <ListItem divider button>
+                        <ListItemText
+                            primary="Email"
+                            secondary={email}
+                            aria-haspopup="true"
+                            onClick={_ => handleOpen('email')}
+                        />
+                    </ListItem>
+                    <ListItem divider button>
+                        <ListItemText
+                            primary="Password"
+                            secondary="Click to update"
+                            aria-haspopup="true"
+                            onClick={_ => handleOpen('password')}
+                        />
+                    </ListItem>
+                    <ListItem divider button>
+                        <ListItemText
+                            primary="Outward Postcode"
+                            secondary={outwardPostcode}
+                            aria-haspopup="true"
+                            onClick={_ => handleOpen('outward-postcode')}
+                        />
+                    </ListItem>
+                    <ListItem divider button>
+                        <ListItemText
+                            primary="Sharing agreement"
+                            secondary={sharing ? "You have chosen to share future submissions with your senior responsible officer." : "You have chosen not to share future submissions with your senior responsible officer."}
+                            aria-haspopup="true"
+                            onClick={_ => handleOpen('sharing')}
+                        />
+                    </ListItem>
+                </>}
                 <ListItem divider button>
                     <ListItemText
                         primary="About this app"

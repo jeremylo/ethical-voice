@@ -1,4 +1,5 @@
 import { Container, makeStyles, Typography } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import { useEffect, useState } from "react";
 import { useAuth } from "../auth/use-auth";
 import { getAllResults } from "../persistence/db";
@@ -28,17 +29,27 @@ export default function Home() {
             setData(res);
             setLoaded(true);
         });
-    }, [setLoaded, auth.user]);
+    }, [setLoaded, auth.user, auth.anonymous]);
 
     if (!loaded) {
         return <></>;
     }
+
+    const anonymousAlert = <>
+        <Container maxWidth="sm">
+            <Alert severity="info">
+                You are currently logged in anonymously, so not all app features are available to you.
+            </Alert>
+        </Container>
+        <br />
+    </>;
 
     if (data.length < 3) {
         return <div className={classes.root}>
             <Container maxWidth="sm" className={classes.header}>
                 <Typography variant="h5">Overview</Typography>
             </Container>
+            {auth.anonymous && anonymousAlert}
             <Container maxWidth="sm">
                 <Typography>
                     Results visualisations will appear here once you have at least three submissions.
@@ -72,7 +83,7 @@ export default function Home() {
             <Container maxWidth="sm" className={classes.header}>
                 <Typography variant="h5">Overview</Typography>
             </Container>
-
+            {auth.anonymous && anonymousAlert}
             <Container maxWidth="sm">
                 <RateChart
                     title="Speaking rate (syllables per minute)"
