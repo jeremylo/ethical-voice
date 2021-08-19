@@ -31,7 +31,7 @@ app.use(session({
         sameSite: true,
         expires: 604800000
     },
-    name: process.env.SESSION_COOKIE_NAME,
+    name: process.env.APP_SESSION_COOKIE_NAME,
     saveUninitialized: false,
     // rolling: true
 }));

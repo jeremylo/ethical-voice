@@ -33,7 +33,7 @@ app.use(session({
         httpOnly: true,
         sameSite: true,
     },
-    name: process.env.SESSION_COOKIE_NAME,
+    name: process.env.DASHBOARD_SESSION_COOKIE_NAME,
     saveUninitialized: false
 }));
 app.use(passport.initialize());
