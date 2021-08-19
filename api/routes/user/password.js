@@ -44,7 +44,7 @@ router.post('/request-reset', requireNoAuth, async (req, res) => {
     // would lead to the password hash changing, thereby invalidating all other tokens
     // generated at the same time.
     const token = jwt.sign({ referenceId: user.reference_id, email }, user.password, { expiresIn: '1h' });
-    const link = `https://mydata.jezz.me/reset-password/${user.reference_id}/${token}`;
+    const link = `https://${process.env.APP_DOMAIN}/reset-password/${user.reference_id}/${token}`;
 
     console.log(`New password reset token generated: ${token}`);
 

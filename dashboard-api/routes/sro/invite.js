@@ -30,7 +30,7 @@ router.post('/', requireAuth, async (req, res) => {
     }
 
     const token = jwt.sign({ email, trusted: !!req.body.trusted }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    const link = `https://mydatadashboard.jezz.me/activate/${token}`;
+    const link = `https://${process.env.DASHBOARD_DOMAIN}/activate/${token}`;
 
     console.log(`New account invitation token generated: ${token}`);
 
@@ -46,7 +46,7 @@ router.post('/', requireAuth, async (req, res) => {
                 `
                     <h1>Invitation to My Data Dashboard</h1>
                     <p>Hi,</p>
-                    <p>You have been invited to join the management dashboard for <a href="https://mydata.jezz.me/">My Data</a> as a senior responsible officer.</p>
+                    <p>You have been invited to join the management dashboard for <a href="https://${process.env.APP_DOMAIN}/">My Data</a> as a senior responsible officer.</p>
                     <p>To join the service, click the following link: <a href="${link}">${link}</a></p>
                     <p>Best wishes,</p>
                     <p>My Data Dashboard</p>

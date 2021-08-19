@@ -17,7 +17,7 @@ router.post('/', requireAuth, async (req, res) => {
     // the JWT effectively becomes "single-use" as any generated
     // tokens are invalidated whenever the email is subsequently changed.
     const confirmationToken = jwt.sign({ userid: req.user.id, email: req.body.email }, hashSha256(req.user.email), { expiresIn: '1h' });
-    const link = `https://mydata.jezz.me/api/user/email/verify?userid=${req.user.id}&token=${confirmationToken}`;
+    const link = `https://${process.env.APP_DOMAIN}/api/user/email/verify?userid=${req.user.id}&token=${confirmationToken}`;
 
     console.log(`New email update confirmation token generated: ${confirmationToken}`);
 

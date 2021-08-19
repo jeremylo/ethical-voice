@@ -27,7 +27,7 @@ router.post('/', requireNoAuth, async (req, res) => {
     }
 
     const confirmationToken = jwt.sign({ referenceId, email }, hashSha256(String(user.id)), { expiresIn: '1h' });
-    const link = `https://mydata.jezz.me/activate/${referenceId}/${confirmationToken}`;
+    const link = `https://${process.env.APP_DOMAIN}/activate/${referenceId}/${confirmationToken}`;
 
     console.log(`New account email confirmation token generated: ${confirmationToken}`);
 

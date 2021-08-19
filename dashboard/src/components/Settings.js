@@ -208,7 +208,7 @@ export default function Settings() {
                 <Divider />
                 <Container className={classes.about}>
                     <Typography>
-                        The <a href="https://mydata.jezz.me/">My Data</a> app for patients and the <a href="https://mydatadashboard.jezz.me/">My Data Dashboard</a> website for senior responsible officers were developed by <a href="https://jezz.me/">Jeremy Lo Ying Ping</a> in 2021 as part of a <a href="https://www.ucl.ac.uk/computer-science/">UCL Computer Science</a> summer research project.
+                        The <a href={`https://${process.env.REACT_APP_APP_DOMAIN}/`}>My Data</a> app for patients and the <a href={`https://${process.env.REACT_APP_DASHBOARD_DOMAIN}/`}>My Data Dashboard</a> website for senior responsible officers were developed by <a href="https://jezz.me/">Jeremy Lo Ying Ping</a> in 2021 as part of a <a href="https://www.ucl.ac.uk/computer-science/">UCL Computer Science</a> summer research project.
                         <br /><br />
                         The aim of the project was to provide a way for patients to track their symptoms over time — including through the use of an offline, on-device speech model to garner a measure of speaking rate as a potential proxy for breathlessness — and only at their behest, share the data collected — over which they maintain full control — so that it may potentially contribute towards valuable research into respiratory conditions.
                     </Typography>

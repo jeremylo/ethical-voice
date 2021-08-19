@@ -29,7 +29,7 @@ export default function NewReferral() {
             .catch(console.error);
     }
 
-    const link = newRefId ? `https://mydata.jezz.me/register/${newRefId}` : '';
+    const link = newRefId ? `https://${process.env.REACT_APP_APP_DOMAIN}/register/${newRefId}` : '';
 
     return (<>
         <Typography variant="h5">Refer a new patient</Typography>
