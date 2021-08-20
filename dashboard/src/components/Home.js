@@ -24,8 +24,6 @@ export default function Home() {
 
     useEffect(refresh, [setSubmissions]);
 
-
-
     return (<>
         <Typography variant="h4">Hello, {auth.sro.name}</Typography>
         {!loading && (submissions.length > 2 ? <>
