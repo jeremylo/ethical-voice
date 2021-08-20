@@ -9,6 +9,7 @@ const columns = [
         field: 'createdAt', headerName: 'Referral date', flex: 0.5,
         valueFormatter: (params) => new Date(params.value).toLocaleString()
     },
+    { field: 'extra', headerName: 'Extra notes', flex: 0.8, editable: true },
 ];
 
 export default function Referrals() {
