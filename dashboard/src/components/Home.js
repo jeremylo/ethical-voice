@@ -2,6 +2,7 @@ import { Typography } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../auth/use-auth';
 import AggregateSubmissionGraphs from './graphs/AggregateSubmissionGraphs';
+import SubmissionDistributions from './graphs/SubmissionDistributions';
 
 export default function Home() {
     const auth = useAuth();
@@ -27,8 +28,18 @@ export default function Home() {
 
     return (<>
         <Typography variant="h4">Hello, {auth.sro.name}</Typography>
-        <Typography variant="h5">Aggregate submission data</Typography>
-        <br />
-        {!loading && <AggregateSubmissionGraphs submissions={submissions} />}
+        {!loading && <>
+            <Typography variant="h5">Submission metadata vs syllable rate graphs</Typography>
+            <br />
+            <AggregateSubmissionGraphs submissions={submissions} />
+            <br />
+            <Typography variant="h5">Aggregate submission metadata distributions</Typography>
+            <br />
+            <SubmissionDistributions submissions={submissions} />
+        </>}
+
+
+
+
     </>);
 }

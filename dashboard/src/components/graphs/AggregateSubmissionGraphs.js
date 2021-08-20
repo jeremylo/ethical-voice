@@ -53,7 +53,7 @@ export default function AggregateSubmissionGraphs({ submissions }) {
         </Grid>
         <Grid item>
             <ComparisonChart
-                title="Wellbeing vs syllable rate"
+                title="MRC dyspnoea score vs syllable rate"
                 domain={{ x: [1, 10] }}
                 data={dyspnoeaData}
             />
