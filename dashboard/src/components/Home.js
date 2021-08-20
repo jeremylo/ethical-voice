@@ -28,7 +28,7 @@ export default function Home() {
 
     return (<>
         <Typography variant="h4">Hello, {auth.sro.name}</Typography>
-        {!loading && <>
+        {!loading && (submissions.length > 2 ? <>
             <Typography variant="h5">Submission metadata vs syllable rate graphs</Typography>
             <br />
             <AggregateSubmissionGraphs submissions={submissions} />
@@ -36,7 +36,10 @@ export default function Home() {
             <Typography variant="h5">Aggregate submission metadata distributions</Typography>
             <br />
             <SubmissionDistributions submissions={submissions} />
-        </>}
+        </> : <div>
+            <br />
+            When there are at least three submissions, they will be visualised here.
+        </div>)}
 
 
 
