@@ -1,5 +1,5 @@
 import { Paper } from '@material-ui/core';
-import { VictoryChart, VictoryLabel, VictoryLine, VictoryScatter } from 'victory';
+import { VictoryAxis, VictoryChart, VictoryLabel, VictoryLine, VictoryScatter } from 'victory';
 import theme from './chartTheme';
 import { VictoryZoomContainer } from './zoom-container';
 
@@ -8,7 +8,9 @@ import { VictoryZoomContainer } from './zoom-container';
 export default function ComparisonChart({
     title,
     data,
-    domain
+    domain,
+    xLabel,
+    yLabel
 }) {
     return (
         <Paper elevation={1} variant="outlined">
@@ -25,7 +27,20 @@ export default function ComparisonChart({
                     <VictoryZoomContainer
                     // zoomDimension="x"
                     />
-                }>
+                }
+                padding={{ top: 20, bottom: 44, right: 10, left: 60 }}
+            >
+
+                {xLabel && <VictoryAxis
+                    axisLabelComponent={<VictoryLabel dy={4} />}
+                    label={xLabel}
+                />}
+
+                {yLabel && <VictoryAxis
+                    dependentAxis
+                    axisLabelComponent={<VictoryLabel dy={-16} />}
+                    label={yLabel}
+                />}
 
                 <VictoryLabel text={title} x={225} y={30} textAnchor="middle" />
 
