@@ -1,9 +1,10 @@
-import { Snackbar, Typography } from '@material-ui/core';
+import { Button, Snackbar, Typography } from '@material-ui/core';
 import {
     DataGrid
 } from '@material-ui/data-grid';
 import Alert from '@material-ui/lab/Alert';
 import { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import CustomToolbar from './patients/CustomToolbar';
 import { useForceLogin } from './utils';
 
@@ -20,6 +21,24 @@ const columns = [
         valueFormatter: (params) => new Date(params.value).toLocaleString()
     },
     { field: 'extra', headerName: 'Extra notes', flex: 0.8, editable: true },
+    {
+        field: 'visualisation',
+        headerName: 'Visualise submissions',
+        flex: 0.8,
+        renderCell: (params) => {
+            return <strong>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    component={Link}
+                    to={`/patient/${params.row.id}`}
+                >
+                    Visualise submissions
+                </Button>
+            </strong>
+        }
+    },
 ];
 
 function RegisteredPatients() {
@@ -71,7 +90,7 @@ function RegisteredPatients() {
                     return row.id === id ? { ...row, extra: value } : row;
                 });
 
-                fetch('/api/patients/extra', {
+                fetch('/api/patient/extra', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

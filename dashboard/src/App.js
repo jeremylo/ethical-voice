@@ -11,6 +11,7 @@ import ForgotPassword from './components/ForgotPassword';
 import Home from './components/Home';
 import Layout from './components/Layout';
 import Login from './components/Login';
+import Patient from './components/Patient';
 import Patients from './components/Patients';
 import Refer from './components/Refer';
 import ResetPassword from './components/ResetPassword';
@@ -92,6 +93,9 @@ function Routes() {
       </PrivateRoute>
       <PrivateRoute path="/sros">
         <Layout><Sros /></Layout>
+      </PrivateRoute>
+      <PrivateRoute path="/patient/:id">
+        <Layout><Patient /></Layout>
       </PrivateRoute>
 
       { /* 404 */}
