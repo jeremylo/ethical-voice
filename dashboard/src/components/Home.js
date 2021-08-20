@@ -39,8 +39,5 @@ export default function Home() {
             When there are at least three submissions, they will be visualised here.
         </div>)}
 
-
-
-
     </>);
 }
