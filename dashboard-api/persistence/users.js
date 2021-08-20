@@ -25,8 +25,8 @@ export async function findActivatedUsersBySro(sroId) {
     return (await query("SELECT * FROM users WHERE sro_id=? AND status=?", [sroId, 1]));
 }
 
-export async function createUnactivatedUser(referenceId, sroId) {
-    return (await query("INSERT INTO users (reference_id, sro_id) VALUES (?, ?)", [referenceId, sroId]));
+export async function createUnactivatedUser(referenceId, sroId, extra = '') {
+    return (await query("INSERT INTO users (reference_id, sro_id, extra) VALUES (?, ?, ?)", [referenceId, sroId, extra]));
 }
 
 export async function activateUser(id, referenceId, email, password, outwardPostcode) {

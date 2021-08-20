@@ -57,7 +57,16 @@ function RegisteredPatients() {
 
     const handleCellEditCommit = useCallback(
         ({ id, field, value }) => {
-            if (field === 'extra' && value.length < 255) {
+            if (field === 'extra') {
+                if (value.length > 255) {
+                    setSnackbarProperties({
+                        severity: 'error',
+                        message: 'This field is too long.'
+                    });
+                    setOpen(true);
+                    return;
+                }
+
                 const updatedPatients = patients.map((row) => {
                     if (row.id === id) {
                         return { ...row, extra: value };
