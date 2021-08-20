@@ -46,6 +46,6 @@ router.post('/extra', requireAuth, async (req, res) => {
             error: "This action could not be performed."
         })
     }
-})
+});
 
 export default router;

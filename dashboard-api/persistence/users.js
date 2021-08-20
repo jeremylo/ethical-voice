@@ -1,8 +1,8 @@
 import { query } from '../db.js';
 
 
-export async function findUserById(id) {
-    return (await query("SELECT * FROM users WHERE id=? AND status=? LIMIT 1", [id, 1]))[0];
+export async function findUserById(id, status = 1) {
+    return (await query("SELECT * FROM users WHERE id=? AND status=? LIMIT 1", [id, status]))[0];
 }
 
 export async function findActivatedUserByReferenceId(refId) {

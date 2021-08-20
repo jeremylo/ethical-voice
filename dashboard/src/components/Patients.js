@@ -68,10 +68,7 @@ function RegisteredPatients() {
                 }
 
                 const updatedPatients = patients.map((row) => {
-                    if (row.id === id) {
-                        return { ...row, extra: value };
-                    }
-                    return row;
+                    return row.id === id ? { ...row, extra: value } : row;
                 });
 
                 fetch('/api/patients/extra', {
@@ -98,6 +95,7 @@ function RegisteredPatients() {
                             severity: 'error',
                             message: 'Apologies - this field could not be updated.'
                         });
+                        setOpen(true);
                     })
             }
         },
