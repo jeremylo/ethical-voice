@@ -102,7 +102,7 @@ export default function CreateTest({ refresh }) {
     } : {};
 
     const isPossibleDurationsValid = possibleDurations
-        && possibleDurations.length < 255
+        && possibleDurations.length <= 255
         && /[0-9]+(\s*,\s*[0-9]+)*/.test(possibleDurations)
         && validatePossibleDurationsList(possibleDurations.split(/\s*,\s*/))
         ;

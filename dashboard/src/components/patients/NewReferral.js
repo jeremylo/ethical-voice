@@ -11,7 +11,7 @@ export default function NewReferral() {
     const [extra, setExtra] = useState('');
 
     const handleExtraChange = (event) => {
-        if (event.target.value.length < 255)
+        if (event.target.value.length <= 255)
             setExtra(event.target.value);
     };
 
