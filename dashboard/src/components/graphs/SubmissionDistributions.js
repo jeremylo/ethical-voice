@@ -1,5 +1,5 @@
 import Grid from '@material-ui/core/Grid';
-import Histogram from '../visualisation/Histogram';
+import Distribution from '../visualisation/Distribution';
 
 export default function SubmissionDistributions({ submissions }) {
     const syllableRateData = [];
@@ -34,32 +34,32 @@ export default function SubmissionDistributions({ submissions }) {
 
     return <Grid container justifyContent="center" alignItems="center" spacing={3}>
         <Grid item>
-            <Histogram
+            <Distribution
                 title="Syllable rate (syllables per minute)"
                 data={syllableRateData}
             />
         </Grid>
         <Grid item>
-            <Histogram
+            <Distribution
                 title="Word rate (words per minute)"
                 data={wordRateData}
             />
         </Grid>
         <Grid item>
-            <Histogram
+            <Distribution
                 title="Sputum colour"
                 domain={{ x: [1, 5] }}
                 data={sputumColourData}
             />
         </Grid>
         <Grid item>
-            <Histogram
+            <Distribution
                 title="Wellbeing"
                 data={wellbeingData}
             />
         </Grid>
         <Grid item>
-            <Histogram
+            <Distribution
                 title="MRC dypsnoea score"
                 domain={{ x: [1, 10] }}
                 data={dyspnoeaData}

@@ -1,11 +1,11 @@
 import { Paper } from '@material-ui/core';
-import { VictoryChart, VictoryHistogram, VictoryLabel } from 'victory';
+import { VictoryBoxPlot, VictoryChart, VictoryHistogram, VictoryLabel } from 'victory';
 import theme from './chartTheme';
 import { VictoryZoomContainer } from './zoom-container';
 
 
 
-export default function Histogram({
+export default function Distribution({
     title,
     data,
     domain
@@ -32,8 +32,15 @@ export default function Histogram({
                     data={data.map(datum => ({ x: datum }))}
                     bins={20}
                 />
-
             </VictoryChart>
+
+            <VictoryBoxPlot
+                data={data.map(datum => ({ x: 1, y: datum }))}
+                horizontal
+                labels
+                labelOrientation="top"
+                height={50}
+            />
         </Paper >
     );
 }
