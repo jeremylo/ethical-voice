@@ -1,49 +1,34 @@
 import { Typography } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../auth/use-auth';
-
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        padding: theme.spacing(2),
-        display: 'flex',
-        overflow: 'auto',
-        flexDirection: 'column',
-    },
-    fixedHeight: {
-        height: 240,
-    },
-}));
+import AggregateSubmissionGraphs from './graphs/AggregateSubmissionGraphs';
 
 export default function Home() {
-    const classes = useStyles();
     const auth = useAuth();
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+    const [submissions, setSubmissions] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const refresh = _ => {
+        fetch('/api/submissions')
+            .then(async (res) => await res.json())
+            .then(res => {
+                setSubmissions(res.submissionsData);
+            })
+            .catch(console.error)
+            .finally(_ => {
+                setLoading(false);
+            });
+    }
+
+    useEffect(refresh, [setSubmissions]);
+
+
 
     return (<>
         <Typography variant="h4">Hello, {auth.sro.name}</Typography>
+        <Typography variant="h5">Aggregate submission data</Typography>
         <br />
-        <Grid container spacing={3}>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-                <Paper className={fixedHeightPaper}>
-                    1.
-                </Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-                <Paper className={fixedHeightPaper}>
-                    2.
-                </Paper>
-            </Grid>
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-                <Paper className={classes.paper}>
-                    3.
-                </Paper>
-            </Grid>
-        </Grid>
+        {!loading && <AggregateSubmissionGraphs submissions={submissions} />}
     </>);
 }

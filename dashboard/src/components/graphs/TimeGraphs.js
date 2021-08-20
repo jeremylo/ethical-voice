@@ -40,7 +40,7 @@ export default function TimeGraphs({ submissions }) {
         if (submission.metadata.dyspnoea) {
             dyspnoeaData.push({
                 x, y: +submission.metadata.dyspnoea
-            })
+            });
         }
     }
 
