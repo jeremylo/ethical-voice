@@ -1,0 +1,24 @@
+{
+    "plugins": [],
+    "recurseDepth": 20,
+    "source": {
+        "include": [
+            "api",
+            "dashboard-api"
+        ],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(((^|\\/|\\\\)_)|(.*node_modules.*))"
+    },
+    "sourceType": "module",
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": [
+            "jsdoc",
+            "closure"
+        ]
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false
+    }
+}
