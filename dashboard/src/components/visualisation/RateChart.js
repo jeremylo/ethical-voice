@@ -60,7 +60,6 @@ export default function RateChart({
     showUpper3Stddev,
     showLower3Stddev,
 }) {
-    // const [zoomDomain, setZoomDomain] = useState({});
     const { upperStddevData, meanData, lowerStddevData, tripleUpperStddevData, tripleLowerStddevData } = calculateCumulativeStatistics(data);
 
     return (
@@ -78,8 +77,6 @@ export default function RateChart({
                 containerComponent={
                     <VictoryZoomContainer
                         zoomDimension="x"
-                    //zoomDomain={zoomDomain}
-                    //onZoomDomainChange={setZoomDomain}
                     />
                 }>
 
@@ -122,7 +119,7 @@ export default function RateChart({
                 />
 
                 <VictoryScatter data={data}
-                    size={5}
+                    size={2}
                     style={{ data: { fill: "#00e5ff" } }}
                 />
 
