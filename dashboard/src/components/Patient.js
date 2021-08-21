@@ -33,13 +33,19 @@ export default function Patient() {
     }
 
     if (loading) {
-        return <div>Please wait.</div>;
+        return <Typography>Please wait.</Typography>;
     }
 
 
 
     return (<>
         <Typography variant="h4">Patient submission visualisations</Typography>
-        <TimeGraphs submissions={submissions} />
+        {submissions.length > 0 ?
+            <TimeGraphs submissions={submissions} />
+            :
+            <Typography>
+                There are no results to display.
+            </Typography>
+        }
     </>);
 }
