@@ -50,44 +50,44 @@ export default function TimeGraphs({ submissions }) {
         <Typography variant="h5">Time series graphs</Typography>
         <br />
         <Grid container justifyContent="center" alignItems="center" spacing={3}>
-            <Grid item>
+            {syllableRateData.length > 0 && <Grid item>
                 <RateChart
                     title="Speaking rate (syllables per minute)"
                     data={syllableRateData}
                     showLowerStddev showLower3Stddev
                 />
-            </Grid>
-            <Grid item>
+            </Grid>}
+            {wordRateData.length > 0 && <Grid item>
                 <RateChart
                     title="Speaking rate (words per minute)"
                     data={wordRateData}
                     showLowerStddev showLower3Stddev
                 />
-            </Grid>
-            <Grid item>
+            </Grid>}
+            {sputumColourData.length > 0 && <Grid item>
                 <RateChart
                     title="Sputum colour"
                     data={sputumColourData}
                     domain={{ y: [1, 5] }}
                     showUpperStddev
                 />
-            </Grid>
-            <Grid item>
+            </Grid>}
+            {wellbeingData.length > 0 && <Grid item>
                 <RateChart
                     title="Wellbeing"
                     data={wellbeingData}
                     domain={{ y: [1, 10] }}
                     showLowerStddev
                 />
-            </Grid>
-            <Grid item>
+            </Grid>}
+            {dyspnoeaData.length > 0 && <Grid item>
                 <RateChart
                     title="MRC dyspnoea scale"
                     data={dyspnoeaData}
                     domain={{ y: [1, 5] }}
                     showUpperStddev
                 />
-            </Grid>
+            </Grid>}
         </Grid>
     </>;
 }
