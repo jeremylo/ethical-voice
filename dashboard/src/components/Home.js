@@ -34,10 +34,10 @@ export default function Home() {
             <Typography variant="h5">Aggregate submission metadata distributions</Typography>
             <br />
             <SubmissionDistributions submissions={submissions} />
-        </> : <div>
+        </> : <Typography>
             <br />
             When there are at least three submissions, they will be visualised here.
-        </div>)}
+        </Typography>)}
 
     </>);
 }
