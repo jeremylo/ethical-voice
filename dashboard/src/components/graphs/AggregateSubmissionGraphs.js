@@ -38,7 +38,7 @@ export default function AggregateSubmissionGraphs({ submissions }) {
     }
 
     return <Grid container justifyContent="center" alignItems="center" spacing={3}>
-        <Grid item>
+        {sputumColourData.length > 0 && <Grid item>
             <ComparisonChart
                 title="Sputum colour vs syllable rate"
                 domain={{ x: [1, 5] }}
@@ -46,16 +46,16 @@ export default function AggregateSubmissionGraphs({ submissions }) {
                 xLabel="Sputum colour"
                 yLabel="Syllables per minute"
             />
-        </Grid>
-        <Grid item>
+        </Grid>}
+        {wellbeingData.length > 0 && <Grid item>
             <ComparisonChart
                 title="Wellbeing vs syllable rate"
                 data={wellbeingData}
                 xLabel="Wellbeing score"
                 yLabel="Syllables per minute"
             />
-        </Grid>
-        <Grid item>
+        </Grid>}
+        {dyspnoeaData.length > 0 && <Grid item>
             <ComparisonChart
                 title="MRC dyspnoea score vs syllable rate"
                 domain={{ x: [1, 10] }}
@@ -63,15 +63,15 @@ export default function AggregateSubmissionGraphs({ submissions }) {
                 xLabel="MRC dyspnoea score"
                 yLabel="Syllables per minute"
             />
-        </Grid>
-        <Grid item>
+        </Grid>}
+        {wordRateData.length > 0 && <Grid item>
             <ComparisonChart
                 title="Word rate vs syllable rate"
                 data={wordRateData}
                 xLabel="Words per minute"
                 yLabel="Syllables per minute"
             />
-        </Grid>
+        </Grid>}
     </Grid>;
 
 }
