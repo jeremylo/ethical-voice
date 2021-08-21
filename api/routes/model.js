@@ -7,12 +7,13 @@ const modelPath = path.join(path.resolve(), 'public', 'model.zip');
 
 router.get('/', (req, res) => {
     try {
-        res.status(200);
-        console.log(`[${new Date()}]: sending model to ${req.ip}`);
-        res.sendFile(modelPath);
+        return res.status(200).sendFile(modelPath, {
+            lastModified: false,
+            cacheControl: true,
+            maxAge: '1d'
+        });
     } catch {
-        res.status(500);
-        res.send("Sorry - we're having some issues. Please try again later!");
+        return res.status(500).send("Sorry - we're having some issues. Please try again later!");
     }
 })
 
