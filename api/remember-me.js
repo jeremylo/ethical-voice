@@ -3,7 +3,14 @@ import { deleteRememberMeToken, findRememberMeToken, insertRememberMeToken } fro
 import { hashSha256 } from './utils.js';
 
 
-// Consume remember-me token (tokens are single-use!)
+/**
+ * Consumes a remember-me token; such tokens are single-use only!
+ *
+ * @param   {string}  token    The remember me token.
+ * @param   {function}  done   The callback to call once consumed.
+ *
+ * @return                     The callback result.
+ */
 export function consumeRememberMeToken(token, done) {
     const tokenHash = hashSha256(token);
     try {
@@ -23,7 +30,13 @@ export function consumeRememberMeToken(token, done) {
     }
 }
 
-// Issue remember-me token
+/**
+ * Issues a new remember-me token.
+ *
+ * @param   {object}  user  The user object.
+ *
+ * @return  {string}        A new remember-me token.
+ */
 export async function issueRememberMeToken(user) {
     const token = randomBytes(64).toString('base64');
     try {

@@ -9,6 +9,13 @@ const pool = mariadb.createPool({
     compress: true
 });
 
+/**
+ * Queries the database using a fresh connection from the pool and ensures its release.
+ *
+ * @param   {array}  args  Args passed to use to query the database.
+ *
+ * @return  {object}       Database results-set.
+ */
 export async function query(...args) {
     let conn;
     try {

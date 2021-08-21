@@ -15,6 +15,9 @@ const port = 4000;
 
 const RedisStore = ConnectRedis(session);
 
+/**
+ * Sets up express app middleware.
+ */
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -39,6 +42,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.authenticate('remember-me'));
 
+/**
+ * Sets up app routes.
+ */
 app.get('/api', (req, res) => {
     res.send('Hi, you may be in the wrong place.');
 });
@@ -49,6 +55,9 @@ app.use('/api/model', modelRoutes);
 app.use('/api/submit', submitRoutes);
 app.use('/api/user', userRoutes);
 
+/**
+ * Lets the app start listening for requests.
+ */
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
 });

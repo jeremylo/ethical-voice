@@ -2,10 +2,22 @@ import sgMail from '@sendgrid/mail';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+/**
+ * Gets the SendGrid mailer service.
+ *
+ * @return  {MailService}  The SendGrid mailer service.
+ */
 export default function getMailer() {
     return sgMail;
 }
 
+/**
+ * A crude HTML template used to send emails.
+ *
+ * @param   {string}  body  The email body.
+ *
+ * @return  {string}        The formatted email.
+ */
 export function fillTemplate(body) {
     return `<!DOCTYPE html>
     <html lang="en">
