@@ -50,18 +50,42 @@ export async function activateUser(id, referenceId, email, password, outwardPost
     return (await query("UPDATE users SET email=?, password=?, outward_postcode=?, status=? WHERE id=? AND reference_id=?", [email, password, outwardPostcode, 1, id, referenceId]));
 }
 
+/**
+ * Updates the user's email.
+ * @param   {number}  id     The user's ID.
+ * @param   {string}  email  The user's new email.
+ * @return  {object}         Database results-set.
+ */
 export async function updateUserEmail(id, email) {
     return (await query("UPDATE users SET email=? WHERE id=?", [email, id]));
 }
 
+/**
+ * Updates the user's password.
+ * @param   {number}  id        The user's ID.
+ * @param   {string}  password  A hash of the user's new password.
+ * @return  {object}            Database results-set.
+ */
 export async function updateUserPassword(id, password) {
     return (await query("UPDATE users SET password=? WHERE id=?", [password, id]));
 }
 
+/**
+ * Updates the user's outward postcode, e.g. SW1.
+ * @param   {number}  id                The user's ID.
+ * @param   {string}  outwardPostcode   The user's outward postcode.
+ * @return  {object}                    Database results-set.
+ */
 export async function updateUserOutwardPostcode(id, outwardPostcode) {
     return (await query("UPDATE users SET outward_postcode=? WHERE id=?", [outwardPostcode, id]));
 }
 
+/**
+ * Updates the user's sharing preferences.
+ * @param   {number}   id        The user's ID.
+ * @param   {boolean}  sharing   The user's new sharing preference.
+ * @return  {object}             Database results-set.
+ */
 export async function updateUserSharing(id, sharing) {
     return (await query("UPDATE users SET sharing=? WHERE id=?", [sharing ? 1 : 0, id]));
 }
