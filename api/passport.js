@@ -7,7 +7,7 @@ import { isValidPasswordHash } from './utils.js';
 
 
 /**
- * 'Serialise' a user just keeping their ID.
+ * 'Serialise' a user by just keeping their ID.
  */
 passport.serializeUser(function (user, done) {
     done(null, user.id);
