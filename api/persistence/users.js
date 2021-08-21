@@ -50,18 +50,18 @@ export async function activateUser(id, referenceId, email, password, outwardPost
     return (await query("UPDATE users SET email=?, password=?, outward_postcode=?, status=? WHERE id=? AND reference_id=?", [email, password, outwardPostcode, 1, id, referenceId]));
 }
 
-export async function updateUserEmail(user, email) {
-    return (await query("UPDATE users SET email=? WHERE id=?", [email, user.id]));
+export async function updateUserEmail(id, email) {
+    return (await query("UPDATE users SET email=? WHERE id=?", [email, id]));
 }
 
-export async function updateUserPassword(user, password) {
-    return (await query("UPDATE users SET password=? WHERE id=?", [password, user.id]));
+export async function updateUserPassword(id, password) {
+    return (await query("UPDATE users SET password=? WHERE id=?", [password, id]));
 }
 
-export async function updateUserOutwardPostcode(user, outwardPostcode) {
-    return (await query("UPDATE users SET outward_postcode=? WHERE id=?", [outwardPostcode, user.id]));
+export async function updateUserOutwardPostcode(id, outwardPostcode) {
+    return (await query("UPDATE users SET outward_postcode=? WHERE id=?", [outwardPostcode, id]));
 }
 
-export async function updateUserSharing(user, sharing) {
-    return (await query("UPDATE users SET sharing=? WHERE id=?", [sharing ? 1 : 0, user.id]));
+export async function updateUserSharing(id, sharing) {
+    return (await query("UPDATE users SET sharing=? WHERE id=?", [sharing ? 1 : 0, id]));
 }

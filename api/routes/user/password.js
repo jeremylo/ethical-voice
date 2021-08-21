@@ -18,7 +18,7 @@ router.post('/', requireAuth, async (req, res) => {
     }
 
     try {
-        await updateUserPassword(req.user, await hashPassword(req.body.newPassword));
+        await updateUserPassword(req.user.id, await hashPassword(req.body.newPassword));
         return res.status(200).json({ message: "The password was updated successfully." });
     } catch (e) {
         return res.status(500).json({ message: "The password could not be updated successfully." });
@@ -111,7 +111,7 @@ router.post('/reset', async (req, res) => {
     }
 
     try {
-        await updateUserPassword(user, await hashPassword(req.body.password));
+        await updateUserPassword(user.id, await hashPassword(req.body.password));
         return res.status(200).json({ message: "Password reset successful." });
     } catch (e) {
         return res.status(500).json({ message: "Error updating the password." });

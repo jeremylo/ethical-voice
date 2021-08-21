@@ -64,7 +64,7 @@ router.get('/verify', async (req, res) => {
             throw new Error("Bad email.")
         }
 
-        await updateUserEmail(user, decoded.email);
+        await updateUserEmail(user.id, decoded.email);
 
         if (req.user) { // log the user out
             res.clearCookie(process.env.REMEMBER_ME_COOKIE_NAME, { path: '/' });

@@ -34,7 +34,7 @@ router.post('/outwardpostcode', requireAuth, async (req, res) => {
     }
 
     try {
-        await updateUserOutwardPostcode(req.user, req.body.outwardPostcode);
+        await updateUserOutwardPostcode(req.user.id, req.body.outwardPostcode);
         return res.status(200).json({ message: "The outward postcode was updated successfully." });
     } catch (e) {
         return res.status(500).json({ message: "The outward postcode could not be updated successfully." });
@@ -47,7 +47,7 @@ router.post('/sharing', requireAuth, async (req, res) => {
     }
 
     try {
-        await updateUserSharing(req.user, req.body.sharing);
+        await updateUserSharing(req.user.id, req.body.sharing);
         return res.status(200).json({ message: "The sharing agreement status was updated successfully." });
     } catch (e) {
         return res.status(500).json({ message: "The sharing agreement status could not be updated successfully." });
