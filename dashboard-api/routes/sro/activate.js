@@ -5,6 +5,9 @@ import { hashPassword, isValidEmail, isValidName, isValidPassword } from '../../
 
 const router = Router();
 
+/**
+ * Handles an SRO activating their account and providing additionally required information.
+ */
 router.post('/', async (req, res) => {
     if (!req.body.token || typeof req.body.token !== "string" || req.body.token.length < 32) {
         return res.status(400).json({ error: "The provided token is invalid." });

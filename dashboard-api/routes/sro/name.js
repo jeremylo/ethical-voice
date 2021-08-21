@@ -5,6 +5,9 @@ import { isValidName } from '../../utils.js';
 
 const router = Router();
 
+/**
+ * Handles an SRO updating their name.
+ */
 router.post('/', requireAuth, async (req, res) => {
     if (!req.body.name || !isValidName(req.body.name)) {
         return res.status(400).json({ "error": "Sorry, this name is not acceptable." });

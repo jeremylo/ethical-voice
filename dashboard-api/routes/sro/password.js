@@ -6,10 +6,11 @@ import requireAuth, { requireNoAuth } from '../../requireAuth.js';
 import { hashPassword, isNumeric, isValidEmail, isValidPassword, isValidPasswordHash } from '../../utils.js';
 
 
-
-
 const router = Router();
 
+/**
+ * Handles an SRO changing their password.
+ */
 router.post('/', requireAuth, async (req, res) => {
     if (!req.body.oldPassword || !req.body.newPassword) {
         return res.status(400).json({ "error": "Not enough information was provided to effectuate the password change." });
@@ -27,6 +28,9 @@ router.post('/', requireAuth, async (req, res) => {
     }
 });
 
+/**
+ * Handles an SRO requesting a password reset via their email.
+ */
 router.post('/request-reset', requireNoAuth, async (req, res) => {
     if (!req.body.email || !isValidEmail(req.body.email)) {
         return res.status(400).json({ error: "The provided email is invalid." });
@@ -76,6 +80,9 @@ router.post('/request-reset', requireNoAuth, async (req, res) => {
         });
 });
 
+/**
+ * Handles a password reset.
+ */
 router.post('/reset', async (req, res) => {
     if (!req.body.sroid || !isNumeric(req.body.sroid) || +req.body.sroid <= 0) {
         return res.status(400).send("The provided SRO ID is invalid.");

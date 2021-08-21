@@ -6,6 +6,9 @@ import { generateReferenceId, isNumeric } from '../utils.js';
 
 const router = Router();
 
+/**
+ * Responds with all currently open patient referrals.
+ */
 router.get('/', requireAuth, async (req, res) => {
     try {
         const referrals = await findUnactivatedUsersBySro(req.user.id);
@@ -21,6 +24,10 @@ router.get('/', requireAuth, async (req, res) => {
     }
 });
 
+/**
+ * Generates a new referral ID (and optionally associates any extra information
+ * the SRO wishes to include as a part of the patient's record with said referral ID).
+ */
 router.post('/', requireAuth, async (req, res) => {
     try {
         const referenceId = generateReferenceId();
@@ -35,6 +42,9 @@ router.post('/', requireAuth, async (req, res) => {
     }
 });
 
+/**
+ * Handles an SRO updating the 'extra' information field of an unactivated patient.
+ */
 router.post('/extra', requireAuth, async (req, res) => {
     if (!req.body.id || !isNumeric(req.body.id) || +req.body.id <= 0
         || req.body.extra === undefined || typeof req.body.extra !== "string" || String(req.body.extra).length >= 255) {

@@ -5,6 +5,9 @@ import requireAuth from '../requireAuth.js';
 
 const router = Router();
 
+/**
+ * Responds with all SRO accounts to trusted SRO managers.
+ */
 router.get('/', requireAuth, async (req, res) => {
     if (req.user.trusted !== 1) {
         return res.status(401).json({ error: "Access denied." });

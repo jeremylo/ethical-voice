@@ -5,6 +5,9 @@ import { isNumeric } from '../../utils.js';
 
 const router = Router();
 
+/**
+ * Transfers the patients from one SRO to another.
+ */
 router.post('/', requireAuth, async (req, res) => {
     if (req.user.trusted !== 1) {
         return res.status(401).json({ error: "Not authorised." });

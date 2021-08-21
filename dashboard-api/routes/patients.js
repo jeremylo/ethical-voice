@@ -5,6 +5,9 @@ import requireAuth from '../requireAuth.js';
 
 const router = Router();
 
+/**
+ * Responds with all patients associated with the currently logged-in SRO.
+ */
 router.get('/', requireAuth, async (req, res) => {
     try {
         const patients = await findActivatedUsersBySro(req.user.id);

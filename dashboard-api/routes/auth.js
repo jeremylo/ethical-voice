@@ -5,6 +5,9 @@ import { requireNoAuth } from '../requireAuth.js';
 
 const router = Router();
 
+/**
+ * Logs the user in.
+ */
 router.post('/login', requireNoAuth,
     (req, res, next) => {
         passport.authenticate('local', (err, sro, info) => {
@@ -26,8 +29,12 @@ router.post('/login', requireNoAuth,
             email: req.user.email,
             trusted: req.user.trusted,
         });
-    });
+    }
+);
 
+/**
+ * Logs the user out.
+ */
 router.get('/logout', async (req, res) => {
     req.session.destroy();
     req.logout();

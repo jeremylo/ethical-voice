@@ -8,6 +8,9 @@ import { hashSha256, isNumeric, isValidEmail } from '../../utils.js';
 
 const router = Router();
 
+/**
+ * Handles an SRO requesting an email change.
+ */
 router.post('/', requireAuth, async (req, res) => {
     if (!req.body.email || !isValidEmail(req.body.email) || req.body.email.toLowerCase() === req.user.email.toLowerCase()) {
         return res.status(400).json({ "error": "The provided email is invalid." });
@@ -47,6 +50,9 @@ router.post('/', requireAuth, async (req, res) => {
         })
 });
 
+/**
+ * Handles an SRO verifying their email by clicking on the link contained therein.
+ */
 router.get('/verify', async (req, res) => {
     if (!req.query.sroid || !isNumeric(req.query.sroid) || +req.query.sroid <= 0 || !req.query.token) {
         return res.status(400).send("Apologies - your email could not be confirmed.");

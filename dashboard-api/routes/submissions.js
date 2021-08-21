@@ -6,6 +6,9 @@ import { isNumeric } from '../utils.js';
 
 const router = Router();
 
+/**
+ * Responds with all submissions associated with the logged-in SRO.
+ */
 router.get('/', requireAuth, async (req, res) => {
     const submissionsData = {};
     try {
@@ -26,6 +29,9 @@ router.get('/', requireAuth, async (req, res) => {
     }
 });
 
+/**
+ * Fetches the audio file for a given submission ID if it exists.
+ */
 router.get('/audio/:id', requireAuth, async (req, res) => {
     if (!req.params.id || !isNumeric(req.params.id) || +req.params.id <= 0) {
         return res.status(400).json({
@@ -41,7 +47,7 @@ router.get('/audio/:id', requireAuth, async (req, res) => {
         return res.set('Content-Type', 'audio/wav').status(200).send(submission.audio);
     } catch (e) {
         return res.status(500).json({
-            error: "Apologies - we couldn't fetch that submission."
+            error: "Apologies - we couldn't fetch any audio for that submission."
         });
     }
 });

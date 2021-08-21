@@ -10,6 +10,9 @@ import transferRoutes from './sro/transfer.js';
 
 const router = Router();
 
+/**
+ * Responds with data on the current logged-in SRO.
+ */
 router.get('/', requireAuth, async (req, res) => {
     return res.status(200).json({
         name: req.user.name,

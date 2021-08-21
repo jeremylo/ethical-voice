@@ -7,6 +7,10 @@ import { isNumeric } from '../utils.js';
 
 const router = Router();
 
+/**
+ * Fetches all the submissions for a given patient ID
+ * (provided the currently logged-in SRO has access).
+ */
 router.get('/:id/submissions', requireAuth, async (req, res) => {
     if (!req.params.id || !isNumeric(req.params.id) || +req.params.id <= 0) {
         return res.status(400).json({
@@ -42,6 +46,9 @@ router.get('/:id/submissions', requireAuth, async (req, res) => {
     }
 })
 
+/**
+ * Handles an SRO updating the 'extra' information field of an activated patient.
+ */
 router.post('/extra', requireAuth, async (req, res) => {
     if (!req.body.id || !isNumeric(req.body.id) || +req.body.id <= 0
         || req.body.extra === undefined || typeof req.body.extra !== "string" || String(req.body.extra).length >= 255) {

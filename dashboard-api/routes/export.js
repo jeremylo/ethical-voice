@@ -5,6 +5,18 @@ import requireAuth from '../requireAuth.js';
 
 const router = Router();
 
+/**
+ * Generates a ZIP archive containing all of the submission data, metadata
+ * and submission audio files (if present) associated with the logged-in
+ * SRO's patients and sends the archive to the user's browser for download.
+ *
+ * There is a submissions.json file containing the submission data and metadata
+ * (flattened into a single row for easy conversion to say, CSV, for example).
+ *
+ * Audio files are named submission_ID.wav where ID is the submission ID.
+ *
+ * Audio files are 16kHz 16-bit signed integer PCM encoded WAV files.
+ */
 router.get('/', requireAuth, async (req, res) => {
     const submissionData = {};
     try {

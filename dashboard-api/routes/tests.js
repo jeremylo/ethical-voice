@@ -5,6 +5,9 @@ import { isNumeric } from '../utils.js';
 
 const router = Router();
 
+/**
+ * Responds with all test types ever created.
+ */
 router.get('/', requireAuth, async (req, res) => {
     try {
         const tests = await query("SELECT * FROM test_types");
@@ -20,6 +23,13 @@ router.get('/', requireAuth, async (req, res) => {
     }
 });
 
+/**
+ * Validates the list of possible durations in seconds provided.
+ *
+ * @param   {array}  durations  The array of possible durations.
+ *
+ * @return  {true}              True if valid.
+ */
 const validatePossibleDurationsList = (durations) => {
     for (const duration of durations) {
         if (!isNumeric(String(duration)) || +duration < 5 || +duration >= 1000) return false;
@@ -27,6 +37,9 @@ const validatePossibleDurationsList = (durations) => {
     return true;
 };
 
+/**
+ * Handles the creation of a new test type.
+ */
 router.post('/', requireAuth, async (req, res) => {
     if (!req.body.title || req.body.title.length > 255
         || !req.body.instruction || req.body.instruction.length > 65536
@@ -49,6 +62,9 @@ router.post('/', requireAuth, async (req, res) => {
     }
 });
 
+/**
+ * Handles the visibility toggle of a given test type.
+ */
 router.post('/visibility', requireAuth, async (req, res) => {
     if (!req.body.testId || !isNumeric(req.body.testId) || +req.body.testId <= 0
         || req.body.active === undefined || typeof req.body.active !== "boolean") {

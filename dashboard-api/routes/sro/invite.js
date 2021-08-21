@@ -7,6 +7,9 @@ import { isValidEmail } from '../../utils.js';
 
 const router = Router();
 
+/**
+ * Handles an SRO manager inviting a new SRO to the platform.
+ */
 router.post('/', requireAuth, async (req, res) => {
     if (req.user.trusted !== 1) {
         return res.status(401).json({ error: "Not authorised to invite new SROs." });
