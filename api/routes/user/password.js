@@ -8,6 +8,9 @@ import { hashPassword, isValidEmail, isValidPassword, isValidPasswordHash, isVal
 
 const router = Router();
 
+/**
+ * Updates a user's password (after verifying their old password one last time).
+ */
 router.post('/', requireAuth, async (req, res) => {
     if (!req.body.oldPassword || !req.body.newPassword) {
         return res.status(400).json({ "error": "Not enough information was provided to effectuate the password change." });
@@ -25,6 +28,9 @@ router.post('/', requireAuth, async (req, res) => {
     }
 });
 
+/**
+ * Handles a user's password reset request and sends the reset email.
+ */
 router.post('/request-reset', requireNoAuth, async (req, res) => {
     if (!req.body.email || !isValidEmail(req.body.email)) {
         return res.status(400).json({ error: "The provided email is invalid." });
@@ -74,6 +80,9 @@ router.post('/request-reset', requireNoAuth, async (req, res) => {
         });
 });
 
+/**
+ * Handles a password reset after additional details have been sought from the user.
+ */
 router.post('/reset', async (req, res) => {
     if (!req.body.referenceId || !isValidReferenceId(req.body.referenceId)) {
         return res.status(400).json({ error: "The provided reference ID is invalid." });

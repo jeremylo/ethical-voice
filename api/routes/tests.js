@@ -3,6 +3,9 @@ import { query } from '../db.js';
 
 const router = Router();
 
+/**
+ * Responds with all active test types.
+ */
 router.get('/', async (req, res) => {
     try {
         const tests = await query("SELECT * FROM test_types WHERE active=1");

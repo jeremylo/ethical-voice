@@ -7,6 +7,14 @@ import { hashSha256, isValidEmail, isValidReferenceId } from '../../utils.js';
 
 const router = Router();
 
+/**
+ *  Handles the registration of a new user.
+ *
+ *  Registration is invite-only (requiring a reference ID).
+ *
+ *  Their details are encoded into a JSON web token sent to their requested email
+ *  and only then hit the database if activation is successful.
+ */
 router.post('/', requireNoAuth, async (req, res) => {
     if (!req.body.referenceId || !isValidReferenceId(req.body.referenceId)) {
         return res.status(400).json({ error: "The provided reference ID is invalid." });

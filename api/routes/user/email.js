@@ -8,6 +8,9 @@ import { hashSha256, isNumeric, isValidEmail } from '../../utils.js';
 
 const router = Router();
 
+/**
+ * Handles a user's email change request and sends out the new email verification email.
+ */
 router.post('/', requireAuth, async (req, res) => {
     if (!req.body.email || !isValidEmail(req.body.email) || req.body.email.toLowerCase() === req.user.email.toLowerCase()) {
         return res.status(400).json({ "error": "The provided email is invalid." });
@@ -47,6 +50,9 @@ router.post('/', requireAuth, async (req, res) => {
         })
 });
 
+/**
+ * Verifies an email verification link sent to the user's new email and updates their email.
+ */
 router.get('/verify', async (req, res) => {
     if (!req.query.userid || !isNumeric(req.query.userid) || +req.query.userid <= 0 || !req.query.token) {
         return res.status(400).send("Apologies - your email could not be confirmed.");

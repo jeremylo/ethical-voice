@@ -10,6 +10,9 @@ import registerRoutes from './user/register.js';
 
 const router = Router();
 
+/**
+ * Responds with data about the currently logged-in user.
+ */
 router.get('/', requireAuth, async (req, res) => {
     try {
         return res.status(200).json({
@@ -28,6 +31,9 @@ router.use('/register', registerRoutes);
 router.use('/email', emailRoutes);
 router.use('/password', passwordRoutes);
 
+/**
+ *  Updates a user's outward postcode.
+ */
 router.post('/outwardpostcode', requireAuth, async (req, res) => {
     if (!req.body.outwardPostcode || !isValidOutwardPostcode(req.body.outwardPostcode)) {
         return res.status(400).json({ message: "Bad outward postcode input D:" });
@@ -41,6 +47,9 @@ router.post('/outwardpostcode', requireAuth, async (req, res) => {
     }
 });
 
+/**
+ * Updates a user's sharing preferences.
+ */
 router.post('/sharing', requireAuth, async (req, res) => {
     if (req.body.sharing === undefined || typeof req.body.sharing !== "boolean") {
         return res.status(400).json({ message: "Bad sharing agreement status provided." });

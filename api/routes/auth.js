@@ -5,6 +5,9 @@ import { issueRememberMeToken } from '../remember-me.js';
 
 const router = Router();
 
+/**
+ * Logs the user in.
+ */
 router.post('/login',
     (req, res, next) => {
         if (req.user) {
@@ -58,8 +61,12 @@ router.post('/login',
             outwardPostcode: req.user.outward_postcode,
             sharing: req.user.sharing === 1
         });
-    });
+    }
+);
 
+/**
+ * Logs the user out.
+ */
 router.get('/logout', async (req, res) => {
     // clear the remember-me cookie on logout
     res.clearCookie(process.env.REMEMBER_ME_COOKIE_NAME, { path: '/' });

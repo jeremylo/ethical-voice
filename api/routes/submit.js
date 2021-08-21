@@ -5,6 +5,13 @@ import requireAuth from '../requireAuth.js';
 import { isNumeric } from '../utils.js';
 
 
+/**
+ * Determines whether a metadata key received from the user is valid.
+ *
+ * @param   {string}  key  The metadata key.
+ *
+ * @return  {boolean}      True if valid.
+ */
 const isValidKey = (key) => {
     const k = String(key);
     if (k.length < 1 || k.length > 255) return false;
@@ -16,6 +23,9 @@ const router = Router();
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
 
+/**
+ * Allows the user to create a new submission (with an optional audio file attached).
+ */
 router.post('/', requireAuth, upload.single('audio'), async (req, res) => {
 
     const validate = () => {
