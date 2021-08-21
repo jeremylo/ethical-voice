@@ -33,38 +33,38 @@ export default function SubmissionDistributions({ submissions }) {
     console.log(syllableRateData)
 
     return <Grid container justifyContent="center" alignItems="center" spacing={3}>
-        <Grid item>
+        {syllableRateData.length > 0 && <Grid item>
             <Distribution
                 title="Syllable rate (syllables per minute)"
                 data={syllableRateData}
             />
-        </Grid>
-        <Grid item>
+        </Grid>}
+        {wordRateData.length > 0 && <Grid item>
             <Distribution
                 title="Word rate (words per minute)"
                 data={wordRateData}
             />
-        </Grid>
-        <Grid item>
+        </Grid>}
+        {sputumColourData.length > 0 && <Grid item>
             <Distribution
                 title="Sputum colour"
                 domain={{ x: [1, 5] }}
                 data={sputumColourData}
             />
-        </Grid>
-        <Grid item>
+        </Grid>}
+        {wellbeingData.length > 0 && <Grid item>
             <Distribution
                 title="Wellbeing"
                 data={wellbeingData}
             />
-        </Grid>
-        <Grid item>
+        </Grid>}
+        {dyspnoeaData.length > 0 && <Grid item>
             <Distribution
                 title="MRC dypsnoea score"
                 domain={{ x: [1, 10] }}
                 data={dyspnoeaData}
             />
-        </Grid>
+        </Grid>}
     </Grid>;
 
 }
