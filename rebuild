@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-docker-compose stop
-docker-compose down --rmi local
+docker-compose -f docker-compose.yml -f docker-compose.production.yml stop
+docker-compose -f docker-compose.yml -f docker-compose.production.yml down --rmi local
 docker volume rm ethical-voice_app-build
 docker volume rm ethical-voice_dashboard-build
-docker-compose up --build -d
+docker-compose -f docker-compose.yml -f docker-compose.production.yml up --build -d
