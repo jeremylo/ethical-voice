@@ -29,13 +29,22 @@ The focus of this project has been to devise a way to gather the following metri
   - 4 -- "I have to stop for breath after walking about 100 yards (or after a few minutes) on the level."
   - 5 -- "I am too breathless to leave the house, or breathless after undressing."
 
-_Note_: for the sake of this project, _syllable rate_ has been taken as a better measure of the rate someone is speaking than _word rate_ and has been used as the basis of visualising _speech rate_ and its deviations over time. The phrase "thoroughly thoroughly thoroughly" takes considerably more effort to say than the phrase "two two two", but while the former is 9 syllables and the latter only 3, they are both contain precisely 3 words.
+**Note**: for the sake of this project, _syllable rate_ has been taken as a better measure of the rate someone is speaking than _word rate_ and has been used as the basis of visualising _speech rate_ and its deviations over time. The phrase "thoroughly thoroughly thoroughly" takes considerably more effort to say than the phrase "two two two", but while the former is 9 syllables and the latter only 3, they are both contain precisely 3 words.
 
 ## Project background, research & documentation
 
-Further information on the project may be found at the following link: [https://jeremylo.github.io/ethical-voice/](https://jeremylo.github.io/ethical-voice/)
+Further information beyond this README on the project may be found at the following link: [https://jeremylo.github.io/ethical-voice/](https://jeremylo.github.io/ethical-voice/)
 
-## System architecture
+### System architecture & Docker Compose structure
+
+The project is formed of the following main components:
+- a React-based progressive web app for patients ("the app");
+- an Express.js-based API powering the app;
+- a React-based dashboard for senior responsible officers to view and manage patient and submission data ("the dashboard");
+- an Express.js-based API powering the dashboard;
+- a MariaDB database server to store data (important tables are encrypted at rest);
+- a Redis server for session token storage; and
+- a Caddy server to serve static app and dashboard files, and reverse proxy API requests to their respective APIs.
 
 ![system architecture](./docs/system-architecture.png)
 
