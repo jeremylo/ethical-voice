@@ -34,7 +34,7 @@ services:
       context: ./dashboard
     environment:
       - REACT_APP_APP_DOMAIN=${APP_DOMAIN}
-      - REACT_APP_DASHBOARD_DOMAIN=${APP_DOMAIN}
+      - REACT_APP_DASHBOARD_DOMAIN=${DASHBOARD_DOMAIN}
     volumes:
       - dashboard-build:/dashboard/build
     depends_on:
@@ -57,7 +57,7 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - SENDGRID_API_KEY=${SENDGRID_API_KEY}
       - APP_DOMAIN=${APP_DOMAIN}
-      - DASHBOARD_DOMAIN=${APP_DOMAIN}
+      - DASHBOARD_DOMAIN=${DASHBOARD_DOMAIN}
     depends_on:
       - redis
       - db
@@ -87,6 +87,9 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    environment:
+      - APP_DOMAIN=${APP_DOMAIN}
+      - DASHBOARD_DOMAIN=${DASHBOARD_DOMAIN}
     volumes:
       - type: volume
         source: app-build
