@@ -1,6 +1,35 @@
-# Breathlessness data gathering and analysis project
+# My Data: a breathlessness data collection and visualisation project
 
-This repository contains Jeremy Lo Ying Ping's UCL summer research project to develop a more ethical breathlessness data gathering and analysis tool for respiratory disease researchers.
+This repository contains [Jeremy Lo Ying Ping](https://jezz.me/)'s _UCL Computer Science_ summer research project, which ran from June to April 2021 and was supervised by Prof Joseph Connor, Prof Dean Mohamedally and Prof Graham Roberts.
+
+The principal aim of the project was to develop a proof-of-concept progressive web app for patients to collect and visualise both speech data, using an offline, on-device speech recognition model, and additional self-reported health data -- as may be useful for analysing and tracking symptoms of breathlessness. This data may then be shared -- only at patients' behest to ensure they maintain control over their data -- with their associated senior responsible officer to support research.
+
+The hope is that this could provide an ethical way for respiratory disease researchers or doctors to gather invaluable speech and self-reported data from supporting and consenting patients.
+
+The focus of this project has been to devise a way to gather the following metrics:
+- **syllable rate**: a measure of how many syllables are spoken per minute (and a hypothesised potential proxy for breathlessness)
+- **word rate**: a (less preferred) measure of how many words are spoken per minute
+- **sputum colour**: a 5-point self-reported measure of a patient's [sputum colour](https://www.nbt.nhs.uk/sites/default/files/attachments/COPD%20Rescue%20Pack_NBT002760.pdf)
+  - 1 - white
+  - 2 - cream
+  - 3 - yellow
+  - 4 - pale green
+  - 5 - green
+- **wellbeing**: a self-reported wellbeing rating from 1 (low) to 10 (high)
+- **MRC dyspnoea score**: a self-reported measure using the MRC dyspnoea scale
+  - 1 -- "I am not troubled by breathlessness, except on strenuous exertion."
+  - 2 -- "I am short of breath when hurrying on the level or walking up a slight hill."
+  - 3 -- "I have to walk slower than most people on the level and stop after a mile or so (or after 15 minutes) on the level at my own pace."
+  - 4 -- "I have to stop for breath after walking about 100 yards (or after a few minutes) on the level."
+  - 5 -- "I am too breathless to leave the house, or breathless after undressing."
+
+_Note_: for the sake of this project, _syllable rate_ has been taken as a better measure of the rate someone is speaking than _word rate_ and has been used as the basis of visualising _speech rate_ and its deviations over time. The phrase "thoroughly thoroughly thoroughly" takes considerably more effort to say than the phrase "two two two", but while the former is 9 syllables and the latter only 3, they are both contain precisely 3 words.
+
+# Demo
+
+The app is currently live at [https://mydata.jezz.me/](https://mydata.jezz.me/). There is an anonymous login mode whereby anyone can test out the core functionality of the progressive web app without having been referred by a senior responsible officer of the demo system.
+
+
 ## Configuration
 
 ### .env file options
