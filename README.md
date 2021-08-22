@@ -33,7 +33,7 @@ The focus of this project has been to devise a way to gather the following metri
 
 ## Project background, research & documentation
 
-Further information beyond this README on the project may be found at the following link: [https://jeremylo.github.io/ethical-voice/](https://jeremylo.github.io/ethical-voice/)
+Further information beyond this `README` on the project may be found at the following link: [https://jeremylo.github.io/ethical-voice/](https://jeremylo.github.io/ethical-voice/)
 
 ### System architecture & Docker Compose structure
 
@@ -48,6 +48,15 @@ The project is formed of the following main components:
 
 ![system architecture](./docs/system-architecture.png)
 
+All of the different components of the project have been dockerised, spread across several containers:
+- `app`: this container outputs an optimised production build of the app into a volume when it is built and ceases to run thereafter
+- `api`: this container installs the necessary node modules and then runs the app API
+- `dashboard`: this container outputs an optimised production build of the dashboard into a volume when it is built and ceases to run thereafter
+- `dashboard-api`: this container installs the necessary node modules and then runs the dashboard API
+- `redis`: this container runs the Redis server
+- `db`: this container runs the MariaDB server
+- `caddy`: this container runs the Caddy web and reverse-proxy server, serving static files from the built app and dashboard volumes on two separate domains and reverse-proxying /api/* requests to their respective APIs
+- `adminer`: optionally in development, this container may be started running the database management web tool Adminer
 
 
 ## Configuration
