@@ -6,6 +6,10 @@ The principal aim of the project was to develop a proof-of-concept progressive w
 
 The hope is that this could provide an ethical way for respiratory disease researchers or doctors to gather invaluable speech and self-reported data from supporting and consenting patients.
 
+## Demo
+
+The app is currently live at [https://mydata.jezz.me/](https://mydata.jezz.me/). There is an anonymous login mode whereby anyone can test out the core functionality of the progressive web app without having been referred by a senior responsible officer of the demo system.
+
 ## Metrics gathered
 
 The focus of this project has been to devise a way to gather the following metrics:
@@ -26,10 +30,6 @@ The focus of this project has been to devise a way to gather the following metri
   - 5 -- "I am too breathless to leave the house, or breathless after undressing."
 
 _Note_: for the sake of this project, _syllable rate_ has been taken as a better measure of the rate someone is speaking than _word rate_ and has been used as the basis of visualising _speech rate_ and its deviations over time. The phrase "thoroughly thoroughly thoroughly" takes considerably more effort to say than the phrase "two two two", but while the former is 9 syllables and the latter only 3, they are both contain precisely 3 words.
-
-## Demo
-
-The app is currently live at [https://mydata.jezz.me/](https://mydata.jezz.me/). There is an anonymous login mode whereby anyone can test out the core functionality of the progressive web app without having been referred by a senior responsible officer of the demo system.
 
 ## Project background, research & documentation
 
