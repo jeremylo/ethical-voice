@@ -5,19 +5,12 @@ services:
       context: ./app
     volumes:
       - app-build:/app/build
-    deploy:
-      resources:
-        limits:
-          cpus: '1.00'
-          memory: 8192M
     depends_on:
       - api
 
   api:
     build:
       context: ./api
-    ports:
-      - "4000:4000"
     environment:
       - MARIADB_USER=${MARIADB_USER}
       - MARIADB_PASSWORD=${MARIADB_PASSWORD}
@@ -44,19 +37,12 @@ services:
       - REACT_APP_DASHBOARD_DOMAIN=${APP_DOMAIN}
     volumes:
       - dashboard-build:/dashboard/build
-    deploy:
-      resources:
-        limits:
-          cpus: '1.00'
-          memory: 8192M
     depends_on:
       - dashboard-api
 
   dashboard-api:
     build:
       context: ./dashboard-api
-    ports:
-      - "4001:4001"
     environment:
       - MARIADB_USER=${MARIADB_USER}
       - MARIADB_PASSWORD=${MARIADB_PASSWORD}
@@ -79,8 +65,6 @@ services:
   redis:
     build:
       context: ./redis
-    ports:
-      - "6379:6379"
     volumes:
       - redis-data:/data
 
@@ -95,17 +79,7 @@ services:
       - ./mariadb:/docker-entrypoint-initdb.d
       - ./keys:/etc/mysql/encryption
       - db-data:/var/lib/mysql
-    ports:
-      - "3306:3306" # remove this line in production!
     command: --event_scheduler=ON --max-allowed-packet=128MB --plugin-load-add=file_key_management --loose_file_key_management_filename=/etc/mysql/encryption/keyfile --file-key-management=FORCE
-
-  adminer: # remove this in production!
-    profiles: ["dev"]
-    image: adminer
-    ports:
-      - 8080:8080
-    depends_on:
-      - db
 
   caddy:
     build:

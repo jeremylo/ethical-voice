@@ -1,0 +1,30 @@
+version: "3"
+services:
+  app:
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 8192M
+
+  api:
+    restart: always
+
+  dashboard:
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 8192M
+
+  dashboard-api:
+    restart: always
+
+  redis:
+    restart: always
+
+  db:
+    restart: always
+
+  caddy:
+    restart: always

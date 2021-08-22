@@ -1,0 +1,25 @@
+version: "3"
+services:
+  api:
+    ports:
+      - "4000:4000"
+
+  dashboard-api:
+    ports:
+      - "4001:4001"
+
+  redis:
+    ports:
+      - "6379:6379"
+
+  db:
+    ports:
+      - "3306:3306"
+
+  adminer:
+    profiles: ["dev"]
+    image: adminer
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
