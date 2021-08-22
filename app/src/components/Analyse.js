@@ -1,8 +1,8 @@
 import { Container, Paper, Step, StepLabel, Stepper, Typography } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import React from 'react';
-import { addResult } from "../persistence/db";
-import getTests, { defaultTests } from "../persistence/tests";
+import { addResult } from "../data/db";
+import getTests, { defaultTests } from "../data/tests";
 import Completion from "./analysis/Completion";
 import MRCDyspnoea from "./analysis/MRCDyspnoea";
 import Speech from "./analysis/Speech";
