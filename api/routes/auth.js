@@ -36,7 +36,7 @@ router.post('/login',
                         if (res.headersSent) return next();
 
                         res.cookie(
-                            process.env.REMEMBER_ME_COOKIE_NAME,
+                            process.env.APP_REMEMBER_ME_COOKIE_NAME,
                             token,
                             {
                                 path: '/',
@@ -69,7 +69,7 @@ router.post('/login',
  */
 router.get('/logout', async (req, res) => {
     // clear the remember-me cookie on logout
-    res.clearCookie(process.env.REMEMBER_ME_COOKIE_NAME, { path: '/' });
+    res.clearCookie(process.env.APP_REMEMBER_ME_COOKIE_NAME, { path: '/' });
     req.session.destroy();
     req.logout();
     return res.status(200).json({ message: "Logging out successful." });

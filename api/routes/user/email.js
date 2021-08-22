@@ -73,7 +73,7 @@ router.get('/verify', async (req, res) => {
         await updateUserEmail(user.id, decoded.email);
 
         if (req.user) { // log the user out
-            res.clearCookie(process.env.REMEMBER_ME_COOKIE_NAME, { path: '/' });
+            res.clearCookie(process.env.APP_REMEMBER_ME_COOKIE_NAME, { path: '/' });
             req.session.destroy();
             req.logout();
         }
