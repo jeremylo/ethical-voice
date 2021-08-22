@@ -22,7 +22,7 @@ const RedisStore = ConnectRedis(session);
 /**
  * Sets up express app middleware.
  */
-app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(cookieParser(process.env.DASHBOARD_COOKIE_SECRET));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
@@ -30,7 +30,7 @@ app.use(session({
         client: redisClient,
         prefix: "dashboardapi:session:"
     }),
-    secret: process.env.COOKIE_SECRET,
+    secret: process.env.DASHBOARD_COOKIE_SECRET,
     resave: true,
     cookie: {
         secure: "auto",
