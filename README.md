@@ -6,6 +6,8 @@ The principal aim of the project was to develop a proof-of-concept progressive w
 
 The hope is that this could provide an ethical way for respiratory disease researchers or doctors to gather invaluable speech and self-reported data from supporting and consenting patients.
 
+## Metrics gathered
+
 The focus of this project has been to devise a way to gather the following metrics:
 - **syllable rate**: a measure of how many syllables are spoken per minute (and a hypothesised potential proxy for breathlessness)
 - **word rate**: a (less preferred) measure of how many words are spoken per minute
@@ -28,6 +30,15 @@ _Note_: for the sake of this project, _syllable rate_ has been taken as a better
 # Demo
 
 The app is currently live at [https://mydata.jezz.me/](https://mydata.jezz.me/). There is an anonymous login mode whereby anyone can test out the core functionality of the progressive web app without having been referred by a senior responsible officer of the demo system.
+
+# Project background, research & documentation
+
+Further information on the project may be found at the following link: [https://jeremylo.github.io/ethical-voice/](https://jeremylo.github.io/ethical-voice/)
+
+## System architecture
+
+![system architecture](./docs/system-architecture.png)
+
 
 
 ## Configuration
