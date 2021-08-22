@@ -32,7 +32,7 @@ router.post('/', requireAuth, async (req, res) => {
         // all good!
     }
 
-    const token = jwt.sign({ email, trusted: !!req.body.trusted }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ email, trusted: !!req.body.trusted }, process.env.DASHBOARD_JWT_SECRET, { expiresIn: '1h' });
     const link = `https://${process.env.DASHBOARD_DOMAIN}/activate/${token}`;
 
     console.log(`New account invitation token generated: ${token}`);

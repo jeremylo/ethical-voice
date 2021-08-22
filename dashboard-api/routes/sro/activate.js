@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
 
     let decoded;
     try {
-        decoded = jwt.verify(String(req.body.token), process.env.JWT_SECRET);
+        decoded = jwt.verify(String(req.body.token), process.env.DASHBOARD_JWT_SECRET);
 
         if (!decoded.email || !isValidEmail(decoded.email)
             || decoded.trusted === undefined || typeof decoded.trusted !== "boolean") {
