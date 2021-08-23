@@ -11,46 +11,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const marks = [
-    {
-        value: 1,
-        label: 'Low'
-    },
-    {
-        value: 2,
-        label: '2'
-    },
-    {
-        value: 3,
-        label: '3'
-    },
-    {
-        value: 4,
-        label: '4'
-    },
-    {
-        value: 5,
-        label: '5'
-    },
-    {
-        value: 6,
-        label: '6'
-    },
-    {
-        value: 7,
-        label: '7'
-    },
-    {
-        value: 8,
-        label: '8'
-    },
-    {
-        value: 9,
-        label: '9'
-    },
-    {
-        value: 10,
-        label: 'High'
-    },
+    { value: 1, label: 'Low' },
+    { value: 2, label: '2' },
+    { value: 3, label: '3' },
+    { value: 4, label: '4' },
+    { value: 5, label: '5' },
+    { value: 6, label: '6' },
+    { value: 7, label: '7' },
+    { value: 8, label: '8' },
+    { value: 9, label: '9' },
+    { value: 10, label: 'High' },
 ];
 
 export default function Wellbeing({ handleNext, setResults }) {
@@ -70,25 +40,19 @@ export default function Wellbeing({ handleNext, setResults }) {
 
             <br />
 
-            <Box textAlign='center' style={{ padding: "1rem" }}>
-                <div>
-                    <br />
-                    <br />
-                    <Slider
-                        value={value}
-                        onChange={handleChange}
-                        defaultValue={7}
-                        step={1}
-                        marks={marks}
-                        min={1}
-                        max={10}
-                        valueLabelDisplay="on"
-                        getAriaValueText={(text) => text}
-                    />
-                </div>
+            <Box textAlign='center' style={{ padding: "3rem 1rem 2rem 1rem" }}>
+                <Slider
+                    value={value}
+                    onChange={handleChange}
+                    defaultValue={7}
+                    step={1}
+                    marks={marks}
+                    min={1}
+                    max={10}
+                    valueLabelDisplay="on"
+                    getAriaValueText={(text) => text}
+                />
             </Box>
-
-            <br />
 
             <Box textAlign='center' className={classes.controlsBox}>
                 <Button variant="contained" color="primary" onClick={() => handleNext()} endIcon={<KeyboardArrowRightIcon />}>Skip</Button>
