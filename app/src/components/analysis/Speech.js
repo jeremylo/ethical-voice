@@ -48,18 +48,14 @@ class Speech extends Component {
         };
     }
 
-    downloadModel = (saveModel) => {
+    downloadModel = () => {
         return new Promise((resolve, reject) => {
             this.setState({ appStatus: STATUSES.DOWNLOADING });
             downloadFile('api/model', (value) => {
                 this.setState({ downloadProgress: value * 100 });
             }).then((zip) => {
-                saveModel(zip)
-                    .catch(console.error) // The model could not be saved, but we're proceeding anyway.
-                    .finally(() => {
-                        this.setState({ appStatus: STATUSES.LOADING });
-                        resolve({ value: zip });
-                    });
+                this.setState({ appStatus: STATUSES.LOADING });
+                resolve(zip);
             }).catch(reject);
         });
     }
