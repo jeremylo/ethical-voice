@@ -9,8 +9,6 @@ import Countdown from './speech/Countdown';
 import LabelledLinearProgress from './speech/LabelledLinearProgress';
 
 
-const round2dp = (x) => Math.round((x + Number.EPSILON) * 100) / 100;
-
 const myStyles = (theme) => ({
     statusBox: {
         marginTop: '1rem',
@@ -72,6 +70,10 @@ class Speech extends Component {
                 isRecordButtonDisabled: true,
             });
 
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                throw new Error("Unable to access any media devices.");
+            }
+
             this.speech.setup(this.downloadModel)
                 .then(() => {
                     this.setState({
@@ -89,7 +91,7 @@ class Speech extends Component {
         } catch (e) {
             this.setState({
                 appStatus: STATUSES.ERROR,
-                isRecordButtonDisabled: false,
+                isRecordButtonDisabled: true,
             });
         }
     }

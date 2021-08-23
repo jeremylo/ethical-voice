@@ -16,10 +16,6 @@ export default class SpeechService {
     }
 
     setup(downloadModel) {
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-            throw new Error("Unable to access any media devices.");
-        }
-
         this.idbHandler = new IDBHandler();
         this.asrHandler = new ASRHandler();
 
