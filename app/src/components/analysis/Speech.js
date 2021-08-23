@@ -49,30 +49,30 @@ class Speech extends Component {
         };
     }
 
-    componentDidMount() {
-        const downloadModel = (saveModel) => {
-            return new Promise((resolve, reject) => {
-                this.setState({ appStatus: STATUSES.DOWNLOADING });
-                downloadFile('api/model', (value) => {
-                    this.setState({ downloadProgress: value * 100 });
-                }).then((zip) => {
-                    saveModel(zip)
-                        .catch(console.error) // The model could not be saved, but we're proceeding anyway.
-                        .finally(() => {
-                            this.setState({ appStatus: STATUSES.LOADING });
-                            resolve({ value: zip });
-                        });
-                }).catch(reject);
-            });
-        };
+    downloadModel = (saveModel) => {
+        return new Promise((resolve, reject) => {
+            this.setState({ appStatus: STATUSES.DOWNLOADING });
+            downloadFile('api/model', (value) => {
+                this.setState({ downloadProgress: value * 100 });
+            }).then((zip) => {
+                saveModel(zip)
+                    .catch(console.error) // The model could not be saved, but we're proceeding anyway.
+                    .finally(() => {
+                        this.setState({ appStatus: STATUSES.LOADING });
+                        resolve({ value: zip });
+                    });
+            }).catch(reject);
+        });
+    }
 
+    componentDidMount() {
         try {
             this.setState({
                 appStatus: STATUSES.LOADING,
                 isRecordButtonDisabled: true,
             });
 
-            this.speech.setup(downloadModel)
+            this.speech.setup(this.downloadModel)
                 .then(() => {
                     this.setState({
                         appStatus: STATUSES.STANDBY,
