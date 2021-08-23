@@ -159,7 +159,7 @@ class Speech extends Component {
                                 ? <Alert severity="success" style={{ textAlign: 'left' }}>
                                     <AlertTitle>Results</AlertTitle>
                                     <strong>Syllables per minute</strong>: {this.state.results.syllablesPerMinute}
-                                    {/* <br /><strong>Words per minute</strong>: {this.state.results.wordsPerMinute} */}
+                                    <br /><strong>Words per minute</strong>: {this.state.results.wordsPerMinute}
                                 </Alert> : <Countdown
                                     running={appStatus === STATUSES.RECORDING}
                                     duration={this.props.duration}
