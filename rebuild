@@ -2,10 +2,14 @@
 
 docker-compose -f docker-compose.yml -f docker-compose.production.yml stop
 
+
 docker-compose -f docker-compose.yml -f docker-compose.production.yml down --rmi local
+
 
 docker volume rm ethical-voice_app-build
 
+
 docker volume rm ethical-voice_dashboard-build
+
 
 docker-compose -f docker-compose.yml -f docker-compose.production.yml up --build -d
