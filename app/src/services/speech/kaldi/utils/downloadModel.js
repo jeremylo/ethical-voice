@@ -1,27 +1,3 @@
-function blobToArrayBuffer(blob) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.addEventListener('loadend', () => {
-      resolve(reader.result);
-    });
-    reader.addEventListener('error', reject);
-    reader.readAsArrayBuffer(blob);
-  });
-}
-
-export default function downloadModelFromWeb(url) {
-  return new Promise((resolve, reject) => {
-    fetch(url)
-      .then((response) => {
-        if (response.ok) return response.blob();
-        throw new Error(`"${url}": ${response.statusText}`);
-      })
-      .then((blob) => blobToArrayBuffer(blob))
-      .then(resolve)
-      .catch(reject);
-  });
-}
-
 async function trackedDownload(url, chunkCallback) {
   const response = await fetch(url);
   const reader = response.body.getReader();
