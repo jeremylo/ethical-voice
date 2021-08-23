@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@material-ui/core";
-import RateChart from "../visualisation/RateChart";
+import RateChart from "./visualisation/RateChart";
 
 
 

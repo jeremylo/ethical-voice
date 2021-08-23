@@ -1,5 +1,5 @@
 import Grid from '@material-ui/core/Grid';
-import ComparisonChart from '../visualisation/ComparisonChart';
+import ComparisonChart from './visualisation/ComparisonChart';
 
 export default function AggregateSubmissionGraphs({ submissions }) {
     const wordRateData = [];

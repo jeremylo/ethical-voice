@@ -1,5 +1,5 @@
 import Grid from '@material-ui/core/Grid';
-import Distribution from '../visualisation/Distribution';
+import Distribution from './visualisation/Distribution';
 
 export default function SubmissionDistributions({ submissions }) {
     const syllableRateData = [];
