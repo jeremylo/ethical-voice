@@ -1,9 +1,10 @@
 import { Paper } from '@material-ui/core';
+import { linearRegression, linearRegressionLine, rSquared } from 'simple-statistics';
 import { VictoryAxis, VictoryChart, VictoryLabel, VictoryLine, VictoryScatter } from 'victory';
 import theme from './chartTheme';
 import { VictoryZoomContainer } from './zoom-container/';
 
-
+const round4dp = (x) => Math.round((x + Number.EPSILON) * 10000) / 10000;
 
 export default function ComparisonChart({
     title,
@@ -12,6 +13,10 @@ export default function ComparisonChart({
     xLabel,
     yLabel
 }) {
+    const pairs = data.map(({ x, y }) => ([x, y]));
+    const regressionLine = linearRegressionLine(linearRegression(pairs));
+    const r2 = round4dp(rSquared(pairs, regressionLine));
+
     return (
         <Paper elevation={1} variant="outlined">
             <VictoryChart
@@ -28,7 +33,7 @@ export default function ComparisonChart({
                     // zoomDimension="x"
                     />
                 }
-                padding={{ top: 20, bottom: 44, right: 10, left: 60 }}
+                padding={{ top: 40, bottom: 45, right: 10, left: 60 }}
             >
 
                 {xLabel && <VictoryAxis
@@ -42,14 +47,23 @@ export default function ComparisonChart({
                     label={yLabel}
                 />}
 
-                <VictoryLabel text={title} x={225} y={30} textAnchor="middle" />
+                {/* SVG: 450 x 300 */}
+                <VictoryLabel text={title} x={225} y={20} textAnchor="middle" />
 
-                {/* Data */}
+                {/* Interpolation */}
                 <VictoryLine
                     interpolation="bundle" data={data}
                     style={{ data: { stroke: "#8bb9dd" } }}
                 />
 
+                {/* Linear regression */}
+                <VictoryLine
+                    y={(d) => regressionLine(d.x)}
+                    style={{ data: { stroke: "#e7bd42", strokeDasharray: "8,4" } }}
+                />
+                <VictoryLabel text={`r^2=${r2}`} x={5} y={294} style={{ fill: "#e7bd42" }} />
+
+                {/* Data */}
                 <VictoryScatter data={data}
                     size={2}
                     style={{ data: { fill: "#00e5ff" } }}
