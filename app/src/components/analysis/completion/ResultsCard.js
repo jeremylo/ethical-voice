@@ -31,7 +31,7 @@ export default function ResultsCard({ results, tests }) {
             <div style={{ padding: '16px' }}>
                 <Typography variant="body2" color="textSecondary" component="p">
                     <strong>Syllables per minute</strong>: {results['speech.syllablesPerMinute']} <br />
-                    <strong>Words per minute</strong>: {results['speech.wordsPerMinute']} <br />
+                    {results['speech.wordsPerMinute'] && <><strong>Words per minute</strong>: {results['speech.wordsPerMinute']} <br /></>}
                     {results.sputum && <><strong>Sputum colour</strong>: {sputumColours.find(x => x.value === results.sputum).name.toLowerCase()}<br /></>}
                     {results.wellbeing && <><strong>Wellbeing</strong>: {results.wellbeing} / 10<br /></>}
                     {results.dyspnoea && <><strong>MRC dyspnoea score</strong>: {results.dyspnoea}<br /></>}
