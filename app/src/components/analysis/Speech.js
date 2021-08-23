@@ -19,6 +19,7 @@ const myStyles = (theme) => ({
 const STATUSES = {
     DOWNLOADING: 'downloading',
     ERROR: 'error',
+    ERROR_PERMISSION_DENIED: 'error_permission_denied',
     LOADING: 'loading',
     RECORDING: 'recording',
     STANDBY: 'standby',
@@ -96,21 +97,23 @@ class Speech extends Component {
         }
     }
 
-    componentWillUnmount() { // check
+    componentWillUnmount() {
         this.speech.terminate();
     }
 
     startRecording() {
-        navigator.mediaDevices.getUserMedia({ audio: true }).then((microphone) => {
-            this.setState({ appStatus: STATUSES.RECORDING, isRecordButtonDisabled: false });
-            this.speech.startRecording(microphone);
-        }).catch((error) => {
-            console.error(error);
-            this.setState({ // unable to access mic ! TODO: PUT A BETTER ERROR HERE
-                isRecordButtonDisabled: true,
-                appStatus: STATUSES.ERROR,
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then((microphone) => {
+                this.setState({ appStatus: STATUSES.RECORDING, isRecordButtonDisabled: false });
+                this.speech.startRecording(microphone);
+            })
+            .catch((error) => {
+                console.error(error);
+                this.setState({
+                    isRecordButtonDisabled: true,
+                    appStatus: STATUSES.ERROR_PERMISSION_DENIED,
+                });
             });
-        });
     }
 
     stopRecording() {
@@ -198,7 +201,16 @@ class Speech extends Component {
                         <Alert severity="error">
                             <AlertTitle>Error</AlertTitle>
                             Apologies - something went wrong while loading the speech recognition module.<br /><br />
-                            Reloading the app may fix your issue! If not, please ensure you have given permission for this app to access your microphone.
+                            Reloading the app may fix your issue!
+                        </Alert><br /><br />
+                    </>
+                )}
+
+                {appStatus === STATUSES.ERROR_PERMISSION_DENIED && (
+                    <>
+                        <Alert severity="error">
+                            <AlertTitle>Error: microphone use blocked</AlertTitle>
+                            Please grant this app permission to use your microphone in your browser's settings and create a new submission to continue.
                         </Alert><br /><br />
                     </>
                 )}

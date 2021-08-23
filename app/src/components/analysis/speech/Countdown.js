@@ -9,7 +9,6 @@ import { React, useEffect, useState } from 'react';
 import { useTimer } from 'react-use-precision-timer';
 
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: '1.75rem',
@@ -33,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
         zIndex: 1,
     },
 }));
-
 
 export default function Countdown({ running, duration, handleStart, handleStop, disabled }) {
     const classes = useStyles();
