@@ -3,6 +3,7 @@ import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { useState } from "react";
+import sputumColours from "../../data/sputumColours";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -17,34 +18,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
-export const sputumColours = [
-    {
-        name: "White",
-        value: 1,
-        colour: "#FEFEE4"
-    },
-    {
-        name: "Cream",
-        value: 2,
-        colour: "#F5F7C8"
-    },
-    {
-        name: "Yellow",
-        value: 3,
-        colour: "#E4E681"
-    },
-    {
-        name: "Pale green",
-        value: 4,
-        colour: "#B9BB70"
-    },
-    {
-        name: "Green",
-        value: 5,
-        colour: "#94A265"
-    },
-];
 
 export default function CountToThirty({ handleNext, setResults }) {
     const classes = useStyles();

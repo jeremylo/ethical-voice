@@ -1,7 +1,8 @@
 import { Card, CardHeader, Divider, IconButton, makeStyles, Tooltip, Typography } from "@material-ui/core";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import MicIcon from '@material-ui/icons/Mic';
-import { sputumColours } from "../Sputum";
+import sputumColours from "../../../data/sputumColours";
+
 
 const useStyles = makeStyles((theme) => ({
     resultsCard: {
