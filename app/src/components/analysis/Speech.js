@@ -106,7 +106,7 @@ class Speech extends Component {
             this.speech.startRecording(microphone);
         }).catch((error) => {
             console.error(error);
-            this.setState({ // unable to access mic ! TODO PUT A BETTER ERROR HERE
+            this.setState({ // unable to access mic ! TODO: PUT A BETTER ERROR HERE
                 isRecordButtonDisabled: true,
                 appStatus: STATUSES.ERROR,
             });
@@ -198,7 +198,7 @@ class Speech extends Component {
                         <Alert severity="error">
                             <AlertTitle>Error</AlertTitle>
                             Apologies - something went wrong while loading the speech recognition module.<br /><br />
-                            Reloading the app may fix your issue!
+                            Reloading the app may fix your issue! If not, please ensure you have given permission for this app to access your microphone.
                         </Alert><br /><br />
                     </>
                 )}
