@@ -24,7 +24,7 @@ export default function ResultsSubmitter({
     if (saving) {
         if (saved && status) {
             return <>
-                <Alert severity={SUBMISSION_MESSAGES[status].severity} style={{ margin: '2rem 0' }}>{SUBMISSION_MESSAGES[status].message}</Alert>
+                <Alert severity={SUBMISSION_MESSAGES[status].severity} style={{ marginBottom: '1rem' }}>{SUBMISSION_MESSAGES[status].message}</Alert>
                 {resultsCard}
             </>;
         }
