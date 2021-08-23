@@ -2,7 +2,7 @@ import { Box, Button, CircularProgress, Paper, Typography, withStyles } from '@m
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Component, default as React } from 'react';
-import { syllable } from 'syllable';
+import calculateResults from '../../services/speech/calculateResults';
 import downloadFile from '../../services/speech/downloadFile';
 import SpeechService from '../../services/speech/SpeechService';
 import Countdown from './speech/Countdown';
@@ -128,31 +128,18 @@ class Speech extends Component {
     }
 
     handleResults({ audioBlob, transcription }) {
-        const words = transcription.split(/\s+/).filter((w) => w.length > 0);
-
-        const durationInMinutes = this.props.duration / 60;
-        const wordsPerMinute = round2dp(words.length / durationInMinutes);
-        const syllables = words.map(syllable).reduce((a, b) => a + b, 0);
-        const syllablesPerMinute = round2dp(syllables / durationInMinutes);
-
         this.setAudio(audioBlob);
 
-        this.setResults({
-            syllableCount: syllables,
-            syllablesPerMinute,
-            wordCount: words.length,
-            wordsPerMinute,
-            transcription: words.join(" "),
-            duration: this.props.duration
-        });
+        const results = calculateResults(transcription, this.props.duration);
+        this.setResults(results);
 
         this.setState({
             isRecordButtonDisabled: false,
             appStatus: STATUSES.STANDBY,
             showNext: true,
             results: {
-                wordsPerMinute,
-                syllablesPerMinute,
+                wordsPerMinute: results.wordsPerMinute,
+                syllablesPerMinute: results.syllablesPerMinute,
             }
         });
     }
