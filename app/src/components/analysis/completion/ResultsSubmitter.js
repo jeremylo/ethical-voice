@@ -1,8 +1,15 @@
-import { Box, Button, Checkbox, CircularProgress, FormControlLabel, Typography } from "@material-ui/core";
+import { Box, Button, Checkbox, CircularProgress, FormControlLabel, makeStyles, Typography } from "@material-ui/core";
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { Alert } from "@material-ui/lab";
 import { useState } from "react";
 import { SUBMISSION_MESSAGES } from "../submission_statuses";
+
+
+const useStyles = makeStyles({
+    statusAlert: {
+        marginBottom: '1rem'
+    }
+});
 
 
 export default function ResultsSubmitter({
@@ -12,6 +19,7 @@ export default function ResultsSubmitter({
     submissionButtonText,
     submitAudioText
 }) {
+    const classes = useStyles();
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
     const [submitAudio, setSubmitAudio] = useState(true);
@@ -24,7 +32,7 @@ export default function ResultsSubmitter({
     if (saving) {
         if (saved && status) {
             return <>
-                <Alert severity={SUBMISSION_MESSAGES[status].severity} style={{ marginBottom: '1rem' }}>{SUBMISSION_MESSAGES[status].message}</Alert>
+                <Alert severity={SUBMISSION_MESSAGES[status].severity} className={classes.statusAlert}>{SUBMISSION_MESSAGES[status].message}</Alert>
                 {resultsCard}
             </>;
         }
