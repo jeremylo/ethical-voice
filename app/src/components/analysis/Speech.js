@@ -3,7 +3,7 @@ import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Component, default as React } from 'react';
 import { syllable } from 'syllable';
-import { trackedDownload } from '../../services/speech/kaldi/utils/downloadModel';
+import downloadFile from '../../services/speech/downloadFile';
 import SpeechService from '../../services/speech/SpeechService';
 import Countdown from './speech/Countdown';
 import LabelledLinearProgress from './speech/LabelledLinearProgress';
@@ -53,7 +53,7 @@ class Speech extends Component {
         const downloadModel = (saveModel) => {
             return new Promise((resolve, reject) => {
                 this.setState({ appStatus: STATUSES.DOWNLOADING });
-                trackedDownload('api/model', (value) => {
+                downloadFile('api/model', (value) => {
                     this.setState({ downloadProgress: value * 100 });
                 }).then((zip) => {
                     saveModel(zip)
