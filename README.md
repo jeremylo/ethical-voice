@@ -64,6 +64,11 @@ All of the different components of the project have been dockerised, spread acro
 
 Scripts need to be executed as root (or with equivalent permissions) due to a requirement of the `docker-compose` command.
 
+If a script fails to run due to a permission error, set it to the correct permission using the following command (replacing `SCRIPT_TO_UPDATE` with the filename of the script):
+```bash
+$ chmod +x scripts/SCRIPT_TO_UPDATE
+```
+
 #### Building & launching for the first time
 
 To build all the containers necessary for production use and then immediately launch them in detached mode, enter the following command:
