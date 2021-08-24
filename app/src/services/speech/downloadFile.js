@@ -2,6 +2,8 @@
  * Downloads the file at the given URL, calling progressCallback every
  * time a chunk is successfully downloaded.
  *
+ * Adapted from the downloadModel() utility function in kaldi-wasm.
+ *
  * @param   {string}    url               The file URL
  * @param   {function}  progressCallback  The function called with the current
  *                                        download completion percentage.
