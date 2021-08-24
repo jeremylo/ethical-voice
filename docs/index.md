@@ -1,4 +1,6 @@
 layout: page
+title: My Data Documentation
+
 
 ## My Data Documentation
 
