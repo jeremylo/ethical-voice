@@ -216,7 +216,6 @@ Wherever `PLEASE_RANDOMISE` is listed above, please replace the string with a ra
 
 An example production `.env` file is `.env.example.production`. Similarly, an example development `.env` file is `.env.example.development`. Copy the contents of either of these files as best suits your circumstances into `.env` and configure as necessary before you attempt to launch or deploy anything.
 
-
 ### Dashboard development .env file
 
 In development, it may be useful to update the `dashboard/.env` configuration file.
@@ -257,3 +256,48 @@ In order for Redis to work properly, a `redis/users.acl` must be set properly by
 user apiworker on +@all -DEBUG allkeys >PLEASE_RANDOMISE
 ```
 
+
+## Acknowledgements
+
+Special thanks to Mathieu Hu, Laurent Pierron, Emmanuel Vincent and Denis Jouvet at the _Institut national de recherche en sciences et technologies du numérique (Inria)_ for their work on using on-device Kaldi speech recognition models in web assembly, upon which this project builds. Their GitLab repository is available at the following link: [https://gitlab.inria.fr/kaldi.web/kaldi-wasm](https://gitlab.inria.fr/kaldi.web/kaldi-wasm).
+
+More information on their work is included in their conference paper, found at the following link: [https://hal.archives-ouvertes.fr/hal-02910876/document](https://hal.archives-ouvertes.fr/hal-02910876/document).
+
+> Mathieu Hu, Laurent Pierron, Emmanuel Vincent, Denis Jouvet. Kaldi-web: An installation-free,
+> on-device speech recognition system. INTERSPEECH 2020 Show & Tell, Oct 2020, Shanghai, China.
+> ffhal-02910876f
+
+The Kaldi speech model used in this project is the English model pruned with [KenML](https://kheafield.com/code/kenlm/) used in the `kaldi-wasm` sample project, which was based on the `kaldi-generic-en-tdnn_250` model from the [Zamia Speech project (gooofy/zamia-speech)](https://github.com/gooofy/zamia-speech).
+
+### Packages
+
+#### API
+
+| Package | License |
+|---------|---------|
+| @sendgrid/mail | MIT |
+| bcrypt | MIT |
+| connect-redis | MIT |
+| cookie-parser | MIT |
+| dotenv | BSD-2-Clause |
+| express | MIT |
+| express-session | MIT |
+| jsonwebtoken | MIT |
+| mariadb | LGPL-2.1-or-later |
+| multer | MIT |
+| passport-local | MIT |
+| passport-remember-me | MIT |
+| redis | MIT |
+| *Development dependencies* |  |
+| jest | MIT |
+| superagent | MIT |
+| supertest | MIT |
+
+
+
+
+
+
+## License
+
+The files in this repository are licensed under the GNU Affero General Public License (version 3). See the full license in the `LICENSE` file.
