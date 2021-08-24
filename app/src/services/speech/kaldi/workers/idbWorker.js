@@ -58,9 +58,7 @@ function getModel(modelName) {
   return new Promise((resolve, reject) => {
     getModelFromDB(modelName)
       .then(resolve)
-      .catch((e) => {
-        reject(e);
-      });
+      .catch(reject);
   });
 }
 
