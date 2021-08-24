@@ -23,11 +23,11 @@ The focus of this project has been to devise a way to gather the following metri
   - 5 - green
 - **wellbeing**: a self-reported wellbeing rating from 1 (low) to 10 (high)
 - **MRC dyspnoea score**: a self-reported measure using the MRC dyspnoea scale
-  - 1 -- "I am not troubled by breathlessness, except on strenuous exertion."
-  - 2 -- "I am short of breath when hurrying on the level or walking up a slight hill."
-  - 3 -- "I have to walk slower than most people on the level and stop after a mile or so (or after 15 minutes) on the level at my own pace."
-  - 4 -- "I have to stop for breath after walking about 100 yards (or after a few minutes) on the level."
-  - 5 -- "I am too breathless to leave the house, or breathless after undressing."
+  - 1 - "I am not troubled by breathlessness, except on strenuous exertion."
+  - 2 - "I am short of breath when hurrying on the level or walking up a slight hill."
+  - 3 - "I have to walk slower than most people on the level and stop after a mile or so (or after 15 minutes) on the level at my own pace."
+  - 4 - "I have to stop for breath after walking about 100 yards (or after a few minutes) on the level."
+  - 5 - "I am too breathless to leave the house, or breathless after undressing."
 
 **Note**: for the sake of this project, _syllable rate_ has been taken as a better measure of the rate someone is speaking than _word rate_ and has been used as the basis of visualising _speech rate_ and its deviations over time. The phrase "thoroughly thoroughly thoroughly" takes considerably more effort to say than the phrase "two two two", but while the former is 9 syllables and the latter only 3, they are both contain precisely 3 words.
 
