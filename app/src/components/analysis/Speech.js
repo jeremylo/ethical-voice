@@ -26,8 +26,26 @@ const STATUSES = {
     UNINITIALISED: 'uninitialised',
 };
 
+/**
+ * The Speech component records and analyses speech said over the course
+ * of the duration selected on the previous screen.
+ *
+ * It forms one of the steps of the multi-step audio submission form.
+ */
 class Speech extends Component {
 
+    /**
+     * Initialises the state of the Speech component.
+     *
+     * Takes the following props:
+     * - handleNext: a function which moves onto the next form step when called;
+     * - setResults(object): a JSON object of metadata to be included in the submission;
+     * - setAudio(audio): sets the audio BLOB of the submission;
+     * - duration: the time in seconds to speak for; and
+     * - (children): displayed above the timer
+     *
+     * @param   {object}  props  React props.
+     */
     constructor(props) {
         super(props);
 
@@ -48,6 +66,11 @@ class Speech extends Component {
         };
     }
 
+    /**
+     * Downloads the model from the API.
+     *
+     * @return  {Uint8Array}  The downloaded Kaldi model ZIP file.
+     */
     downloadModel = () => {
         return new Promise((resolve, reject) => {
             this.setState({ appStatus: STATUSES.DOWNLOADING });
@@ -60,6 +83,11 @@ class Speech extends Component {
         });
     }
 
+    /**
+     * Setup to be performed as the component mounts.
+     *
+     * @return  {void}
+     */
     componentDidMount() {
         try {
             this.setState({
@@ -79,7 +107,6 @@ class Speech extends Component {
                     });
                 })
                 .catch((e) => {
-                    // console.error(e);
                     this.setState({
                         appStatus: STATUSES.ERROR,
                         isRecordButtonDisabled: true,
@@ -93,10 +120,22 @@ class Speech extends Component {
         }
     }
 
+    /**
+     * Tear-down to be performed as the component unmounts.
+     *
+     * @return  {void}
+     */
     componentWillUnmount() {
         this.speech.terminate();
     }
 
+    /**
+     * Requests permission to use the user's microphone and then
+     * initiates recording from the stream created until stopRecording()
+     * is called.
+     *
+     * @return  {void}
+     */
     startRecording() {
         navigator.mediaDevices.getUserMedia({ audio: true })
             .then((microphone) => {
@@ -104,7 +143,6 @@ class Speech extends Component {
                 this.speech.startRecording(microphone);
             })
             .catch((error) => {
-                console.error(error);
                 this.setState({
                     isRecordButtonDisabled: true,
                     appStatus: STATUSES.ERROR_PERMISSION_DENIED,
@@ -112,6 +150,12 @@ class Speech extends Component {
             });
     }
 
+    /**
+     * Stops recording and retrieves the audio so that
+     * results may be calculated therefrom.
+     *
+     * @return  {void}
+     */
     stopRecording() {
         if (this.state.isRecordButtonDisabled) return;
 
@@ -128,6 +172,15 @@ class Speech extends Component {
             });
     }
 
+    /**
+     * Calculates results and adds them to the submission along with
+     * the audio for the submission.
+     *
+     * @param   {Blob}    audioBlob      A BLOB of the audio recorded.
+     * @param   {string}  transcription  The transcribed text of the audio.
+     *
+     * @return  {void}
+     */
     handleResults({ audioBlob, transcription }) {
         this.setAudio(audioBlob);
 
@@ -145,6 +198,9 @@ class Speech extends Component {
         });
     }
 
+    /**
+     * Renders the UI elements.
+     */
     render() {
         const { appStatus, downloadProgress, isRecordButtonDisabled } = this.state;
         const { classes } = this.props;
