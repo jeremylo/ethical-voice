@@ -3,7 +3,7 @@ import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Component, default as React } from 'react';
 import calculateResults from '../../services/speech/calculateResults';
-import downloadFile from '../../services/speech/downloadFile';
+import downloadModel from '../../services/speech/downloadModel';
 import SpeechService from '../../services/speech/SpeechService';
 import Countdown from './speech/Countdown';
 import LabelledLinearProgress from './speech/LabelledLinearProgress';
@@ -71,10 +71,10 @@ class Speech extends Component {
      *
      * @return  {Uint8Array}  The downloaded Kaldi model ZIP file.
      */
-    downloadModel = () => {
+    download = () => {
         return new Promise((resolve, reject) => {
             this.setState({ appStatus: STATUSES.DOWNLOADING });
-            downloadFile('api/model', (value) => {
+            downloadModel('api/model', (value) => {
                 this.setState({ downloadProgress: value * 100 });
             }).then((zip) => {
                 this.setState({ appStatus: STATUSES.LOADING });
@@ -99,7 +99,7 @@ class Speech extends Component {
                 throw new Error("Unable to access any media devices.");
             }
 
-            this.speech.setup(this.downloadModel)
+            this.speech.setup(this.download)
                 .then(() => {
                     this.setState({
                         appStatus: STATUSES.STANDBY,

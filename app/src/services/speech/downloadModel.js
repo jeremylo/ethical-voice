@@ -10,7 +10,7 @@
  *
  * @return  {Uint8Array}                  An array of the file downloaded.
  */
-export default async function downloadFile(url, progressCallback = (_ => false)) {
+export default async function downloadModel(url, progressCallback = (_ => false)) {
     const response = await fetch(url);
 
     if (response.headers.get('Content-Type') !== 'application/zip') {
