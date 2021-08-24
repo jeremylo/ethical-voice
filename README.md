@@ -109,6 +109,20 @@ $ docker-compose -f docker-compose.yml -f docker-compose.production.yml stop
 Alternatively, run the following script as root:
 ```bash
 $ ./scripts/stop
+```
+
+### Using Docker in development
+
+For the app, dashboard and their corresponding APIs, it would be preferable to use either the built-in webpack development server or nodemon, which run when `yarn start` is run from their respective directories (even if a configuration to do so has been provided).
+
+Nevertheless, it is useful to use Docker for MariaDB, Redis and Adminer (for inspecting the database during development). You can start these services with the following commands:
+```bash
+$ docker-compose up -d db
+$ docker-compose up -d redis
+$ docker-compose up -d adminer
+```
+
+
 
 ## Configuration
 
