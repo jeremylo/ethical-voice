@@ -35,7 +35,7 @@ The focus of this project has been to devise a way to gather the following metri
 
 Further information beyond this `README` on the project may be found at the following link: [https://jeremylo.github.io/ethical-voice/](https://jeremylo.github.io/ethical-voice/)
 
-### System architecture & Docker Compose structure
+### System architecture
 
 The project is formed of the following main components:
 - a React-based progressive web app for patients ("the app");
@@ -48,6 +48,8 @@ The project is formed of the following main components:
 
 ![system architecture](./docs/system-architecture.png)
 
+## Using Docker
+
 All of the different components of the project have been dockerised, spread across several containers:
 - `app`: this container outputs an optimised production build of the app into a volume when it is built and ceases to run thereafter
 - `api`: this container installs the necessary node modules and then runs the app API
@@ -58,6 +60,50 @@ All of the different components of the project have been dockerised, spread acro
 - `caddy`: this container runs the Caddy web and reverse-proxy server, serving static files from the built app and dashboard volumes on two separate domains and reverse-proxying /api/* requests to their respective APIs
 - `adminer`: optionally in development, this container may be started running the database management web tool Adminer
 
+### Using Docker in production
+
+Scripts need to be executed as root (or with equivalent permissions) due to a requirement of the `docker-compose` command.
+
+#### Building & launching for the first time
+
+To build all the containers necessary for production use and then immediately launch them in detached mode, enter the following command:
+```bash
+$ docker-compose -f docker-compose.yml -f docker-compose.production.yml up --build -d
+```
+
+Alternatively, run the following script as root:
+```bash
+$ ./scripts/first-build
+```
+
+#### Rebuilding and relaunching
+
+To rebuild and relaunch all the containers (say, following an update to the code), enter the following commands in turn:
+```bash
+$ docker-compose -f docker-compose.yml -f docker-compose.production.yml stop
+$ docker-compose -f docker-compose.yml -f docker-compose.production.yml down --rmi local
+$ docker volume rm ethical-voice_app-build
+$ docker volume rm ethical-voice_dashboard-build
+$ docker-compose -f docker-compose.yml -f docker-compose.production.yml up --build -d
+```
+
+Removing the volumes is important, otherwise they will not update properly when the containers are rebuilt.
+
+Alternatively, run the following script as root:
+```bash
+$ ./scripts/rebuild
+```
+
+#### Stopping
+
+To stop all containers, run the following command:
+```bash
+$ docker-compose -f docker-compose.yml -f docker-compose.production.yml stop
+```
+
+Alternatively, run the following script as root:
+```bash
+$ ./scripts/stop
 
 ## Configuration
 
