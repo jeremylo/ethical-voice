@@ -6,10 +6,10 @@
   "type": "module",
   "scripts": {
     "start": "nodemon -r dotenv/config index.js dotenv_config_path=../.env",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Jeremy Lo Ying Ping",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "SEE LICENSE IN ../LICENSE",
   "dependencies": {
     "@sendgrid/mail": "^7.4.5",
     "bcrypt": "^5.0.1",
@@ -24,5 +24,10 @@
     "passport-local": "^1.0.0",
     "passport-remember-me": "^0.0.1",
     "redis": "^3.1.2"
+  },
+  "devDependencies": {
+    "jest": "^27.0.6",
+    "superagent": "^6.1.0",
+    "supertest": "^6.1.6"
   }
 }
