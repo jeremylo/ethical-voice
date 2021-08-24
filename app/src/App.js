@@ -1,21 +1,23 @@
 import { Box, CircularProgress, createTheme, makeStyles, ThemeProvider, Typography } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors';
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./auth/PrivateRoute";
 import PublicOnlyRoute from './auth/PublicOnlyRoute';
 import { AuthProvider, useAuth } from './auth/use-auth';
-import Activate from './components/Activate';
-import Analyse from './components/Analyse';
-import Error404 from './components/Error404';
-import ForgotPassword from './components/ForgotPassword';
-import Home from './components/Home';
 import Layout from './components/Layout';
-import Login from './components/Login';
-import Register from './components/Register';
-import ResetPassword from './components/ResetPassword';
-import Results from './components/Results';
-import Settings from './components/Settings';
+
+
+const Activate = lazy(() => import('./components/Activate'));
+const Analyse = lazy(() => import('./components/Analyse'));
+const Error404 = lazy(() => import('./components/Error404'));
+const ForgotPassword = lazy(() => import('./components/ForgotPassword'));
+const Home = lazy(() => import('./components/Home'));
+const Login = lazy(() => import('./components/Login'));
+const Register = lazy(() => import('./components/Register'));
+const ResetPassword = lazy(() => import('./components/ResetPassword'));
+const Results = lazy(() => import('./components/Results'));
+const Settings = lazy(() => import('./components/Settings'));
 
 
 const theme = createTheme({
@@ -94,7 +96,9 @@ export default function App() {
   return <div className="App">
     <ThemeProvider theme={theme}>
       <AuthProvider>
-        <Routes />
+        <Suspense fallback={Loading()}>
+          <Routes />
+        </Suspense>
       </AuthProvider>
     </ThemeProvider>
   </div>;
