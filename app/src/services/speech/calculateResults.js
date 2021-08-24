@@ -2,6 +2,14 @@ import { syllable } from 'syllable';
 
 const round2dp = (x) => Math.round((x + Number.EPSILON) * 100) / 100;
 
+/**
+ * Calculates speech results.
+ *
+ * @param   {string}  transcription  The transcribed speech.
+ * @param   {number}  duration       The speech duration.
+ *
+ * @return  {object}                 The calculated results.
+ */
 export default function calculateResults(transcription, duration) {
     const words = transcription.split(/\s+/).filter((w) => w.length > 0);
 
