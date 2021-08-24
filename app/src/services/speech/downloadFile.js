@@ -1,5 +1,5 @@
 /**
- * Downloads the file at the given URL, calling progressCallback every
+ * Downloads the Kalid model at the given URL, calling progressCallback every
  * time a chunk is successfully downloaded.
  *
  * Adapted from the downloadModel() utility function in kaldi-wasm.
@@ -12,6 +12,11 @@
  */
 export default async function downloadFile(url, progressCallback = (_ => false)) {
     const response = await fetch(url);
+
+    if (response.headers.get('Content-Type') !== 'application/zip') {
+        throw new Error("Incorrect model MIME type.");
+    }
+
     const reader = response.body.getReader();
     const contentLength = +response.headers.get('Content-Length');
     const chunks = new Uint8Array(contentLength);
