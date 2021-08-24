@@ -60,7 +60,11 @@ All of the different components of the project have been dockerised, spread acro
 - `caddy`: this container runs the Caddy web and reverse-proxy server, serving static files from the built app and dashboard volumes on two separate domains and reverse-proxying /api/* requests to their respective APIs
 - `adminer`: optionally in development, this container may be started running the database management web tool Adminer
 
-### Using Docker in production
+Before the Docker Compose setup is used, please read through the configuration options and provide your own secrets where necessary.
+
+### Deployment using Docker in production
+
+Ensure that both Docker and Docker Compose are installed before proceeding with this section.
 
 Scripts need to be executed as root (or with equivalent permissions) due to a requirement of the `docker-compose` command.
 
@@ -122,6 +126,38 @@ $ docker-compose up -d redis
 $ docker-compose up -d adminer
 ```
 
+## Development
+
+Ensure you have node.js, yarn and Docker installed before you proceed.
+
+After cloning the repository, run `yarn` from each of the following directories to install all of the required packages:
+- api
+- app
+- dashboard
+- dashboard-api
+
+Then, ensure that you have properly configured everything as detailed under the 'configuration' section below.
+
+Once that is done, you may start the MariaDB, Redis and optionally Adminer servers.
+
+Finally, for each of the app, dashboard, app API and dashboard API, enter their respective directories and run the following command there:
+```bash
+$ yarn start
+```
+
+You may now continue development as you wish. Any changes you make should automatically update in your browser or automatically restart the node.js server as the case may be.
+
+## Deployment with GitHub Actions
+
+A GitHub Action located at `.github/workflows/deploy.yml` has been provided, which will run the commands in `scripts/rebuild` when triggered (except using sudo).
+
+Once docker has been installed, a deployment key has been added to the repository, and `git` properly set up, the `deploy` action may be used to more easily redeploy any changes from the GitHub website.
+
+The GitHub Action expects the following repository secrets to be set:
+- `HOST`: the server host
+- `USERNAME`: the SSH username
+- `PASSWORD`: the SSH password
+- `PORT`: the SSH port
 
 
 ## Configuration
@@ -176,6 +212,9 @@ Wherever `PLEASE_RANDOMISE` is listed above, please replace the string with a ra
 - `REDIS_PORT`: the port on which the redis server is running
 - `REDIS_PASSWORD`: the password the app and dashboard redis user should use
 - `SENDGRID_API_KEY`: your own SendGrid API key required to send email
+
+
+An example production `.env` file is `.env.example.production`. Similarly, an example development `.env` file is `.env.example.development`. Copy the contents of either of these files as best suits your circumstances into `.env` and configure as necessary before you attempt to launch or deploy anything.
 
 
 ### Dashboard development .env file
