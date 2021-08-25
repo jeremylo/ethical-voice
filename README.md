@@ -147,6 +147,13 @@ $ yarn start
 
 You may now continue development as you wish. Any changes you make should automatically update in your browser or automatically restart the node.js server as the case may be.
 
+## Testing
+
+To run the API or dashboard API tests, run the following command from their respective directories:
+```bash
+$ yarn run test
+```
+
 ## Deployment with GitHub Actions
 
 A GitHub Action located at `.github/workflows/deploy.yml` has been provided, which will run the commands in `scripts/rebuild` when triggered (except using sudo).
@@ -368,6 +375,10 @@ The Kaldi speech model used in this project is the English model pruned with [Ke
 | mariadb | LGPL-2.1-or-later |
 | passport-local | MIT |
 | redis | MIT |
+| *Development dependencies* |  |
+| jest | MIT |
+| superagent | MIT |
+| supertest | MIT |
 
 
 ## License
