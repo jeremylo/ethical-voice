@@ -294,8 +294,22 @@ The Kaldi speech model used in this project is the English model pruned with [Ke
 | supertest | MIT |
 
 
+#### Dashboard API
 
-
+| Package | License |
+|---------|---------|
+| @sendgrid/mail | MIT |
+| adm-zip | MIT |
+| bcrypt | MIT |
+| connect-redis | MIT |
+| cookie-parser | MIT |
+| dotenv | BSD-2-Clause |
+| express | MIT |
+| express-session | MIT |
+| jsonwebtoken | MIT |
+| mariadb | LGPL-2.1-or-later |
+| passport-local | MIT |
+| redis | MIT |
 
 
 ## License
