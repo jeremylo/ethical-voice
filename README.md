@@ -348,6 +348,9 @@ The Kaldi speech model used in this project is the English model pruned with [Ke
 | react-dom | MIT |
 | react-router-dom | MIT |
 | react-scripts | MIT |
+| simple-statistics | ISC |
+| victory | MIT |
+| web-vitals | Apache-2.0 |
 
 #### Dashboard API
 
