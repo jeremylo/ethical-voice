@@ -18,6 +18,17 @@ The hope is that this could provide a more ethical framework for respiratory dis
 
 The app is currently live at [https://mydata.jezz.me/](https://mydata.jezz.me/). There is an anonymous login mode whereby anyone can test out the core functionality of the progressive web app without having been referred by a senior responsible officer of the demo system.
 
+## Research
+
+### Measures of fluency
+
+> **Terminology**
+> *syllable*: an organisational unit of a sequence of speech sounds, from which words are formed, e.g. the word 'computer' is formed from three syllables (`com-pu-ter`).
+> *pause*: a silent pause in someone's speech
+> *duration*: the duration for which someone speaks
+
+
+
 ## System architecture design
 
 The project is formed of the following main components:
