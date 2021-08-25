@@ -271,7 +271,7 @@ The Kaldi speech model used in this project is the English model pruned with [Ke
 
 ### Package dependencies
 
-### App
+#### App
 
 | NPM package | License |
 |---------|---------|
@@ -331,6 +331,23 @@ The Kaldi speech model used in this project is the English model pruned with [Ke
 | superagent | MIT |
 | supertest | MIT |
 
+#### Dashboard
+
+| NPM package | License |
+|---------|---------|
+| @material-ui/core | MIT |
+| @material-ui/data-grid | MIT |
+| @material-ui/icons | MIT |
+| @material-ui/lab | MIT |
+| @material-ui/styles | MIT |
+| @testing-library/jest-dom | MIT |
+| @testing-library/react | MIT |
+| @testing-library/user-event | MIT |
+| http-proxy-middleware | MIT |
+| react | MIT |
+| react-dom | MIT |
+| react-router-dom | MIT |
+| react-scripts | MIT |
 
 #### Dashboard API
 
