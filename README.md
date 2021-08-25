@@ -269,11 +269,49 @@ More information on their work is included in their conference paper, found at t
 
 The Kaldi speech model used in this project is the English model pruned with [KenML](https://kheafield.com/code/kenlm/) used in the `kaldi-wasm` sample project, which was based on the `kaldi-generic-en-tdnn_250` model from the [Zamia Speech project (gooofy/zamia-speech)](https://github.com/gooofy/zamia-speech).
 
-### Packages
+### Package dependencies
+
+### App
+
+| NPM package | License |
+|---------|---------|
+| @craco/craco | Apache-2.0 |
+| @material-ui/core | MIT |
+| @material-ui/icons | MIT |
+| @material-ui/lab | MIT |
+| @testing-library/jest-dom | MIT |
+| @testing-library/react | MIT |
+| @testing-library/user-event | MIT |
+| file-loader | MIT |
+| http-proxy-middleware | MIT |
+| idb | ISC |
+| jszip | MIT or GPL-3.0 |
+| react | MIT |
+| react-dom | MIT |
+| react-router-dom | MIT |
+| react-scripts | MIT |
+| react-use-precision-timer | MIT |
+| recordrtc | MIT |
+| syllable | MIT |
+| victory | MIT |
+| web-vitals | Apache-2.0 |
+| workbox-background-sync | MIT |
+| workbox-broadcast-update | MIT |
+| workbox-cacheable-response | MIT |
+| workbox-core | MIT |
+| workbox-expiration | MIT |
+| workbox-google-analytics | MIT |
+| workbox-navigation-preload | MIT |
+| workbox-precaching | MIT |
+| workbox-range-requests | MIT |
+| workbox-routing | MIT |
+| workbox-strategies | MIT |
+| workbox-streams | MIT |
+| worker-loader | MIT |
 
 #### API
 
-| Package | License |
+| NPM package | License |
 |---------|---------|
 | @sendgrid/mail | MIT |
 | bcrypt | MIT |
