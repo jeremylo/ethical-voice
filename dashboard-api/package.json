@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon -r dotenv/config index.js dotenv_config_path=../.env",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.4.6",
@@ -25,5 +25,10 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "redis": "^3.1.2"
+  },
+  "devDependencies": {
+    "jest": "^27.0.6",
+    "superagent": "^6.1.0",
+    "supertest": "^6.1.6"
   }
 }
