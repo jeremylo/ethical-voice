@@ -41,7 +41,7 @@ There are several different aspects to fluency [1]:
 
 For this project, I am most concerned with utterance fluency (although there is certainly some overlap between the categories).
 
-*Note*: it is generally preferable to consider _syllables_ rather than whole _words_ when trying to evaluate how fast someone is speaking. As an example, the phrase "thoroughly thoroughly thoroughly" takes considerably more effort to say than the phrase "two two two", but while the former is 9 syllables and the latter only 3, they are both contain precisely 3 words.
+**Note**: it is generally preferable to consider _syllables_ rather than whole _words_ when trying to evaluate how fast someone is speaking. As an example, the phrase "thoroughly thoroughly thoroughly" takes considerably more effort to say than the phrase "two two two", but while the former is 9 syllables and the latter only 3, they are both contain precisely 3 words.
 
 In their investigation of fluency in long-term second-language speakers of English, Lahmann, Steinkrauss and Schmid used the speech analysis software Praat to calculate the following measures [2] of **speed fluency** (related to the speed at which one speaks):
 - **speech rate**: number of syllables divided by the duration
