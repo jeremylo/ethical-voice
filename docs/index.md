@@ -205,13 +205,19 @@ Similarly, where appropriate, values repesenting three cumulative standard devia
 
 This could potentially provide a foundation for future, more explicit nudging behaviour from the app.
 
+The following graphs are from my own local testing (explaining the haphazard data):
+
 ![time series graphs](./images/time-series-graphs.png)
 
 ### Syllable rate comparison graphs
 
+While more in-depth data analysis would want to be performed outside the dashboard using the JSON data exported therefrom, I thought it would be nonetheless useful to provide visualisations of the various metadata plotted against syllable rate, along with a basic linear regression displayed over the points, in the dashboard to more easily determine how long the variables correlate with each other.
+
 ![comparison graphs](./images/comparison-graphs.png)
 
 ### Metadata distribution graphs
+
+In a similar vein, I also produce histograms showing the distribution of the numeric metadata produced, along with their corresponding box plots to aid data analysis.
 
 ![metadata distribution graphs](./images/distribution-graphs.png)
 
