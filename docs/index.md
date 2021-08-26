@@ -243,6 +243,7 @@ I have thoroughly enjoyed working on this project and while my student research 
   - While UK postcode area data is collected, it would be nice if this data could be visualised geographically.
   - More analysis could be performed locally on the audio data, for example, perhaps the [voice activity detector from WebRTC](https://github.com/mozilla/webrtcvad_js) or a library such as [hark](https://www.npmjs.com/package/hark) could be used to gather a measure of phonation time.
   - Potentially, more self-reported health data could be gathered if deemed appropriate, or the self-reported data in question could be configurable in the dashboard.
+  - Other statistics could be experimented with, for example using the [median and median absolute deviation method (MAD)](https://docs.oracle.com/cd/E17236_01/epm.1112/cb_statistical/frameset.htm?ch07s02s10s01.html) for establishing a ground truth for syllable rate instead of the mean and standard deviation method.
 - **Additional features**
   - Exporting data and audio from the app
   - Restoring data (and audio?) from the server
