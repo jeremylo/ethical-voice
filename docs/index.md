@@ -3,7 +3,6 @@ layout: page
 title: My Data Documentation
 ---
 
-
 # My Data: a breathlessness data collection and visualisation project
 ## Project background
 
@@ -193,7 +192,7 @@ This format was designed to be flexible enough so that new analysis measures or 
 
 ### Time series plots
 
-Patients are shown a series of graphs for each of the metadata points gathered (e.g. syllable rate, sputum colour, MRC dyspnoea score and wellbeing), of which a selection is shown below. These graphs are also visible to SROs where patients have shared the submissions.
+Patients are shown a series of zoomable graphs for each of the metadata points gathered (e.g. syllable rate, sputum colour, MRC dyspnoea score and wellbeing), of which a selection is shown below. These graphs are also visible to SROs where patients have shared the submissions.
 
 The graphs show a scatter plot of the metadata values with a solid grey line, representing the ['curve bundle'](https://github.com/d3/d3-shape#curveBundle) interpolation option in d3, which produces a straightened cubic basis spline.
 
@@ -211,13 +210,13 @@ The following graphs are from my own local testing (explaining the haphazard dat
 
 ### Syllable rate comparison graphs
 
-While more in-depth data analysis would want to be performed outside the dashboard using the JSON data exported therefrom, I thought it would be nonetheless useful to provide visualisations of the various metadata plotted against syllable rate, along with a basic linear regression displayed over the points, in the dashboard to more easily determine how long the variables correlate with each other.
+While more in-depth data analysis would want to be performed outside the dashboard using the JSON data exported therefrom, I thought it would be nonetheless useful to provide zoomable visualisations of the various metadata plotted against syllable rate, along with a basic linear regression displayed over the points, in the dashboard to more easily determine how long the variables correlate with each other.
 
 ![comparison graphs](./images/comparison-graphs.png)
 
 ### Metadata distribution graphs
 
-In a similar vein, I also produce histograms showing the distribution of the numeric metadata produced, along with their corresponding box plots to aid data analysis.
+In a similar vein, I also produce zoomable histograms showing the distribution of the numeric metadata produced, along with their corresponding box plots to aid data analysis.
 
 ![metadata distribution graphs](./images/distribution-graphs.png)
 
