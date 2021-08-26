@@ -189,3 +189,22 @@ The first grouping of entries above contains submission and patient data common 
 
 This format was designed to be flexible enough so that new analysis measures or more self-reported parameters may be more easily added in the future.
 
+## Visualisation of results
+
+### Time series plots
+
+
+![syllable rate time series](./images/time-series/syllable-rate.png)
+![word rate time series](./images/time-series/word-rate.png)
+![sputum colour time series](./images/time-series/sputum.png)
+![wellbeing time series](./images/time-series/wellbeing.png)
+![dyspnoea time series](./images/time-series/dyspnoea.png)
+
+### Syllable rate comparison graphs
+
+![comparison graphs](./images/comparison-graphs.png)
+
+### Metadata distribution graphs
+
+![metadata distribution graphs](./images/distribution-graphs.png)
+
