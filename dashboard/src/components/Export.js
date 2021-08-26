@@ -30,7 +30,7 @@ export default function Export() {
         </Typography>
         <Typography variant="h6">Example</Typography>
         <Typography>
-            As an example, an exported zip file of a single submission may contain an <code>submission_1.wav</code> audio file and a <code>submissions.json</code> file with the following contents:
+            As an example, an exported zip file of a single submission may contain a <code>submission_1.wav</code> audio file and a <code>submissions.json</code> file with the following contents:
             <br />
             <pre style={{ marginLeft: '4rem' }}><code>
                 [ {'{'} <br />
