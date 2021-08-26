@@ -62,7 +62,7 @@ Furthermore, there are also composite measures that combine elements of all thre
 - **Mean length of runs**: the mean number of syllables between pauses
 - **Phonation time ratio**: the phonation time as a proportion of the total duration
 
-*Side-note*: in dialogues, measures such as the number of turns, pauses between turns and interruptions, as well as conversational overlap may be studied as well!
+**Side-note**: in dialogues, measures such as the number of turns, pauses between turns and interruptions, as well as conversational overlap may be studied as well!
 
 For my project, considering the limitations of the low-power mobile devices upon which my progressive web app is expected to run, my priority will be to measure speech rate (number of syllables divided by the duration); however, I would love to see articulation rate and a measure of breakdown fluency, such as mean pause rate as defined above, implemented in the future!
 
