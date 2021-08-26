@@ -78,7 +78,49 @@ For my project, considering the limitations of the low-power mobile devices upon
 
 [4] N. H. d. Jong, “LANGSNAP Workshop: Analysis of fluency,” 10 April 2013. [Online]. Available: [http://langsnap.soton.ac.uk/linked_files/LANGSNAP_dejong.pdf](http://langsnap.soton.ac.uk/linked_files/LANGSNAP_dejong.pdf). [Accessed 24 August 2021].
 
+### Comparison of on-device speech recognition models
 
+As part of my project, I considered several different speech recognition libraries, among which were the following:
+- [PocketSphinx.js](https://syl22-00.github.io/pocketsphinx.js/): a JavaScript version of just the speech recognition capabilities of PocketSphinx, a lighter version of the popular CMU Sphinx toolkit for mobile devices
+- [Vosk](https://github.com/alphacep/vosk-api): a successor in many ways to PocketSphinx (non-JS) that for the most part uses Kaldi under the hood
+- [Mozilla DeepSpeech for Flutter](https://github.com/ManuSekhon/mozilla-deepspeech-flutter): I have used Mozilla DeepSpeech in a previous project ([IBM FISE v2 AskBob](http://students.cs.ucl.ac.uk/2020/group39/)) and discovered while there is not a version that works in-browser, there is a Flutter binding!
+- [Kaldi](https://github.com/kaldi-asr/kaldi): a popular speech recognition toolkit written in C++
+  - [Kaldi.js](https://github.com/adrianbg/kaldi.js): a version of Kaldi modified to compile to web assembly (unfortunately, the project now seems abandoned)
+  - [kaldi-wasm](https://gitlab.inria.fr/kaldi.web/kaldi-wasm): an active project building Kaldi to web assembly that was recently demoed at [INTERSPEECH 2020](https://hal.archives-ouvertes.fr/hal-02910876/document)
+
+#### PocketSphinx.js
+
+To summarise my thoughts, based off the performance of the pre-trained model of _PocketSphinx.js_ used in the demo, while the provided model was lightweight and fairly decent at spotting single, specific keywords, it was not sufficiently accurate -- even just to count the digits zero to nine as in the demo -- for my use case.
+
+There were scenarios where I would count from zero to nine and the numbers would appear in a pseudorandom-seeming order; however, this could also be a function of my (reasonably mild but pronounced) Lancashire accent!
+
+Ideally, it would support a larger lexicon with some level of greater accuracy so that I could garner a measure of word or syllable rate. Nevertheless, I did appreciate that it supports swapping out different finite state grammars in JavaScript at runtime, so it would be possible to tab out my own words in its phonetic representation, which would then be recognised (so far as possible) by the model.
+
+### Vosk
+
+Many of the collaborators who worked on PocketSphinx have gone on to work on a new, more modern speech recognition toolkit called Vosk. It certainly looks promising and I look forward to seeing where it goes!
+
+While it does have early-days support for Python, Java, Node.JS, C# and C++, among other platforms, unfortunately, it does not currently either run in-browser or have a Flutter integration, whereas I would prefer a more cross-platform solution.
+
+Vosk uses Kaldi internally, so I shifted my attention to seeing whether Kaldi may be usable directly in my project.
+
+#### Mozilla DeepSpeech
+
+As previously alluded to, I had a good experience using Mozilla DeepSpeech in [IBM FISE v2 AskBob (repo)](https://github.com/UCL-COMP0016-2020-Team-39/AskBob) on low-power Windows and Linux desktop devices as part of a voice assistant project. I was therefore pleased to discover that there is a pre-existing [Flutter binding for Mozilla DeepSpeech 0.9.3](https://github.com/ManuSekhon/mozilla-deepspeech-flutter).
+
+One downside, however, is the size of the models: while there is a TFLite model (46MiB) already reduced in size compared to the standard PBMM model (184MiB), a significantly larger external scorer (931MiB) -- although optional -- is needed to improve accuracy to what I found to be useful in my tests.
+
+#### Kaldi in WASM
+
+Finally, I was very pleased to discover the work of a group of researchers at Inria to [compile Kaldi to web assembly](https://gitlab.inria.fr/kaldi.web/kaldi-wasm) so that it may be used in-browser. They had successfully pruned the `kaldi-generic-en-tdnn_250` English Kaldi speech model from the [Zamia Speech project (gooofy/zamia-speech)](https://github.com/gooofy/zamia-speech) using [KenML](https://kheafield.com/code/kenlm/) down from 108MiB to a more reasonable 66MiB, which brings it in the realm of possibly being used within a progressive web app.
+
+In testing, I found that the accuracy was significantly better than that of PocketSphinx.js, not least for a much wider vocabulary. At first glance, it seemed comparable to the performance I had previously achieved with Mozilla DeepSpeech and its much larger model and external scorer, despite only having a model size of 66MiB.
+
+As a result, I decided to explore building upon this use of Kaldi with web assembly for this project. Rather than building a native app, or using a cross-platform technology like Flutter, I would be able to make a progressive web app instead, which would allow everything to run in-browser on patients' mobile devices, no installation required.
+
+Progressive web apps certainly do have their disadvantages, particularly related to the maturity of web APIs (e.g. for scheduled notifications, audio and so on) and the difficulty of long-term storage; however, the ease of installation (i.e. none beyond adding the app to the homescreen) and much wider pool of devices that it could support (including being compatible with desktop devices as well) -- when coupled with my increased familiarity with JavaScript -- persuaded me in its favour.
+
+Moreover, more intensive tasks could be offloaded to web workers (potentially further leveraging web assembly) to achieve performance closer to that of a native app, and creating a web app would leave open the possibility of using [Tensorflow.js](https://www.tensorflow.org/js) for training and inference, depending on the future direction of the project!
 
 ## System architecture design
 
