@@ -193,6 +193,17 @@ This format was designed to be flexible enough so that new analysis measures or 
 
 ### Time series plots
 
+Patients are shown a series of graphs for each of the metadata points gathered (e.g. syllable rate, sputum colour, MRC dyspnoea score and wellbeing), of which a selection is shown below. These graphs are also visible to SROs where patients have shared the submissions.
+
+The graphs show a scatter plot of the metadata values with a solid grey line, representing the ['curve bundle'](https://github.com/d3/d3-shape#curveBundle) interpolation option in d3, which produces a straightened cubic basis spline.
+
+Then, there is a solid green line showing the cumulative mean of the data (plotted using the cubic [Catmull-Rom spline](https://github.com/d3/d3-shape#curveCatmullRom) interpolation option available in d3). The idea of this line is to represent a 'ground truth' for each variable established as patients regularly submit data through the app over time.
+
+Where appropriate, values presenting one cumulative standard deviation above or below the cumulative mean (depending on the variable) are shown as an orange dashed line, plotted in a similar way to the mean. It is interesting to see how this value narrows in closer on the mean over time as more data is collected to better establish the 'ground truth'.
+
+Similarly, where appropriate, values repesenting three cumulative standard deviations above or below the cumulative mean are shown as a red line (with longer dashes).
+
+This could potentially provide a foundation for future, more explicit nudging behaviour from the app.
 
 ![time series graphs](./images/time-series-graphs.png)
 
