@@ -221,3 +221,30 @@ In a similar vein, I also produce histograms showing the distribution of the num
 
 ![metadata distribution graphs](./images/distribution-graphs.png)
 
+## Ideas for the future direction of the project
+
+I have thoroughly enjoyed working on this project and while my student research internship was limited to only ten weeks over the summer, I thought I would list a few ideas as to where this project could go, should anyone be interested in contributing to it.
+
+- **Web APIs to use** potentially when they become sufficiently mature (i.e. when Safari updates):
+  - Background sync API (to allow offline submission pushed when users regain internet access)
+    - If this is implemented, the authentication system might have to move away from sessions towards something more token-based.
+  - Notification Triggers as part of the Web Notifications API (so that the app may schedule notification reminders with the operating system)
+    - This may be useful to remind users regularly to create a submission or nudge them when their syllable rate data becomes more heteroscedastic and they ought to book an appointment with their doctor.
+  - Web Authentication API
+    - When support is more widespread, I would love to see fingerprint authentication for this app. The keys generated could potentially be used to encrypt the IndexedDB records at rest on the device in a similar way to how they are encrypted on the server.
+  - navigator.mediaDevices Permissions API
+    - At the time of writing, this is unsupported in Safari. This would make it so that the app could ask for permission to use the user's microphone without having to immediately open the audio stream then and there.
+- **Improvements**
+  - Other visualisation libraries and strategies could be trialled to see how the user experience could be improved from both the perspective of patients and of senior responsible officers.
+  - The Kaldi model could be pruned further to a smaller size once there is greater clarity surrounding the specific speech researchers are interested in studying, rather than this generalist model.
+  - While UK postcode area data is collected, it would be nice if this data could be visualised geographically.
+  - More analysis could be performed locally on the audio data, for example, perhaps the [voice activity detector from WebRTC](https://github.com/mozilla/webrtcvad_js) or a library such as [hark](https://www.npmjs.com/package/hark) could be used to gather a measure of phonation time.
+  - Potentially, more self-reported health data could be gathered if deemed appropriate, or the self-reported data in question could be configurable in the dashboard.
+- **Additional features**
+  - Exporting data and audio from the app
+  - Restoring data (and audio?) from the server
+  - Withdrawing all/particular submissions from the server
+  - A 'save space' tool to delete submission audio (or entire submissions) to reduce the storage footprint of the app
+  - Account deletion
+  - Transferring individual patients to other SROs
+  - More explicit nudging behaviour
