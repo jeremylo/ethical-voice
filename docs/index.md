@@ -194,11 +194,7 @@ This format was designed to be flexible enough so that new analysis measures or 
 ### Time series plots
 
 
-![syllable rate time series](./images/time-series/syllable-rate.png)
-![word rate time series](./images/time-series/word-rate.png)
-![sputum colour time series](./images/time-series/sputum.png)
-![wellbeing time series](./images/time-series/wellbeing.png)
-![dyspnoea time series](./images/time-series/dyspnoea.png)
+![time series graphs](./images/time-series-graphs.png)
 
 ### Syllable rate comparison graphs
 
