@@ -16,6 +16,28 @@ The hope is that this could provide a more ethical framework for respiratory dis
 
 The app is currently live at [https://mydata.jezz.me/](https://mydata.jezz.me/). There is an anonymous login mode whereby anyone can test out the core functionality of the progressive web app without having been referred by a senior responsible officer of the demo system.
 
+## Showcase
+### App
+
+#### Home and results pages
+<img src="images/app/home.png" width="25%" />
+<img src="images/app/results.png" width="25%" />
+
+#### Creating a new submission
+
+<img src="images/app/submission-1a.png" width="24%" />
+<img src="images/app/submission-1b.png" width="24%" />
+<img src="images/app/submission-2a.png" width="24%" />
+<img src="images/app/submission-2b.png" width="24%" />
+<img src="images/app/submission-3.png" width="24%" />
+<img src="images/app/submission-4.png" width="24%" />
+<img src="images/app/submission-5.png" width="24%" />
+<img src="images/app/submission-6.png" width="24%" />
+
+#### Settings
+
+<img src="images/app/settings.png" width="25%" />
+
 ## Research
 ### Measures of utterance fluency
 
