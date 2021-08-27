@@ -242,7 +242,7 @@ Database tables containing potentially sensitive information are encrypted at re
 
 | Column |	Type | Notes |
 |--------|-------| |
-| `id` |	int(11) unsigned Auto Increment	 | |
+| `id` |	int(11) unsigned _Auto Increment_	 | |
 | `user_id` |	int(10) unsigned	| |
 | `token` |	varchar(255)	| This is only a hash of the user's remember-me token. |
 | `created_at` |	datetime [current_timestamp()] | |
@@ -251,20 +251,20 @@ Database tables containing potentially sensitive information are encrypted at re
 
 | Column |	Type |
 |--------|-------|
-| `id` |	int(11) unsigned Auto Increment	|
-| `name` |	varchar(255) NULL	|
+| `id` |	int(11) unsigned _Auto Increment_	|
+| `name` |	varchar(255) _NULL_	|
 | `email` |	varchar(255)	|
-| `password` |	varchar(255) NULL	|
+| `password` |	varchar(255) _NULL_	|
 | `status` |	tinyint(3) unsigned [0]	|
 | `trusted` |	tinyint(3) unsigned [0]	|
 | `created_at` |	datetime [current_timestamp()]	|
-| `updated_at` |	datetime NULL |
+| `updated_at` |	datetime _NULL_ |
 
 ##### `submissions` (encrypted)
 
 | Column |	Type |
 |--------|-------|
-| `id` |	int(11) unsigned Auto Increment	 |
+| `id` |	int(11) unsigned _Auto Increment_	 |
 | `user_id` |	int(10) unsigned	|
 | `outward_postcode` |	varchar(10)	|
 | `audio` |	mediumblob NULL	|
@@ -276,7 +276,7 @@ Database tables containing potentially sensitive information are encrypted at re
 
 | Column |	Type |
 |--------|-------|
-| `id` |	int(11) unsigned Auto Increment |
+| `id` |	int(11) unsigned _Auto Increment_ |
 | `submission_id` |	int(11) unsigned |
 | `metadata_key` |	varchar(255) |
 | `metadata_value` |	text |
@@ -285,7 +285,7 @@ Database tables containing potentially sensitive information are encrypted at re
 
 | Column |	Type |
 |--------|-------|
-| `id` |	int(11) unsigned Auto Increment	|
+| `id` |	int(11) unsigned _Auto Increment_	|
 | `title` |	varchar(255)	|
 | `instruction` |	text	|
 | `possible_durations` |	varchar(255)	|
@@ -295,17 +295,17 @@ Database tables containing potentially sensitive information are encrypted at re
 
 | Column |	Type |
 |--------|-------|
-| id	| int(10) unsigned Auto Increment	|
-| reference_id	| varchar(32)	|
-| email	| varchar(255) NULL	|
-| password	| varchar(255) NULL |
-| outward_postcode	| varchar(10) NULL	|
-| sharing	| tinyint(3) unsigned [1]	|
-| sro_id	| int(11) unsigned	|
-| status	| tinyint(4) [0]	|
-| created_at	| datetime [current_timestamp()] |
-| updated_at	| datetime NULL	|
-| extra	| varchar(255) NULL |
+| `id`	| int(10) unsigned _Auto Increment_	|
+| `reference_id`	| varchar(32)	|
+| `email`	| varchar(255) _NULL_	|
+| `password`	| varchar(255) _NULL_ |
+| `outward_postcode`	| varchar(10) _NULL_	|
+| `sharing`	| tinyint(3) unsigned [1]	|
+| `sro_id`	| int(11) unsigned	|
+| `status`	| tinyint(4) [0]	|
+| `created_at`	| datetime [current_timestamp()] |
+| `updated_at`	| datetime _NULL_	|
+| `extra`	| varchar(255) _NULL_ |
 
 ### Redis
 
