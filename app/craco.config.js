@@ -1,5 +1,13 @@
 
 module.exports = {
+    jest: {
+        configure(config) {
+            config.transformIgnorePatterns = [
+                "/node_modules/(?!syllable)/.+\\.js$",
+            ];
+            return config;
+        },
+    },
     webpack: {
         configure: (webpackConfig, { env, paths }) => {
             // delete webpackConfig.plugins.ReactRefreshPlugin;
