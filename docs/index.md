@@ -20,6 +20,9 @@ The app is currently live at [https://mydata.jezz.me/](https://mydata.jezz.me/).
 ### App
 
 #### Home (visualisation overview) and results pages
+
+**Note**: in the graph below, I was testing the app in quick succession, whereas real-world data is more likely to be spread out over time.
+
 <img src="images/app/home.png" width="24%" />
 <img src="images/app/results.png" width="24%" />
 
@@ -159,6 +162,8 @@ The project is formed of the following main components:
 - a Redis server for session token storage; and
 - a Caddy server to serve static app and dashboard files, and reverse proxy API requests to their respective APIs.
 
+In the diagram below, "SRO" refers to a senior responsible officer, who receives submissions from their associated patients (the users of the app).
+
 ![system architecture diagram](system-architecture.png)
 
 ## Metrics gathered
@@ -180,6 +185,93 @@ The focus of this project has been to devise a way to gather the following metri
   - 4 - "I have to stop for breath after walking about 100 yards (or after a few minutes) on the level."
   - 5 - "I am too breathless to leave the house, or breathless after undressing."
 
+## Implementation
+
+Notable implementation aspects or features are summarised below.
+
+
+### MariaDB
+
+The full database schema written in SQL may be found here: [schema.sql](https://github.com/jeremylo/ethical-voice/blob/main/mariadb/schema.sql)
+
+Database tables containing potentially sensitive information are encrypted at rest with AES-256 using the MariaDB [file key management encryption plugin](https://mariadb.com/kb/en/file-key-management-encryption-plugin/).
+
+#### Database scehma
+
+![database schema](./images/db-schema.png)
+
+##### `remember_me`
+
+| Column |	Type | Notes |
+|--------|-------| |
+| `id` |	int(11) unsigned Auto Increment	 | |
+| `user_id` |	int(10) unsigned	| |
+| `token` |	varchar(255)	| This is only a hash of the user's remember-me token. |
+| `created_at` |	datetime [current_timestamp()] | |
+
+##### `sros` (encrypted)
+
+| Column |	Type |
+|--------|-------|
+| `id` |	int(11) unsigned Auto Increment	|
+| `name` |	varchar(255) NULL	|
+| `email` |	varchar(255)	|
+| `password` |	varchar(255) NULL	|
+| `status` |	tinyint(3) unsigned [0]	|
+| `trusted` |	tinyint(3) unsigned [0]	|
+| `created_at` |	datetime [current_timestamp()]	|
+| `updated_at` |	datetime NULL |
+
+##### `submissions` (encrypted)
+
+| Column |	Type |
+|--------|-------|
+| `id` |	int(11) unsigned Auto Increment	 |
+| `user_id` |	int(10) unsigned	|
+| `outward_postcode` |	varchar(10)	|
+| `audio` |	mediumblob NULL	|
+| `test_type_id` |	int(11) unsigned	|
+| `created_at` |	datetime	|
+| `received_at` |	datetime [current_timestamp()] |
+
+##### `submission_metadata` (encrypted)
+
+| Column |	Type |
+|--------|-------|
+| `id` |	int(11) unsigned Auto Increment |
+| `submission_id` |	int(11) unsigned |
+| `metadata_key` |	varchar(255) |
+| `metadata_value` |	text |
+
+##### `test_types`
+
+| Column |	Type |
+|--------|-------|
+| `id` |	int(11) unsigned Auto Increment	|
+| `title` |	varchar(255)	|
+| `instruction` |	text	|
+| `possible_durations` |	varchar(255)	|
+| `active` |	tinyint(3) unsigned [1] |
+
+##### `users` (encrypted)
+
+| Column |	Type |
+|--------|-------|
+| id	| int(10) unsigned Auto Increment	|
+| reference_id	| varchar(32)	|
+| email	| varchar(255) NULL	|
+| password	| varchar(255) NULL |
+| outward_postcode	| varchar(10) NULL	|
+| sharing	| tinyint(3) unsigned [1]	|
+| sro_id	| int(11) unsigned	|
+| status	| tinyint(4) [0]	|
+| created_at	| datetime [current_timestamp()] |
+| updated_at	| datetime NULL	|
+| extra	| varchar(255) NULL |
+
+### Redis
+
+Redis is an incredibly fast in-memory data store used in this project to store session data for both the app and the dashboard to avoid cluttering the database. In the future, it could possibly also handle remember me tokens (where keys have an `EXPIRE` set to automatically clear out expired tokens) as well.
 
 ## Data
 ### Export format
