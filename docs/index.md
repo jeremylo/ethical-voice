@@ -19,9 +19,9 @@ The app is currently live at [https://mydata.jezz.me/](https://mydata.jezz.me/).
 ## Showcase
 ### App
 
-#### Home and results pages
-<img src="images/app/home.png" width="25%" />
-<img src="images/app/results.png" width="25%" />
+#### Home (visualisation overview) and results pages
+<img src="images/app/home.png" width="24%" />
+<img src="images/app/results.png" width="24%" />
 
 #### Creating a new submission
 
@@ -36,7 +36,14 @@ The app is currently live at [https://mydata.jezz.me/](https://mydata.jezz.me/).
 
 #### Settings
 
-<img src="images/app/settings.png" width="25%" />
+<img src="images/app/settings.png" width="24%" />
+
+#### Login, registration, activation and account recovery
+
+<img src="images/app/login.png" width="24%" />
+<img src="images/app/registration.png" width="24%" />
+<img src="images/app/activation.png" width="24%" />
+<img src="images/app/account-recovery.png" width="24%" />
 
 ## Research
 ### Measures of utterance fluency
