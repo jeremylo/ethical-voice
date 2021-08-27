@@ -187,7 +187,37 @@ The focus of this project has been to devise a way to gather the following metri
 
 ## Implementation
 
-Notable implementation aspects or features are summarised below.
+A few notable implementation aspects or features are summarised below.
+
+### App speech processing & syllable rate calculations
+
+I have structured the majority of the speech recording and transcription code within a class called the [SpeechService](https://github.com/jeremylo/ethical-voice/blob/main/app/src/services/speech/SpeechService.js). It uses [RecordRTC](https://github.com/muaz-khan/RecordRTC) to record a 16kHz 16-bit signed integer PCM .WAV file, which is then converted into an audio buffer (in the main thread) and passed onto [kaldi-wasm](https://gitlab.inria.fr/kaldi.web/kaldi-wasm) running the web assembly code in a web worker.
+
+Results are calculated in [calculateResults.js](https://github.com/jeremylo/ethical-voice/blob/main/app/src/services/speech/calculateResults.js) using the transcription of the audio and the duration of the speaking test. The [syllable](https://www.npmjs.com/package/syllable) NPM module is used estimate the number of syllables forming each spoken word.
+
+### Submission storage
+
+Submission audio files are stored as binary large objects (BLOBs, specifically of the `MEDIUMBLOB` type) within the `submissions` table of the MariaDB database (where they may be `NULL` should the patient have declined to attach the audio to their submission), where they are encrypted at rest. They may be listened to directly in the dashboard or included within a ZIP file export of the submission data received from patients associated with a given senior responsible officer.
+
+### App & dashboard data visualisations
+
+Submission results are visualised using the charting and data visualisation library, [Victory by Formidable](https://formidable.com/open-source/victory/). The specific visualisations in question are explained in further detail in the next section.
+
+### User accounts
+
+#### App sessions
+
+Users login through session-based authentication with a remember-me cookie set to act essentially as a refresh token. Given one of the key features of the app is its ability to share the data at patients' behests with their associated senior responsible officers, it was judged that for this project, session-based authentication would suffice, rather than going a full offline-first approach.
+
+Nevertheless, in a future iteration of this app, this would be possible through a modification to the [authenticator.js](https://github.com/jeremylo/ethical-voice/blob/main/app/src/auth/authenticator.js) file and potentially some additional logic in the [service worker](https://github.com/jeremylo/ethical-voice/blob/main/app/src/service-worker.js) to handle requests that fail due to the device being offline. This is likely to be more feasible when the background sync API is more widely supported across mobile browsers.
+
+#### Dashboard sessions
+
+SROs login using session-based authentication; however, no remember-me functionality is present to restrict access to potentially sensitive patient data to only those who definitely have the correct credentials.
+
+#### Use of JSON web tokens
+
+JSON web tokens (JWTs) are used for email confirmation and password reset tokens with a twist: a SHA256 hash of the user's old email or old password Bcrypt hash is included within the secret so that any issued tokens expire as soon as the email is confirmed or the password reset is successful. They are also used as SRO invite tokens.
 
 
 ### MariaDB
@@ -309,9 +339,9 @@ The first grouping of entries above contains submission and patient data common 
 
 This format was designed to be flexible enough so that new analysis measures or more self-reported parameters may be more easily added in the future.
 
-## Visualisation of results
+### Visualisation of results
 
-### Time series plots
+#### Time series plots
 
 Patients are shown a series of zoomable graphs for each of the metadata points gathered (e.g. syllable rate, sputum colour, MRC dyspnoea score and wellbeing), of which a selection is shown below. These graphs are also visible to SROs where patients have shared the submissions.
 
@@ -329,13 +359,13 @@ The following graphs are from my own local testing (explaining the haphazard dat
 
 ![time series graphs](./images/time-series-graphs.png)
 
-### Syllable rate comparison graphs
+#### Syllable rate comparison graphs
 
 While more in-depth data analysis would want to be performed outside the dashboard using the JSON data exported therefrom, I thought it would be nonetheless useful to provide zoomable visualisations of the various metadata plotted against syllable rate, along with a basic linear regression displayed over the points, in the dashboard to more easily determine how long the variables correlate with each other.
 
 ![comparison graphs](./images/comparison-graphs.png)
 
-### Metadata distribution graphs
+#### Metadata distribution graphs
 
 In a similar vein, I also produce zoomable histograms showing the distribution of the numeric metadata produced, along with their corresponding box plots to aid data analysis.
 
