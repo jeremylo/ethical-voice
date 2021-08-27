@@ -197,7 +197,15 @@ Results are calculated in [calculateResults.js](https://github.com/jeremylo/ethi
 
 ### Submission storage
 
-Submission audio files are stored as binary large objects (BLOBs, specifically of the `MEDIUMBLOB` type) within the `submissions` table of the MariaDB database (where they may be `NULL` should the patient have declined to attach the audio to their submission), where they are encrypted at rest. They may be listened to directly in the dashboard or included within a ZIP file export of the submission data received from patients associated with a given senior responsible officer.
+#### Within the app
+
+Within the app, submissions are stored within a per-user IndexedDB database, wherein audio files are stored as binary large objects (BLOBs) alongside the rest of the submission metdata.
+
+### On the server
+
+Submission audio files are stored as binary large objects (BLOBs, specifically of the `MEDIUMBLOB` type) within the `submissions` table of the MariaDB database (where they may be `NULL` should the patient have declined to attach the audio to their submission) in rows alongside data tied to each submission, such as the user's ID, outward postcode and submission creation time. Submission metadata, such as speech rate and duration, are stored in a separate table. This data is encrypted at rest.
+
+Submission audio files may be listened to directly in the dashboard or included within a ZIP file export of the submission data received from patients associated with a given senior responsible officer.
 
 ### App & dashboard data visualisations
 
