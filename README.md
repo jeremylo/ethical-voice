@@ -149,7 +149,7 @@ You may now continue development as you wish. Any changes you make should automa
 
 ## Testing
 
-To run the API or dashboard API tests, run the following command from their respective directories:
+To run tests for the app, API, dashboard or dashboard API, run the following command from their respective directories:
 ```bash
 $ yarn run test
 ```
