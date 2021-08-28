@@ -1,8 +1,8 @@
 import { Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { useEffect, useState } from 'react';
-import TestsTable from '../table/TestsTable';
 import CreateTest from './CreateTest';
+import TestsTable from './TestsTable';
 
 const headCells = [
     { id: 'id', label: 'ID' },
