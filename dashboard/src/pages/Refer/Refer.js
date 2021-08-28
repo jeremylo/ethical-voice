@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core';
-import useForceLogin from '../hooks/useForceLogin';
-import NewReferral from './patients/NewReferral';
-import Referrals from './patients/Referrals';
+import useForceLogin from '../../hooks/useForceLogin';
+import NewReferral from './NewReferral';
+import Referrals from './Referrals';
 
 export default function Refer() {
     useForceLogin();

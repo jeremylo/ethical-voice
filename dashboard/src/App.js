@@ -13,7 +13,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Patient from './pages/Patient';
 import Patients from './pages/Patients';
-import Refer from './pages/Refer';
+import Refer from './pages/Refer/Refer';
 import ResetPassword from './pages/ResetPassword';
 import Settings from './pages/Settings/Settings';
 import Sros from './pages/Sros';
