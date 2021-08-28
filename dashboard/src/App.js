@@ -9,7 +9,7 @@ import Activate from './pages/Activate/Activate';
 import Error404 from './pages/Error404/Error404';
 import Export from './pages/Export/Export';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
-import Home from './pages/Home';
+import Home from './pages/Home/Home';
 import Login from './pages/Login';
 import Patient from './pages/Patient';
 import Patients from './pages/Patients';

@@ -1,8 +1,8 @@
 import { Typography } from '@material-ui/core';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../auth/use-auth';
-import AggregateSubmissionGraphs from '../components/Graphs/AggregateSubmissionGraphs';
-import SubmissionDistributions from '../components/Graphs/SubmissionDistributions';
+import { useAuth } from '../../auth/use-auth';
+import AggregateSubmissionGraphs from '../../components/Graphs/AggregateSubmissionGraphs';
+import SubmissionDistributions from '../../components/Graphs/SubmissionDistributions';
 
 export default function Home() {
     const auth = useAuth();
