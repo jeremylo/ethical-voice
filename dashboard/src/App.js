@@ -12,7 +12,7 @@ import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Patient from './pages/Patient/Patient';
-import Patients from './pages/Patients';
+import Patients from './pages/Patients/Patients';
 import Refer from './pages/Refer/Refer';
 import ResetPassword from './pages/ResetPassword';
 import Settings from './pages/Settings/Settings';
