@@ -12,7 +12,7 @@ const Activate = lazy(() => import('./pages/Activate/Activate'));
 const Analyse = lazy(() => import('./pages/Analyse'));
 const Error404 = lazy(() => import('./pages/Error404/Error404'));
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword/ForgotPassword'));
-const Home = lazy(() => import('./pages/Home'));
+const Home = lazy(() => import('./pages/Home/Home'));
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
 const ResetPassword = lazy(() => import('./pages/ResetPassword'));
