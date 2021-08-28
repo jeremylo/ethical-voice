@@ -411,3 +411,5 @@ I have thoroughly enjoyed working on this project and while my student research 
   - Account deletion
   - Transferring individual patients to other SROs
   - More explicit nudging behaviour
+- **Things to consider**
+  - Perhaps analysis on the service-side could be enhanced as well, for example, when a patient is asked to read out a set text (or even just based off the transcription) and audio is submitted to the server, forced alignment techniques could be applied to gather more utterance fluency metadata.
