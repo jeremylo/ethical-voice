@@ -1,9 +1,9 @@
 import { Container, makeStyles, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { useAuth } from "../auth/use-auth";
-import ResultsCard from "../components/ResultsCard/ResultsCard";
-import { getAllResults } from "../data/db";
-import getTests, { defaultTests } from "../data/tests";
+import { useAuth } from "../../auth/use-auth";
+import ResultsCard from "../../components/ResultsCard/ResultsCard";
+import { getAllResults } from "../../data/db";
+import getTests, { defaultTests } from "../../data/tests";
 
 const useStyles = makeStyles((theme) => ({
     header: {
