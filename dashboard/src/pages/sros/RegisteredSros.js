@@ -2,7 +2,7 @@ import {
     DataGrid
 } from '@material-ui/data-grid';
 import { useEffect, useState } from 'react';
-import CustomToolbar from '../patients/CustomToolbar';
+import CustomToolbar from '../../components/CustomToolbar/CustomToolbar';
 
 
 const columns = [

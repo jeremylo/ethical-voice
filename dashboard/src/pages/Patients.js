@@ -5,8 +5,8 @@ import {
 import Alert from '@material-ui/lab/Alert';
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import CustomToolbar from '../components/CustomToolbar/CustomToolbar';
 import useForceLogin from '../hooks/useForceLogin';
-import CustomToolbar from './patients/CustomToolbar';
 
 const columns = [
     { field: 'referenceId', headerName: 'Reference ID', flex: 0.5 },

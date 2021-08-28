@@ -2,7 +2,7 @@ import { Paper, Snackbar, Typography } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import Alert from '@material-ui/lab/Alert';
 import { useCallback, useEffect, useState } from 'react';
-import CustomToolbar from './CustomToolbar';
+import CustomToolbar from '../../components/CustomToolbar/CustomToolbar';
 
 const columns = [
     { field: 'referenceId', headerName: 'Reference ID', flex: 0.5 },
