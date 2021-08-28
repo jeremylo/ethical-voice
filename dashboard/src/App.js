@@ -17,7 +17,7 @@ import Refer from './pages/Refer';
 import ResetPassword from './pages/ResetPassword';
 import Settings from './pages/Settings/Settings';
 import Sros from './pages/Sros';
-import Submissions from './pages/Submissions';
+import Submissions from './pages/Submissions/Submissions';
 import Tests from './pages/Tests/Tests';
 
 

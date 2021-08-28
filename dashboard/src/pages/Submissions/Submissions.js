@@ -1,7 +1,7 @@
 import { Typography } from '@material-ui/core';
 import { useEffect, useState } from 'react';
-import useForceLogin from '../hooks/useForceLogin';
-import SubmissionsTable from './table/SubmissionsTable';
+import useForceLogin from '../../hooks/useForceLogin';
+import SubmissionsTable from './SubmissionsTable';
 
 const headCells = [
     { id: '', label: '' },
