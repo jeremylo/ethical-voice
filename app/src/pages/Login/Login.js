@@ -10,9 +10,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
-import { useAuth } from '../auth/use-auth';
-import TopBar from '../components/Layout/TopBar';
-import { isValidEmail } from './utils';
+import { useAuth } from '../../auth/use-auth';
+import TopBar from '../../components/Layout/TopBar';
+import { isValidEmail } from '../utils';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
