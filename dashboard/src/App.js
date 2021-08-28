@@ -4,21 +4,21 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./auth/PrivateRoute";
 import PublicOnlyRoute from './auth/PublicOnlyRoute';
 import { AuthProvider, useAuth } from './auth/use-auth';
-import Activate from './components/Activate';
-import Error404 from './components/Error404';
-import Export from './components/Export';
-import ForgotPassword from './components/ForgotPassword';
-import Home from './components/Home';
-import Layout from './components/Layout';
-import Login from './components/Login';
-import Patient from './components/Patient';
-import Patients from './components/Patients';
-import Refer from './components/Refer';
-import ResetPassword from './components/ResetPassword';
-import Settings from './components/Settings';
-import Sros from './components/Sros';
-import Submissions from './components/Submissions';
-import Tests from './components/Tests';
+import Activate from './pages/Activate';
+import Error404 from './pages/Error404';
+import Export from './pages/Export';
+import ForgotPassword from './pages/ForgotPassword';
+import Home from './pages/Home';
+import Layout from './pages/Layout';
+import Login from './pages/Login';
+import Patient from './pages/Patient';
+import Patients from './pages/Patients';
+import Refer from './pages/Refer';
+import ResetPassword from './pages/ResetPassword';
+import Settings from './pages/Settings';
+import Sros from './pages/Sros';
+import Submissions from './pages/Submissions';
+import Tests from './pages/Tests';
 
 
 const theme = createTheme({
