@@ -10,9 +10,9 @@ import LockIcon from '@material-ui/icons/Lock';
 import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { useAuth } from '../auth/use-auth';
-import { isValidPassword } from '../utils/validation';
-import TopBar from './../components/Layout/TopBar';
+import { useAuth } from '../../auth/use-auth';
+import TopBar from '../../components/Layout/TopBar';
+import { isValidPassword } from '../../utils/validation';
 
 
 const useStyles = makeStyles((theme) => ({
