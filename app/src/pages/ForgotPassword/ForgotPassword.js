@@ -1,5 +1,4 @@
-import { Avatar, Button, Container, Grid, InputLabel, Link as MuiLink, Snackbar, TextField, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Avatar, Button, Container, Grid, InputLabel, Link as MuiLink, makeStyles, Snackbar, TextField, Typography } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
 import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';

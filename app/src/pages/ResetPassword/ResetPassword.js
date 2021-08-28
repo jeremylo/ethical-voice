@@ -1,10 +1,4 @@
-import { IconButton, InputAdornment, InputLabel, Snackbar } from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+import { Avatar, Button, Container, IconButton, InputAdornment, InputLabel, makeStyles, Snackbar, TextField, Typography } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import LockIcon from '@material-ui/icons/Lock';
 import Alert from '@material-ui/lab/Alert';

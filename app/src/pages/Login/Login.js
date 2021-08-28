@@ -163,13 +163,6 @@ export default function Login() {
                         </Grid>
                         <br />
                         <Grid container>
-                            {/* <Grid item xs>
-                                <MuiLink
-                                    variant="body2"
-                                    component={Link}
-                                    to="/request-password-reset"
-                                >Forgot password?</MuiLink>
-                            </Grid> */}
                             <Grid item>
                                 <MuiLink
                                     variant="body2"

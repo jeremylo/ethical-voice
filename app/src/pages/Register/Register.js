@@ -1,10 +1,4 @@
-import { Grid, InputLabel, Link as MuiLink, Snackbar } from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+import { Avatar, Button, Container, Grid, InputLabel, Link as MuiLink, makeStyles, Snackbar, TextField, Typography } from '@material-ui/core';
 import { AccountCircleRounded } from '@material-ui/icons';
 import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';

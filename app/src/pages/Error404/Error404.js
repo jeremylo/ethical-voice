@@ -1,5 +1,4 @@
-import { Button, Container, makeStyles } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
+import { Button, Container, makeStyles, Typography } from '@material-ui/core';
 import TopBar from '../../components/Layout/TopBar';
 
 
