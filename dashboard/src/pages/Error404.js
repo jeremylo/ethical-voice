@@ -1,7 +1,7 @@
 import { Button, Container, makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
-import TopBar from './layout/TopBar';
+import TopBar from './../components/Layout/TopBar';
 
 
 const useStyles = makeStyles({

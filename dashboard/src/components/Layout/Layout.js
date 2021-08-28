@@ -10,8 +10,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useAuth } from '../auth/use-auth';
-import Sidebar, { drawerWidth } from './layout/Sidebar';
+import { useAuth } from '../../auth/use-auth';
+import Sidebar, { drawerWidth } from './Sidebar';
 
 const useStyles = makeStyles((theme) => ({
     root: {
