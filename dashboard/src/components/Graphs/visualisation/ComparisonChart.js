@@ -2,7 +2,7 @@ import { Paper } from '@material-ui/core';
 import { linearRegression, linearRegressionLine, rSquared } from 'simple-statistics';
 import { VictoryAxis, VictoryChart, VictoryLabel, VictoryLine, VictoryScatter } from 'victory';
 import theme from './chartTheme';
-import { VictoryZoomContainer } from './zoom-container/';
+import { VictoryZoomContainer } from './zoom-container';
 
 const round4dp = (x) => Math.round((x + Number.EPSILON) * 10000) / 10000;
 

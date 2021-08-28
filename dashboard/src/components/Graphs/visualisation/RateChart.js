@@ -1,7 +1,7 @@
 import { Paper } from '@material-ui/core';
 import { VictoryChart, VictoryLabel, VictoryLine, VictoryScatter } from 'victory';
 import theme from './chartTheme';
-import { VictoryZoomContainer } from './zoom-container/';
+import { VictoryZoomContainer } from './zoom-container';
 
 
 function calculateCumulativeStatistics(data) {

@@ -1,7 +1,7 @@
 import { Paper } from '@material-ui/core';
 import { VictoryBoxPlot, VictoryChart, VictoryHistogram, VictoryLabel } from 'victory';
 import theme from './chartTheme';
-import { VictoryZoomContainer } from './zoom-container/';
+import { VictoryZoomContainer } from './zoom-container';
 
 
 
