@@ -2,11 +2,11 @@ import { Box, Button, CircularProgress, Paper, Typography, withStyles } from '@m
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Component, default as React } from 'react';
+import Countdown from '../../components/Countdown/Countdown';
 import LabelledLinearProgress from '../../components/LabelledLinearProgress/LabelledLinearProgress';
 import calculateResults from '../../services/speech/calculateResults';
 import downloadModel from '../../services/speech/downloadModel';
 import SpeechService from '../../services/speech/SpeechService';
-import Countdown from './speech/Countdown';
 
 
 const myStyles = (theme) => ({
