@@ -16,7 +16,7 @@ import Patients from './pages/Patients';
 import Refer from './pages/Refer/Refer';
 import ResetPassword from './pages/ResetPassword';
 import Settings from './pages/Settings/Settings';
-import Sros from './pages/Sros';
+import Sros from './pages/Sros/Sros';
 import Submissions from './pages/Submissions/Submissions';
 import Tests from './pages/Tests/Tests';
 

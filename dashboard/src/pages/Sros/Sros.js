@@ -1,8 +1,8 @@
 import { Typography } from '@material-ui/core';
-import useForceLogin from '../hooks/useForceLogin';
-import Invite from './sros/Invite';
-import RegisteredSros from './sros/RegisteredSros';
-import Transfer from './sros/Transfer';
+import useForceLogin from '../../hooks/useForceLogin';
+import Invite from './Invite';
+import RegisteredSros from './RegisteredSros';
+import Transfer from './Transfer';
 
 
 export default function Sros() {
