@@ -1,15 +1,15 @@
 import { Container, Paper, Step, StepLabel, Stepper, Typography } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import React from 'react';
-import { addResult } from "../data/db";
-import getTests, { defaultTests } from "../data/tests";
-import Completion from "./analysis/Completion";
-import MRCDyspnoea from "./analysis/MRCDyspnoea";
-import Speech from "./analysis/Speech";
-import Sputum from "./analysis/Sputum";
-import { SUBMISSION_STATUSES } from "./analysis/submission_statuses";
-import Welcome from "./analysis/Welcome";
-import Wellbeing from "./analysis/Wellbeing";
+import { addResult } from "../../data/db";
+import getTests, { defaultTests } from "../../data/tests";
+import Completion from "./Completion";
+import MRCDyspnoea from "./MRCDyspnoea";
+import Speech from "./Speech";
+import Sputum from "./Sputum";
+import { SUBMISSION_STATUSES } from "./submission_statuses";
+import Welcome from "./Welcome";
+import Wellbeing from "./Wellbeing";
 
 
 const MAX_FILE_SIZE = 15 * 1024 * 1024;

@@ -9,7 +9,7 @@ import Layout from './components/Layout/Layout';
 
 
 const Activate = lazy(() => import('./pages/Activate/Activate'));
-const Analyse = lazy(() => import('./pages/Analyse'));
+const Analyse = lazy(() => import('./pages/Submit/Submit'));
 const Error404 = lazy(() => import('./pages/Error404/Error404'));
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword/ForgotPassword'));
 const Home = lazy(() => import('./pages/Home/Home'));
