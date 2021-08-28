@@ -14,7 +14,7 @@ import Wellbeing from "./Wellbeing";
 
 const MAX_FILE_SIZE = 15 * 1024 * 1024;
 
-export default class Analyse extends React.Component {
+export default class Submit extends React.Component {
 
     constructor(props) {
         super(props);
