@@ -404,7 +404,7 @@ I have thoroughly enjoyed working on this project and while my student research 
   - Potentially, more self-reported health data could be gathered if deemed appropriate, or the self-reported data in question could be configurable in the dashboard.
   - Other statistics could be experimented with, for example using the [median and median absolute deviation method (MAD)](https://docs.oracle.com/cd/E17236_01/epm.1112/cb_statistical/frameset.htm?ch07s02s10s01.html) for establishing a ground truth for syllable rate instead of the mean and standard deviation method.
 - **Additional features**
-  - Exporting data and audio from the app
+  - Bulk exporting data and audio from the app as in the dashboard
   - Restoring data (and audio?) from the server
   - Withdrawing all/particular submissions from the server
   - A 'save space' tool to delete submission audio (or entire submissions) to reduce the storage footprint of the app

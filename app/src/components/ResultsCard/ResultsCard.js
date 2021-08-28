@@ -2,22 +2,39 @@ import { Card, CardHeader, Divider, IconButton, makeStyles, Tooltip, Typography 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import MicIcon from '@material-ui/icons/Mic';
 import MicNoneIcon from '@material-ui/icons/MicNone';
+import { useState } from "react";
 import sputumColours from "../../data/sputumColours";
+import PlayAudioDialog from "./PlayAudioDialog";
 
 
 const useStyles = makeStyles((theme) => ({
     resultsCard: {
         marginBottom: '1rem'
+    },
+    avatarButton: {
+        padding: '0'
     }
 }));
 
 export default function ResultsCard({ results, tests, noAudio }) {
     const classes = useStyles();
 
-    return (
+    const [open, setOpen] = useState(false);
+
+    const avatar = noAudio ? <MicNoneIcon /> : (
+        !!results.audio ? <IconButton
+            color="inherit"
+            className={classes.avatarButton}
+            onClick={_ => setOpen(true)}
+        >
+            <MicIcon />
+        </IconButton> : <MicIcon />
+    );
+
+    return <>
         <Card variant="outlined" className={classes.resultsCard}>
             <CardHeader
-                avatar={noAudio ? <MicNoneIcon /> : <MicIcon />}
+                avatar={avatar}
                 action={results.shared ?
                     <IconButton>
                         <Tooltip title="Shared">
@@ -39,5 +56,6 @@ export default function ResultsCard({ results, tests, noAudio }) {
                 </Typography>
             </div>
         </Card>
-    );
+        {(!noAudio && !!results.audio) && <PlayAudioDialog open={open} onClose={_ => setOpen(false)} audio={results.audio} />}
+    </>;
 }
