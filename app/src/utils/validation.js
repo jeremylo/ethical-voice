@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 
 /**
  * Validates whether an email is valid or not.
@@ -44,6 +43,3 @@ export function isValidOutwardPostcode(outwardPostcode) {
 export function isValidReferenceId(refId) {
     return /^[0-9]{4,16}$/.test(refId);
 }
-
-// eslint-disable-next-line react-hooks/exhaustive-deps
-export const useMountEffect = (f) => useEffect(f, []);
