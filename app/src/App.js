@@ -11,7 +11,7 @@ import Layout from './components/Layout/Layout';
 const Activate = lazy(() => import('./pages/Activate'));
 const Analyse = lazy(() => import('./pages/Analyse'));
 const Error404 = lazy(() => import('./pages/Error404'));
-const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword/ForgotPassword'));
 const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));

@@ -1,17 +1,12 @@
-import { Grid, InputLabel, Link as MuiLink, Snackbar } from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
+import { Avatar, Button, Container, Grid, InputLabel, Link as MuiLink, Snackbar, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import LockIcon from '@material-ui/icons/Lock';
 import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../auth/use-auth';
-import TopBar from '../components/Layout/TopBar';
-import { isValidEmail } from './utils';
+import { useAuth } from '../../auth/use-auth';
+import TopBar from '../../components/Layout/TopBar';
+import { isValidEmail } from '../utils';
 
 
 const useStyles = makeStyles((theme) => ({
