@@ -1,6 +1,6 @@
 import { Button, Container, makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import TopBar from '../components/Layout/TopBar';
+import TopBar from '../../components/Layout/TopBar';
 
 
 const useStyles = makeStyles({
