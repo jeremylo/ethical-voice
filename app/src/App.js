@@ -5,19 +5,19 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./auth/PrivateRoute";
 import PublicOnlyRoute from './auth/PublicOnlyRoute';
 import { AuthProvider, useAuth } from './auth/use-auth';
-import Layout from './components/Layout';
+import Layout from './pages/Layout';
 
 
-const Activate = lazy(() => import('./components/Activate'));
-const Analyse = lazy(() => import('./components/Analyse'));
-const Error404 = lazy(() => import('./components/Error404'));
-const ForgotPassword = lazy(() => import('./components/ForgotPassword'));
-const Home = lazy(() => import('./components/Home'));
-const Login = lazy(() => import('./components/Login'));
-const Register = lazy(() => import('./components/Register'));
-const ResetPassword = lazy(() => import('./components/ResetPassword'));
-const Results = lazy(() => import('./components/Results'));
-const Settings = lazy(() => import('./components/Settings'));
+const Activate = lazy(() => import('./pages/Activate'));
+const Analyse = lazy(() => import('./pages/Analyse'));
+const Error404 = lazy(() => import('./pages/Error404'));
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
+const Home = lazy(() => import('./pages/Home'));
+const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
+const ResetPassword = lazy(() => import('./pages/ResetPassword'));
+const Results = lazy(() => import('./pages/Results'));
+const Settings = lazy(() => import('./pages/Settings'));
 
 
 const theme = createTheme({
