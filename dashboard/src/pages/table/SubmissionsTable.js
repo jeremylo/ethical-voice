@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import React, { useState } from 'react';
-import EnhancedTableHead from './EnhancedTableHead';
+import EnhancedTableHead from '../../components/EnhancedTableHead/EnhancedTableHead';
 import SubmissionsTableRow from './SubmissionsTableRow';
 
 function descendingComparator(a, b, orderBy) {

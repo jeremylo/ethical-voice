@@ -9,7 +9,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { Alert } from '@material-ui/lab';
 import React, { useState } from 'react';
-import EnhancedTableHead from './EnhancedTableHead';
+import EnhancedTableHead from '../../components/EnhancedTableHead/EnhancedTableHead';
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {

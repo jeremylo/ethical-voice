@@ -18,7 +18,7 @@ import ResetPassword from './pages/ResetPassword';
 import Settings from './pages/Settings/Settings';
 import Sros from './pages/Sros';
 import Submissions from './pages/Submissions';
-import Tests from './pages/Tests';
+import Tests from './pages/Tests/Tests';
 
 
 const theme = createTheme({
