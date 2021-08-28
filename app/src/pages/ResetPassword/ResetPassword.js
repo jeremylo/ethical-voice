@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/use-auth';
 import TopBar from '../../components/Layout/TopBar';
-import { isValidPassword } from '../utils';
+import { isValidPassword } from '../../utils/utils';
 
 
 const useStyles = makeStyles((theme) => ({

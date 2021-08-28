@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/use-auth';
 import TopBar from '../../components/Layout/TopBar';
-import { isValidEmail } from '../utils';
+import { isValidEmail } from '../../utils/utils';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;

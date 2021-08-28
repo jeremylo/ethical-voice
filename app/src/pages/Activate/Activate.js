@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/use-auth';
 import TopBar from '../../components/Layout/TopBar';
-import { isValidOutwardPostcode, isValidPassword, isValidReferenceId } from '../utils';
+import { isValidOutwardPostcode, isValidPassword, isValidReferenceId } from '../../utils/utils';
 
 
 const useStyles = makeStyles((theme) => ({
