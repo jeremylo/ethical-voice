@@ -9,9 +9,9 @@ import LockIcon from '@material-ui/icons/Lock';
 import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../auth/use-auth';
-import { isValidEmail } from '../utils/validation';
-import TopBar from './../components/Layout/TopBar';
+import { useAuth } from '../../auth/use-auth';
+import TopBar from '../../components/Layout/TopBar';
+import { isValidEmail } from '../../utils/validation';
 
 
 const useStyles = makeStyles((theme) => ({
