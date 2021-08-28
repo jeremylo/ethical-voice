@@ -1,7 +1,7 @@
 import { Button, makeStyles, Snackbar, TextField, Typography } from "@material-ui/core";
 import Alert from '@material-ui/lab/Alert';
 import { useState } from "react";
-import { isNumeric } from "../utils";
+import { isNumeric } from "../../utils/utils";
 
 
 function SnackbarAlert(props) {

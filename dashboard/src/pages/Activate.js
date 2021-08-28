@@ -9,8 +9,8 @@ import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useAuth } from '../auth/use-auth';
+import { isValidName, isValidPassword } from '../utils/utils';
 import TopBar from './../components/Layout/TopBar';
-import { isValidName, isValidPassword } from './utils';
 
 
 const useStyles = makeStyles((theme) => ({

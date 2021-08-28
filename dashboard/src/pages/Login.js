@@ -11,8 +11,8 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import { useAuth } from '../auth/use-auth';
+import { isValidEmail } from '../utils/utils';
 import TopBar from './../components/Layout/TopBar';
-import { isValidEmail } from './utils';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;

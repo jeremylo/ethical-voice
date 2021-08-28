@@ -10,8 +10,8 @@ import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../auth/use-auth';
+import { isValidEmail } from '../utils/utils';
 import TopBar from './../components/Layout/TopBar';
-import { isValidEmail } from './utils';
 
 
 const useStyles = makeStyles((theme) => ({
