@@ -42,7 +42,7 @@ export default function Layout(props) {
                 className={classes.bottomNavigation}
             >
                 <BottomNavigationAction component={Link} to="/" value="" label="Home" icon={<HomeIcon />} />
-                <BottomNavigationAction component={Link} to="/analyse" value="analyse" label="Record" icon={<MicIcon />} />
+                <BottomNavigationAction component={Link} to="/submit" value="submit" label="Record" icon={<MicIcon />} />
                 <BottomNavigationAction component={Link} to="/results" value="results" label="Results" icon={<TimelineIcon />} />
             </BottomNavigation>
         </>
