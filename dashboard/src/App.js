@@ -5,7 +5,7 @@ import PrivateRoute from "./auth/PrivateRoute";
 import PublicOnlyRoute from './auth/PublicOnlyRoute';
 import { AuthProvider, useAuth } from './auth/use-auth';
 import Layout from './components/Layout/Layout';
-import Activate from './pages/Activate';
+import Activate from './pages/Activate/Activate';
 import Error404 from './pages/Error404';
 import Export from './pages/Export';
 import ForgotPassword from './pages/ForgotPassword';

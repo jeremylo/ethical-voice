@@ -8,9 +8,9 @@ import { AccountCircleRounded, Visibility, VisibilityOff } from '@material-ui/ic
 import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { useAuth } from '../auth/use-auth';
-import { isValidName, isValidPassword } from '../utils/validation';
-import TopBar from './../components/Layout/TopBar';
+import { useAuth } from '../../auth/use-auth';
+import TopBar from '../../components/Layout/TopBar';
+import { isValidName, isValidPassword } from '../../utils/validation';
 
 
 const useStyles = makeStyles((theme) => ({
