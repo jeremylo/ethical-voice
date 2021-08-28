@@ -4,12 +4,12 @@ import { Container, Divider, List, ListItem, ListItemText, makeStyles, Snackbar,
 import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from '../auth/use-auth';
-import AboutThisApp from './settings/AboutThisAppDialog';
-import ChangeEmailDialog from './settings/ChangeEmailDialog';
-import ChangeOutwardPostcodeDialog from './settings/ChangeOutwardPostcodeDialog';
-import ChangePasswordDialog from './settings/ChangePasswordDialog';
-import ChangeSharingDialog from './settings/ChangeSharingDialog';
+import { useAuth } from '../../auth/use-auth';
+import AboutThisApp from './AboutThisAppDialog';
+import ChangeEmailDialog from './ChangeEmailDialog';
+import ChangeOutwardPostcodeDialog from './ChangeOutwardPostcodeDialog';
+import ChangePasswordDialog from './ChangePasswordDialog';
+import ChangeSharingDialog from './ChangeSharingDialog';
 
 
 function SnackbarAlert(props) {

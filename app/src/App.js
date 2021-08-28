@@ -17,7 +17,7 @@ const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
 const ResetPassword = lazy(() => import('./pages/ResetPassword'));
 const Results = lazy(() => import('./pages/Results'));
-const Settings = lazy(() => import('./pages/Settings'));
+const Settings = lazy(() => import('./pages/Settings/Settings'));
 
 
 const theme = createTheme({
