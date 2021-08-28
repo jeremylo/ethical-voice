@@ -9,9 +9,9 @@ import { AccountCircleRounded } from '@material-ui/icons';
 import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useAuth } from '../auth/use-auth';
-import TopBar from '../components/Layout/TopBar';
-import { isValidEmail, isValidReferenceId } from './utils';
+import { useAuth } from '../../auth/use-auth';
+import TopBar from '../../components/Layout/TopBar';
+import { isValidEmail, isValidReferenceId } from '../utils';
 
 
 const useStyles = makeStyles((theme) => ({
