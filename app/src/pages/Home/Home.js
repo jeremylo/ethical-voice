@@ -2,8 +2,8 @@ import { Container, makeStyles, Typography } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../auth/use-auth";
+import RateChart from "../../components/Chart/RateChart";
 import { getAllResults } from "../../data/db";
-import RateChart from "../visualisation/RateChart";
 
 
 const useStyles = makeStyles((theme) => ({
