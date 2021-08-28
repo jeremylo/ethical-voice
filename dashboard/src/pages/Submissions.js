@@ -1,6 +1,6 @@
 import { Typography } from '@material-ui/core';
 import { useEffect, useState } from 'react';
-import { useForceLogin } from '../utils/utils';
+import { useForceLogin } from '../utils/validation';
 import SubmissionsTable from './table/SubmissionsTable';
 
 const headCells = [

@@ -1,5 +1,5 @@
 import { Typography } from '@material-ui/core';
-import { useForceLogin } from '../utils/utils';
+import { useForceLogin } from '../utils/validation';
 import NewReferral from './patients/NewReferral';
 import Referrals from './patients/Referrals';
 

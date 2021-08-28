@@ -5,7 +5,7 @@ import {
 import Alert from '@material-ui/lab/Alert';
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useForceLogin } from '../utils/utils';
+import { useForceLogin } from '../utils/validation';
 import CustomToolbar from './patients/CustomToolbar';
 
 const columns = [

@@ -1,5 +1,5 @@
 import { Typography } from '@material-ui/core';
-import { useForceLogin } from '../utils/utils';
+import { useForceLogin } from '../utils/validation';
 import Invite from './sros/Invite';
 import RegisteredSros from './sros/RegisteredSros';
 import Transfer from './sros/Transfer';

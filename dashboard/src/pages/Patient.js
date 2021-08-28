@@ -2,7 +2,7 @@ import { Typography } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import TimeGraphs from '../components/Graphs/TimeGraphs';
-import { isNumeric, useForceLogin } from '../utils/utils';
+import { isNumeric, useForceLogin } from '../utils/validation';
 
 export default function Patient() {
     useForceLogin();

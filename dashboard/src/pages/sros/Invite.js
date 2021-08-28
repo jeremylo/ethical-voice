@@ -1,7 +1,7 @@
 import { Button, Checkbox, FormControlLabel, makeStyles, Snackbar, TextField, Typography } from "@material-ui/core";
 import Alert from '@material-ui/lab/Alert';
 import { useState } from "react";
-import { isValidEmail } from "../../utils/utils";
+import { isValidEmail } from "../../utils/validation";
 
 
 function SnackbarAlert(props) {
