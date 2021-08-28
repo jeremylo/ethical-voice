@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/use-auth';
 import TopBar from '../../components/Layout/TopBar';
-import { isValidEmail, isValidReferenceId } from '../../utils/utils';
+import { isValidEmail, isValidReferenceId } from '../../utils/validation';
 
 
 const useStyles = makeStyles((theme) => ({

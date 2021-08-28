@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../auth/use-auth';
 import TopBar from '../../components/Layout/TopBar';
-import { isValidEmail } from '../../utils/utils';
+import { isValidEmail } from '../../utils/validation';
 
 
 const useStyles = makeStyles((theme) => ({
