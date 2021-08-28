@@ -8,8 +8,8 @@ import React from 'react';
 import {
     Link, useLocation
 } from "react-router-dom";
-import { useAuth } from '../auth/use-auth';
-import TopBar from './layout/TopBar';
+import { useAuth } from '../../auth/use-auth';
+import TopBar from './TopBar';
 
 
 const useStyles = makeStyles((theme) => ({

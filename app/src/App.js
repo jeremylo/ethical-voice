@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./auth/PrivateRoute";
 import PublicOnlyRoute from './auth/PublicOnlyRoute';
 import { AuthProvider, useAuth } from './auth/use-auth';
-import Layout from './pages/Layout';
+import Layout from './components/Layout/Layout';
 
 
 const Activate = lazy(() => import('./pages/Activate'));
