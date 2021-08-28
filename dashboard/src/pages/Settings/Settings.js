@@ -3,10 +3,10 @@
 import { Container, Divider, List, ListItem, ListItemText, makeStyles, Paper, Snackbar, Typography } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { useState } from 'react';
-import { useAuth } from '../auth/use-auth';
-import ChangeEmailDialog from './settings/ChangeEmailDialog';
-import ChangeNameDialog from './settings/ChangeNameDialog';
-import ChangePasswordDialog from './settings/ChangePasswordDialog';
+import { useAuth } from '../../auth/use-auth';
+import ChangeEmailDialog from './ChangeEmailDialog';
+import ChangeNameDialog from './ChangeNameDialog';
+import ChangePasswordDialog from './ChangePasswordDialog';
 
 
 function SnackbarAlert(props) {
