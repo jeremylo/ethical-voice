@@ -1,7 +1,7 @@
 import { Paper, Typography } from "@material-ui/core";
 import { useAuth } from '../../auth/use-auth';
 import ResultsCard from "../../components/ResultsCard/ResultsCard";
-import ResultsSubmitter from "./completion/ResultsSubmitter";
+import ResultsSubmitter from "./ResultsSubmitter";
 
 
 export default function Completion({ handleSubmission, results, tests }) {

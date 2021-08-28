@@ -2,7 +2,7 @@ import { Box, Button, Checkbox, CircularProgress, FormControlLabel, makeStyles, 
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { Alert } from "@material-ui/lab";
 import { useState } from "react";
-import { SUBMISSION_MESSAGES } from "../submission_statuses";
+import { SUBMISSION_MESSAGES } from "./submission_statuses";
 
 
 const useStyles = makeStyles({
