@@ -255,16 +255,19 @@ For example, `keys/keyfile` could -- but most definitely in all probability shou
 1;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 ```
 
+An example is provided at `keys/keyfile.example`.
+
 For more information on MariaDB key files, visit the [MariaDB file key management plugin documentation](https://mariadb.com/kb/en/file-key-management-encryption-plugin/).
 
 ### Redis users.acl file
 
-In order for Redis to work properly, a `redis/users.acl` must be set properly by replacing `PLEASE_RANDOMISE` below with a random string of characters (smaller than 512 characters in length) to use as a password. There must not be any space between the `>` and the password you wish to set.
+In order for Redis to work properly, a `redis/users.acl` file must be configured properly. To do so, replace `PLEASE_RANDOMISE` below with a random string of characters (smaller than 512 characters in length) to use as a password and save it at `redis/users.acl`. There must not be any space between the `>` and the password you wish to use. Then, ensure that the _same password_ is also in the main `.env` configuration file.
 
 ```
 user apiworker on +@all -DEBUG allkeys >PLEASE_RANDOMISE
 ```
 
+An example file is provided at `redis/users.acl.example`.
 
 ## Acknowledgements
 
