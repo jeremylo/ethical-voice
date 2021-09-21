@@ -89,6 +89,7 @@ export default function Home() {
                     title="Speaking rate (syllables per minute)"
                     data={syllableRateData}
                     showLowerStddev showLower3Stddev
+                    minDomain={{ y: 0 }}
                 />
                 <br />
                 <RateChart

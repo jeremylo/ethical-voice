@@ -59,6 +59,7 @@ export default function RateChart({
     showLowerStddev,
     showUpper3Stddev,
     showLower3Stddev,
+    minDomain
 }) {
     // const [zoomDomain, setZoomDomain] = useState({});
     const { upperStddevData, meanData, lowerStddevData, tripleUpperStddevData, tripleLowerStddevData } = calculateCumulativeStatistics(data);
@@ -70,6 +71,7 @@ export default function RateChart({
                 scale={{ x: "time" }}
                 domainPadding={10}
                 domain={domain}
+                minDomain={minDomain}
                 style={{
                     parent: {
                         paddingTop: 0
